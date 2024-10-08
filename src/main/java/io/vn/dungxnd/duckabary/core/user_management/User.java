@@ -1,14 +1,21 @@
 package io.vn.dungxnd.duckabary.core.user_management;
 
 public class User {
-    private String username;
-    private String email;
-    private String hashedPassword;
+    protected String username;
+    protected String firstName;
+    protected String lastName;
+    protected String email;
 
-    public User(String username, String email, String rawPassword) {
+    public User(String username, String email) {
         this.username = username;
         this.email = email;
-        this.hashedPassword = PasswordUtils.hashPassword(rawPassword);
+    }
+
+    public User(String username, String email, String firstName, String lastName) {
+        this.username = username;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public String getUsername() {
@@ -19,6 +26,22 @@ public class User {
         this.username = username;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -27,12 +50,5 @@ public class User {
         this.email = email;
     }
 
-    public String getHashedPassword() {
-        return hashedPassword;
-    }
-
-    public void changePassword(String rawPassword) {
-        this.hashedPassword = PasswordUtils.hashPassword(rawPassword);
-    }
 
 }

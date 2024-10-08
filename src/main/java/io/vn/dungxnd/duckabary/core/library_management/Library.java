@@ -1,5 +1,6 @@
 package io.vn.dungxnd.duckabary.core.library_management;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Library {
@@ -19,5 +20,9 @@ public class Library {
 
     public Document getDocument(int id) {
         return documentList.get(id);
+    }
+
+    public ArrayList<Document> getDocumentList() {
+        return new ArrayList<>(documentList.values());
     }
 }

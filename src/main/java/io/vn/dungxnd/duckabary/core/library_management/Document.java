@@ -8,6 +8,14 @@ public class Document {
     private StringBuilder description;
     private int quantity;
 
+    public Document(int id, String title, String author) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.publisher = "";
+        this.description = new StringBuilder();
+        this.quantity = 0;
+    }
     public Document(int id, String title, String author, String publisher, StringBuilder description, int quantity) {
         this.id = id;
         this.title = title;

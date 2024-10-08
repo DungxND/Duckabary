@@ -7,6 +7,10 @@ public class LibraryManagement {
         library = new Library();
     }
 
+    public Library getLibrary() {
+        return library;
+    }
+
     public void addDocument(Document doc) {
         library.addDocument(doc);
     }
