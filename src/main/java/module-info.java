@@ -7,9 +7,12 @@ module io.vn.dungxnd.duckabary {
     requires com.zaxxer.hikari;
     requires java.sql;
     requires org.slf4j;
-
+    requires org.checkerframework.checker.qual;
 
     exports io.vn.dungxnd.duckabary.ui;
-    opens io.vn.dungxnd.duckabary.ui to javafx.fxml;
+
+    opens io.vn.dungxnd.duckabary.ui to
+            javafx.fxml;
+
     exports io.vn.dungxnd.duckabary.core.library_management;
 }

@@ -4,8 +4,10 @@ public class Document {
     private int id;
     private String title;
     private String author;
-    private String publisher;
     private StringBuilder description;
+    private String publisher;
+    private int publishYear;
+    private String ISBN;
     private int quantity;
 
     public Document(int id, String title, String author) {
@@ -16,11 +18,37 @@ public class Document {
         this.description = new StringBuilder();
         this.quantity = 0;
     }
-    public Document(int id, String title, String author, String publisher, StringBuilder description, int quantity) {
+
+    public Document(
+            int id,
+            String title,
+            String author,
+            String publisher,
+            StringBuilder description,
+            int quantity) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
+        this.description = description;
+        this.quantity = quantity;
+    }
+
+    public Document(
+            int id,
+            String title,
+            String author,
+            String publisher,
+            int publishYear,
+            String ISBN,
+            StringBuilder description,
+            int quantity) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.publishYear = publishYear;
+        this.ISBN = ISBN;
         this.description = description;
         this.quantity = quantity;
     }
@@ -73,4 +101,19 @@ public class Document {
         this.quantity = quantity;
     }
 
+    public int getPublishYear() {
+        return publishYear;
+    }
+
+    public void setPublishYear(int publishYear) {
+        this.publishYear = publishYear;
+    }
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
+    }
 }

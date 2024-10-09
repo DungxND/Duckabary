@@ -1,18 +1,22 @@
 package io.vn.dungxnd.duckabary.core.library_management;
 
 import io.vn.dungxnd.duckabary.core.user_management.UserManagement;
+import io.vn.dungxnd.duckabary.core.user_management.UserServices;
 import io.vn.dungxnd.duckabary.db.DatabaseManager;
 
+import java.util.ArrayList;
 import java.util.Scanner;
-
 
 public class AppCommandline {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
         LibraryManagement libraryManagement = new LibraryManagement();
         Library library = libraryManagement.getLibrary();
+        LibraryServices libraryServices = new LibraryServices(libraryManagement);
 
         UserManagement userManagement = new UserManagement();
+        UserServices userServices = new UserServices(userManagement);
 
         while (true) {
             System.out.println("0. Exit");
@@ -49,13 +53,13 @@ public class AppCommandline {
                     displayDocumentList(library);
                     break;
                 case 6:
-                    addUser(scanner, userManagement);
+                    addUser(scanner, userServices);
                     break;
                 case 7:
-                    borrowDocument(scanner, libraryManagement);
+                    borrowDocument(scanner, libraryServices);
                     break;
                 case 8:
-                    returnDocument(scanner, libraryManagement);
+                    returnDocument(scanner, libraryServices);
                     break;
                 case 9:
                     displayUserInfo(scanner, userManagement);
@@ -73,21 +77,21 @@ public class AppCommandline {
         userManagement.getUserInfo(userId);
     }
 
-    static void returnDocument(Scanner scanner, LibraryManagement libraryManagement) {
+    static void returnDocument(Scanner scanner, LibraryServices libraryServices) {
         System.out.println("====Return document=====");
         System.out.print("Enter document ID to return: ");
         int returnId = scanner.nextInt();
-        libraryManagement.returnDocumentByID(returnId);
+        libraryServices.returnDocumentByID(returnId);
     }
 
-    static void borrowDocument(Scanner scanner, LibraryManagement libraryManagement) {
+    static void borrowDocument(Scanner scanner, LibraryServices libraryServices) {
         System.out.println("====Borrow document=====");
         System.out.print("Enter document ID to borrow: ");
         int borrowId = scanner.nextInt();
-        libraryManagement.borrowDocumentByID(borrowId);
+        libraryServices.borrowDocumentByID(borrowId);
     }
 
-    static void addUser(Scanner scanner, UserManagement userManagement) {
+    static void addUser(Scanner scanner, UserServices userServices) {
         System.out.println("====Add user=====");
         System.out.print("Enter username: ");
         String userName = scanner.nextLine();
@@ -101,31 +105,87 @@ public class AppCommandline {
         String phone = scanner.nextLine();
         System.out.print("Enter user address: ");
         String address = scanner.nextLine();
-        userManagement.createUser(userName, userId, firstName, lastName, phone, address);
+        userServices.createUser(userName, userId, firstName, lastName, phone, address);
     }
 
     static void displayDocumentList(Library library) {
         System.out.println("====Display document=====");
         System.out.println("Document list: ");
         for (Document d : library.getDocumentList()) {
-            System.out.println("Title: " + d.getTitle());
-            System.out.println("Author: " + d.getAuthor());
-            System.out.println("Desc: " + d.getDescription());
+            printDocumentInfo(d);
         }
+        System.out.println();
     }
 
     static void findDocument(Scanner scanner, Library library) {
         System.out.println("====Find document=====");
+        System.out.println("1. Find by ID");
+        System.out.println("2. Find by Name");
+        System.out.println("3. Find by Author");
         System.out.println("Enter searching option: ");
-        System.out.print("Enter id: ");
+        int option = scanner.nextInt();
+        switch (option) {
+            case 1:
+                findDocumentByID(scanner, library);
+                break;
+            case 2:
+                findDocumentByName(scanner, library);
+                break;
+            case 3:
+                findDocumentByAuthor(scanner, library);
+                break;
+            default:
+                System.out.println("Option not found");
+        }
+    }
+
+    private static void findDocumentByID(Scanner scanner, Library library) {
         int findId = scanner.nextInt();
-        Document findDocument = library.getDocument(findId);
-        if (findDocument != null) {
-            System.out.println("Title: " + findDocument.getTitle());
-            System.out.println("Author: " + findDocument.getAuthor());
-            System.out.println("Desc: " + findDocument.getDescription());
+        Document foundDocument = library.getDocument(findId);
+        if (foundDocument != null) {
+            printDocumentInfo(foundDocument);
         } else {
             System.out.println("Document not found");
+        }
+    }
+
+    private static void printDocumentInfo(Document foundDocument) {
+        System.out.println("====Document info=====");
+        System.out.println("ID: " + foundDocument.getId());
+        System.out.println("Title: " + foundDocument.getTitle());
+        System.out.println("Author: " + foundDocument.getAuthor());
+        System.out.println("Desc: " + foundDocument.getDescription());
+        System.out.println("Publisher: " + foundDocument.getPublisher());
+        System.out.println("Publication year: " + foundDocument.getPublishYear());
+        System.out.println("Quantity: " + foundDocument.getQuantity());
+    }
+
+    private static void printDocumentInfoList(ArrayList<Document> foundDocuments) {
+        for (Document d : foundDocuments) {
+            printDocumentInfo(d);
+        }
+    }
+
+    static void findDocumentByName(Scanner scanner, Library library) {
+        System.out.println("====Find document by Name=====");
+        System.out.println("Enter document name: ");
+        String docName = scanner.nextLine();
+        ArrayList<Document> foundDocuments = library.getDocumentByName(docName);
+        if (foundDocuments != null) {
+        } else {
+            System.out.println("Document not found!");
+        }
+    }
+
+    static void findDocumentByAuthor(Scanner scanner, Library library) {
+        System.out.println("====Find document by Author=====");
+        System.out.println("Enter document author: ");
+        String docAuthor = scanner.nextLine();
+        ArrayList<Document> foundDocuments = library.getDocumentByAuthor(docAuthor);
+        if (foundDocuments != null) {
+            printDocumentInfoList(foundDocuments);
+        } else {
+            System.out.println("No document found!");
         }
     }
 
@@ -135,9 +195,18 @@ public class AppCommandline {
         int getId = scanner.nextInt();
         Document document = library.getDocument(getId);
         if (document != null) {
-            System.out.println("Title: " + document.getTitle());
-            System.out.println("Author: " + document.getAuthor());
-            System.out.println("Desc: " + document.getDescription());
+            scanner.nextLine();
+            System.out.print("Enter new title: ");
+            String newTitle = scanner.nextLine();
+            System.out.print("Enter new author: ");
+            String newAuthor = scanner.nextLine();
+            System.out.print("Enter new description: ");
+            String newdes = scanner.nextLine();
+            StringBuilder newDescription = new StringBuilder(newdes);
+            document.setTitle(newTitle);
+            document.setAuthor(newAuthor);
+            document.setDescription(newDescription);
+            printDocumentInfo(document);
         } else {
             System.out.println("Document not found");
         }
@@ -171,5 +240,4 @@ public class AppCommandline {
         Runtime.getRuntime().addShutdownHook(new Thread(DatabaseManager::close));
         System.exit(0);
     }
-
 }

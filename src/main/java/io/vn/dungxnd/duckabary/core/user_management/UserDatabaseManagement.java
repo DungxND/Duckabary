@@ -9,7 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserDatabaseManagement {
-    private static final String DB_PATH = "src/main/resources/io/vn/dungxnd/duckabary/db/duckabary.db";
+    private static final String DB_PATH =
+            "src/main/resources/io/vn/dungxnd/duckabary/db/duckabary.db";
     private static final String DB_URL = "jdbc:sqlite:" + DB_PATH;
     private Connection conn;
 
@@ -18,8 +19,8 @@ public class UserDatabaseManagement {
         String sql = "SELECT * FROM users";
 
         try (Connection conn = DatabaseManager.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 int userId = rs.getInt("user_id");
@@ -42,10 +43,11 @@ public class UserDatabaseManagement {
     }
 
     public void addUserToDB(User user) {
-        String sql = "INSERT INTO users (user_id, username, firstname, lastname, email, phone, address) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql =
+                "INSERT INTO users (user_id, username, firstname, lastname, email, phone, address) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseManager.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, user.getUsername());
             pstmt.setString(2, user.getFirstName());

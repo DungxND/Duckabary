@@ -26,13 +26,18 @@ public class UserManagement {
         System.out.println("======================");
     }
 
-    public void createUser(String username, String email, String firstName, String lastName, String phone, String address) {
-        User user = new User(users.size() + 1, username, firstName, lastName, email, phone, address);
+    public void createUser(
+            String username,
+            String email,
+            String firstName,
+            String lastName,
+            String phone,
+            String address) {
+        User user =
+                new User(users.size() + 1, username, firstName, lastName, email, phone, address);
         users.add(user);
         userDatabaseManagement.addUserToDB(user);
-
     }
-
 
     public void createAdminUser(String username, String email, String rawPassword) {
         AdminUser adminUser = new AdminUser(username, email, rawPassword);
@@ -42,6 +47,4 @@ public class UserManagement {
     public ArrayList<User> getUsers() {
         return users;
     }
-
-
 }

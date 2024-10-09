@@ -49,6 +49,9 @@ dependencies {
     implementation 'org.kordamp.ikonli:ikonli-javafx:12.3.1'
     implementation 'org.jetbrains:annotations:24.0.0'
 
+    // Google Book API
+    implementation 'com.google.apis:google-api-services-books:v1-rev20240214-2.0.0'
+
     // Tester
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
