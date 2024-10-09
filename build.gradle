@@ -5,7 +5,7 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.1.0'
     id 'org.beryx.jlink' version '3.0.1'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
-    id "co.uzzu.dotenv.gradle" version "4.0.0"
+    id 'org.jetbrains.kotlin.jvm' version '2.1.0-Beta1'
 }
 
 group 'io.vn.dungxnd.duckabary'
@@ -53,12 +53,25 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 
+    // To use .env file
+    implementation 'io.github.cdimascio:dotenv-java:3.0.2'
+
     // To process DB
     implementation 'org.xerial:sqlite-jdbc:3.46.1.3'
-    implementation 'org.duckdb:duckdb_jdbc:1.1.1'
+    implementation 'com.zaxxer:HikariCP:6.0.0'
+
+//    implementation 'tech.turso.libsql:libsql:0.1.0'
+
+    // Kotlin to run DB things
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.0-Beta1'
 
     // Encrypt password
     implementation 'com.password4j:password4j:1.8.2'
+
+    // Logging?
+    implementation 'org.slf4j:slf4j-api:2.1.0-alpha1'
+    implementation 'org.slf4j:slf4j-nop:2.1.0-alpha1'
+
 }
 
 

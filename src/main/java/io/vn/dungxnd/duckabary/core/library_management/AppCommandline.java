@@ -1,6 +1,7 @@
 package io.vn.dungxnd.duckabary.core.library_management;
 
 import io.vn.dungxnd.duckabary.core.user_management.UserManagement;
+import io.vn.dungxnd.duckabary.db.DatabaseManager;
 
 import java.util.Scanner;
 
@@ -88,12 +89,19 @@ public class AppCommandline {
 
     static void addUser(Scanner scanner, UserManagement userManagement) {
         System.out.println("====Add user=====");
-        scanner.nextLine();
-        System.out.print("Enter user name: ");
+        System.out.print("Enter username: ");
         String userName = scanner.nextLine();
         System.out.print("Enter user email: ");
         String userId = scanner.nextLine();
-        userManagement.createUser(userName, userId);
+        System.out.print("Enter user first name: ");
+        String firstName = scanner.nextLine();
+        System.out.print("Enter user last name: ");
+        String lastName = scanner.nextLine();
+        System.out.print("Enter user phone number: ");
+        String phone = scanner.nextLine();
+        System.out.print("Enter user address: ");
+        String address = scanner.nextLine();
+        userManagement.createUser(userName, userId, firstName, lastName, phone, address);
     }
 
     static void displayDocumentList(Library library) {
@@ -160,6 +168,7 @@ public class AppCommandline {
     }
 
     private static void exitCommandline() {
+        Runtime.getRuntime().addShutdownHook(new Thread(DatabaseManager::close));
         System.exit(0);
     }
 

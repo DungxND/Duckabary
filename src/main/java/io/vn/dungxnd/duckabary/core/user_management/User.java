@@ -1,21 +1,29 @@
 package io.vn.dungxnd.duckabary.core.user_management;
 
 public class User {
+    protected int id;
     protected String username;
     protected String firstName;
     protected String lastName;
     protected String email;
+    protected String phone;
+    protected String address;
 
-    public User(String username, String email) {
+    public User(int id, String username, String firstName, String lastName, String email, String phone, String address) {
+        this.id = id;
         this.username = username;
-        this.email = email;
-    }
-
-    public User(String username, String email, String firstName, String lastName) {
-        this.username = username;
-        this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    public User(String username, String email) {
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getUsername() {
@@ -40,6 +48,22 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getEmail() {
