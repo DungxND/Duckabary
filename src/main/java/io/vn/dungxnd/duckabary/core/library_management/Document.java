@@ -6,7 +6,9 @@ public class Document {
     private String author;
     private StringBuilder description;
     private String publisher;
-    private int publishYear;
+    private String publishYear;
+    private String genre;
+    private String language;
     private String ISBN;
     private int quantity;
 
@@ -14,9 +16,6 @@ public class Document {
         this.id = id;
         this.title = title;
         this.author = author;
-        this.publisher = "";
-        this.description = new StringBuilder();
-        this.quantity = 0;
     }
 
     public Document(
@@ -38,10 +37,10 @@ public class Document {
             int id,
             String title,
             String author,
-            String publisher,
-            int publishYear,
-            String ISBN,
             StringBuilder description,
+            String publisher,
+            String publishYear,
+            String ISBN,
             int quantity) {
         this.id = id;
         this.title = title;
@@ -53,7 +52,46 @@ public class Document {
         this.quantity = quantity;
     }
 
+    public Document(
+            int id,
+            String title,
+            String author,
+            StringBuilder description,
+            String publisher,
+            String publishYear,
+            String genre,
+            String language,
+            String ISBN,
+            int quantity) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.publishYear = publishYear;
+        this.ISBN = ISBN;
+        this.genre = genre;
+        this.language = language;
+        this.description = description;
+        this.quantity = quantity;
+    }
+
+    public Document(
+            String title,
+            String author,
+            String publisher,
+            StringBuilder stringBuilder,
+            int quantity) {
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.description = stringBuilder;
+        this.quantity = quantity;
+    }
+
     public String getTitle() {
+        if (title == null) {
+            return "Title is not available";
+        }
         return title;
     }
 
@@ -62,6 +100,10 @@ public class Document {
     }
 
     public String getAuthor() {
+        if (author == null) {
+            return "Unknown author";
+        }
+
         return author;
     }
 
@@ -78,6 +120,10 @@ public class Document {
     }
 
     public StringBuilder getDescription() {
+        if (description == null) {
+            return new StringBuilder("Description is not available");
+        }
+
         return description;
     }
 
@@ -86,6 +132,9 @@ public class Document {
     }
 
     public String getPublisher() {
+        if (publisher == null) {
+            return "Unknown publisher";
+        }
         return publisher;
     }
 
@@ -101,11 +150,15 @@ public class Document {
         this.quantity = quantity;
     }
 
-    public int getPublishYear() {
+    public String getPublishYear() {
+        if (publishYear == null) {
+            return "Unknown publish year";
+        }
+
         return publishYear;
     }
 
-    public void setPublishYear(int publishYear) {
+    public void setPublishYear(String publishYear) {
         this.publishYear = publishYear;
     }
 
@@ -115,5 +168,27 @@ public class Document {
 
     public void setISBN(String ISBN) {
         this.ISBN = ISBN;
+    }
+
+    public String getGenre() {
+        if (genre == null) {
+            return "Unknown genre";
+        }
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getLanguage() {
+        if (language == null) {
+            return "Unknown language";
+        }
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }

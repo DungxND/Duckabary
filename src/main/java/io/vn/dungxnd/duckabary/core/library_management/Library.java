@@ -1,17 +1,17 @@
 package io.vn.dungxnd.duckabary.core.library_management;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Library {
-    private final HashMap<Integer, Document> documentList;
+    private final LinkedHashMap<Integer, Document> documentList;
 
     public Library() {
-        documentList = new HashMap<>();
+        documentList = new LinkedHashMap<>();
     }
 
     public void addDocument(Document doc) {
-        documentList.put(doc.getId(), doc);
+        documentList.put(documentList.size() + 1, doc);
     }
 
     public void removeDocument(int id) {
@@ -22,35 +22,11 @@ public class Library {
         return documentList.get(id);
     }
 
-    public ArrayList<Document> getDocumentByName(String name) {
-        ArrayList<Document> result = new ArrayList<>();
-        for (Document doc : documentList.values()) {
-            if (doc.getTitle().equalsIgnoreCase(name)) {
-                result.add(doc);
-            }
-        }
-        if (result.isEmpty()) {
-            System.out.println("Document not found");
-            return null;
-        }
-        return result;
-    }
-
     public ArrayList<Document> getDocumentList() {
         return new ArrayList<>(documentList.values());
     }
 
-    public ArrayList<Document> getDocumentByAuthor(String docAuthor) {
-        ArrayList<Document> result = new ArrayList<>();
-        for (Document doc : documentList.values()) {
-            if (doc.getAuthor().equalsIgnoreCase(docAuthor)) {
-                result.add(doc);
-            }
-        }
-        if (result.isEmpty()) {
-            System.out.println("Document not found");
-            return null;
-        }
-        return result;
+    public LinkedHashMap<Integer, Document> getDocumentListMap() {
+        return documentList;
     }
 }

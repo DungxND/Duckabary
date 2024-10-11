@@ -7,8 +7,13 @@ public class UserServices {
         this.userManager = userManager;
     }
 
-    public void createUser(String username, String email, String firstName, String lastName, String phone, String address) {
+    public void createUser(
+            String username,
+            String email,
+            String firstName,
+            String lastName,
+            String phone,
+            String address) {
         userManager.createUser(username, email, firstName, lastName, phone, address);
     }
-
 }

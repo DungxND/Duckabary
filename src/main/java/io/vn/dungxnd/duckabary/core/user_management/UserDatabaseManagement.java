@@ -16,12 +16,14 @@ public class UserDatabaseManagement {
 
     public ArrayList<User> loadUsersFromDB() {
         ArrayList<User> users = new ArrayList<>();
+
         String sql = "SELECT * FROM users";
 
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 ResultSet rs = pstmt.executeQuery()) {
 
+            // Get data from loaded users db columns
             while (rs.next()) {
                 int userId = rs.getInt("user_id");
                 String username = rs.getString("username");
@@ -38,13 +40,16 @@ public class UserDatabaseManagement {
         } catch (SQLException e) {
             System.out.println("Error loading users: " + e.getMessage());
         }
-        System.out.println("Users loaded successfully!");
+
+        if (!users.isEmpty()) {
+            System.out.printf("Loaded %d user(s) successfully!\n", users.size());
+        }
         return users;
     }
 
     public void addUserToDB(User user) {
         String sql =
-                "INSERT INTO users (user_id, username, firstname, lastname, email, phone, address) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                "INSERT INTO users (username, firstname, lastname, email, phone, address) VALUES ( ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
