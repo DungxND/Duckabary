@@ -1,6 +1,5 @@
 package io.vn.dungxnd.duckabary.core.library_management;
 
-
 import java.util.ArrayList;
 
 public class LibraryCmdService extends LibraryService {
@@ -10,9 +9,19 @@ public class LibraryCmdService extends LibraryService {
     }
 
     @Override
-    public void addDocument(Document doc) {
-        super.addDocument(doc);
-        System.out.println("Document added successfully with id: " + doc.getId());
+    public void addDocument(
+            String title,
+            String author,
+            StringBuilder description,
+            String publisher,
+            int publishYear,
+            String genre,
+            String language,
+            String ISBN,
+            int quantity) {
+
+        super.addDocument(title, author, description, publisher, publishYear, genre, language, ISBN, quantity);
+        System.out.println("Document added successfully");
     }
 
     @Override

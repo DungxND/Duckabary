@@ -6,16 +6,13 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class DatabaseManager {
     private static final String DB_PATH =
             "src/main/resources/io/vn/dungxnd/duckabary/db/duckabary.db";
     private static final String DB_URL = "jdbc:sqlite:" + DB_PATH;
-    private static final String[] SQL_STATEMENTS = {
+    private static final String[] TABLES_CREATION_SQL_STATEMENTS = {
         "CREATE TABLE IF NOT EXISTS users ("
                 + "    user_id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "    username text UNIQUE NOT NULL,"
@@ -30,7 +27,7 @@ public class DatabaseManager {
                 + "    admin_id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "    username text UNIQUE NOT NULL,"
                 + "    email text UNIQUE NOT NULL,"
-                + "    password text NOT NULL"
+                + "    hashedPassword text NOT NULL"
                 + ");",
         "CREATE TABLE IF NOT EXISTS documents ("
                 + "    document_id INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -38,8 +35,11 @@ public class DatabaseManager {
                 + "    author text NOT NULL,"
                 + "    description text,"
                 + "    publisher text,"
-                + "    publication_date DATE,"
-                + "    quantity INTEGER DEFAULT 1"
+                + "    publication_year INTEGER,"
+                + "    genre text,"
+                + "    language text,"
+                + "    ISBN text UNIQUE,"
+                + "    quantity INTEGER DEFAULT 0"
                 + ");",
         "CREATE TABLE IF NOT EXISTS borrow ("
                 + "    borrow_id INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -83,18 +83,28 @@ public class DatabaseManager {
         }
     }
 
-    public static void createTables() throws IOException {
+    public static void createDatabaseIfNotExist() throws IOException {
         Path dbPath = Paths.get("src/main/resources/io/vn/dungxnd/duckabary/db/duckabary.db");
-        if (!dbPath.toFile().exists()) {
-            System.out.println("Database file not found, creating a new one");
-            dbPath.toFile().createNewFile();
-        }
+        createDBFileIfNotExist(dbPath);
         String url = "jdbc:sqlite:" + dbPath;
 
         try (Connection conn = DriverManager.getConnection(url);
                 Statement stmt = conn.createStatement()) {
 
-            for (String sql : SQL_STATEMENTS) {
+            // check if tables already exist
+            ResultSet userRs = conn.getMetaData().getTables(null, null, "users", null);
+            ResultSet adminRs = conn.getMetaData().getTables(null, null, "admins", null);
+            ResultSet docRs = conn.getMetaData().getTables(null, null, "documents", null);
+            ResultSet borrowRs = conn.getMetaData().getTables(null, null, "borrow", null);
+
+            if (userRs.next() && adminRs.next() && docRs.next() && borrowRs.next()) {
+                System.out.println("Tables already exist!");
+                return;
+            } else {
+                System.out.println("Tables not found, creating new tables");
+            }
+
+            for (String sql : TABLES_CREATION_SQL_STATEMENTS) {
                 stmt.execute(sql);
             }
 
@@ -114,14 +124,28 @@ public class DatabaseManager {
         }
     }
 
-    public static void createDBFile(Path dbPath) throws IOException {
+    public static void createDBFileIfNotExist(Path dbPath) throws IOException {
         if (!dbPath.toFile().exists()) {
             System.out.println("Database file not found, creating a new one");
-            dbPath.toFile().createNewFile();
+            boolean created = dbPath.toFile().createNewFile();
+            if (created) {
+                System.out.println("Database file created successfully!");
+            } else {
+                System.err.println("Failed to create the database file!");
+            }
+        }
+    }
+
+    public static void checkAndInitDB() {
+        Path dbPath = Paths.get(DB_PATH);
+        try {
+            createDatabaseIfNotExist();
+        } catch (IOException e) {
+            System.err.println("Error creating database file: " + e.getMessage());
         }
     }
 
     public static void main(String[] args) throws IOException {
-        createTables();
+        createDatabaseIfNotExist();
     }
 }

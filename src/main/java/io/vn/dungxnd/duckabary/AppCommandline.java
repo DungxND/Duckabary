@@ -3,8 +3,9 @@ package io.vn.dungxnd.duckabary;
 import io.vn.dungxnd.duckabary.core.library_management.Document;
 import io.vn.dungxnd.duckabary.core.library_management.LibraryCmdService;
 import io.vn.dungxnd.duckabary.core.library_management.LibraryManagement;
+import io.vn.dungxnd.duckabary.core.user_management.UserCmdService;
 import io.vn.dungxnd.duckabary.core.user_management.UserManagement;
-import io.vn.dungxnd.duckabary.core.user_management.UserServices;
+import io.vn.dungxnd.duckabary.core.user_management.UserService;
 import io.vn.dungxnd.duckabary.db.DatabaseManager;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class AppCommandline {
         LibraryCmdService libraryCmdService = new LibraryCmdService(libraryManagement);
 
         UserManagement userManagement = new UserManagement();
-        UserServices userServices = new UserServices(userManagement);
+        UserCmdService userCmdServices = new UserCmdService(userManagement);
 
         while (true) {
             System.out.println("0. Exit");
@@ -40,13 +41,13 @@ public class AppCommandline {
                     exitCommandline();
                     break;
                 case 1:
-                    addDocument(scanner, libraryManagement);
+                    addDocument(scanner, libraryCmdService);
                     break;
                 case 2:
-                    removeDocument(scanner, libraryManagement);
+                    removeDocument(scanner, libraryCmdService);
                     break;
                 case 3:
-                    updateDocument(scanner, libraryManagement);
+                    updateDocument(scanner, libraryCmdService);
                     break;
                 case 4:
                     findDocument(scanner, libraryCmdService);
@@ -55,7 +56,7 @@ public class AppCommandline {
                     displayDocumentList(libraryCmdService);
                     break;
                 case 6:
-                    addUser(scanner, userServices);
+                    addUser(scanner, userCmdServices);
                     break;
                 case 7:
                     borrowDocument(scanner, libraryCmdService);
@@ -64,7 +65,7 @@ public class AppCommandline {
                     returnDocument(scanner, libraryCmdService);
                     break;
                 case 9:
-                    displayUserInfo(scanner, userManagement);
+                    displayUserInfo(scanner, userCmdServices);
                     break;
                 default:
                     System.out.println("Action not found");
@@ -72,11 +73,11 @@ public class AppCommandline {
         }
     }
 
-    static void displayUserInfo(Scanner scanner, UserManagement userManagement) {
+    static void displayUserInfo(Scanner scanner, UserCmdService userCmdServices) {
         System.out.println("====Display user info=====");
         System.out.print("Enter user ID: ");
         int userId = scanner.nextInt();
-        userManagement.getUserInfo(userId);
+        userCmdServices.getUserInfo(userId);
     }
 
     static void returnDocument(Scanner scanner, LibraryCmdService LibraryCmdService) {
@@ -93,7 +94,7 @@ public class AppCommandline {
         LibraryCmdService.borrowDocumentByID(borrowId);
     }
 
-    static void addUser(Scanner scanner, UserServices userServices) {
+    static void addUser(Scanner scanner, UserService userService) {
         System.out.println("====Add user=====");
         System.out.print("Enter username: ");
         String userName = scanner.nextLine();
@@ -107,7 +108,7 @@ public class AppCommandline {
         String phone = scanner.nextLine();
         System.out.print("Enter user address: ");
         String address = scanner.nextLine();
-        userServices.createUser(userName, userId, firstName, lastName, phone, address);
+        userService.createUser(userName, userId, firstName, lastName, phone, address);
     }
 
     static void displayDocumentList(LibraryCmdService LibraryCmdService) {
@@ -171,11 +172,11 @@ public class AppCommandline {
         }
     }
 
-    static void updateDocument(Scanner scanner, LibraryManagement libraryManagement) {
+    static void updateDocument(Scanner scanner, LibraryCmdService libraryCmdService) {
         System.out.println("====Update document=====");
         System.out.print("Enter id: ");
         int getId = scanner.nextInt();
-        Document document = libraryManagement.getDocumentByID(getId);
+        Document document = libraryCmdService.getDocumentByID(getId);
         if (document != null) {
             scanner.nextLine();
             System.out.println("What do you want to update?");
@@ -214,7 +215,7 @@ public class AppCommandline {
                     break;
                 case 5:
                     System.out.print("Enter new publish year: ");
-                    String newPublishYear = scanner.nextLine();
+                    int newPublishYear = scanner.nextInt();
                     document.setPublishYear(newPublishYear);
                     break;
                 case 6:
@@ -245,14 +246,14 @@ public class AppCommandline {
         }
     }
 
-    static void removeDocument(Scanner scanner, LibraryManagement libraryManagement) {
+    static void removeDocument(Scanner scanner, LibraryCmdService libraryCmdService) {
         System.out.println("====Remove document=====");
         System.out.print("Enter id: ");
         int removeId = scanner.nextInt();
-        libraryManagement.removeDocumentByID(removeId);
+        libraryCmdService.removeDocumentByID(removeId);
     }
 
-    static void addDocument(Scanner scanner, LibraryManagement libraryManagement) {
+    static void addDocument(Scanner scanner, LibraryCmdService libraryCmdService) {
         System.out.println("====Add document====");
         scanner.nextLine();
         System.out.print("Leave blank if unknown (except title)");
@@ -269,15 +270,16 @@ public class AppCommandline {
         System.out.print("Enter publisher: ");
         String publisher = scanner.nextLine();
         System.out.print("Enter publish year: ");
-        String publishYear = scanner.nextLine();
+        int publishYear = scanner.nextInt();
         System.out.print("Enter genre(s): ");
         String genre = scanner.nextLine();
         System.out.print("Enter document language: ");
         String language = scanner.nextLine();
         System.out.print("Enter ISBN:");
         String ISBN = scanner.nextLine();
-        Document doc = new Document(title, author, publisher, new StringBuilder(desc), 1);
-        libraryManagement.addDocument(doc);
+        System.out.print("Enter quantity: ");
+        int quantity = scanner.nextInt();
+        libraryCmdService.addDocument(title, author, new StringBuilder(desc), publisher, publishYear, genre, language, ISBN, quantity);
     }
 
     private static void printDocumentInfo(Document foundDocument) {

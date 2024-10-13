@@ -14,6 +14,10 @@ public class UserDatabaseManagement {
     private static final String DB_URL = "jdbc:sqlite:" + DB_PATH;
     private Connection conn;
 
+    static {
+        DatabaseManager.checkAndInitDB();
+    }
+
     public ArrayList<User> loadUsersFromDB() {
         ArrayList<User> users = new ArrayList<>();
 
@@ -23,6 +27,10 @@ public class UserDatabaseManagement {
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 ResultSet rs = pstmt.executeQuery()) {
 
+            if (rs.isClosed()) {
+                System.out.println("No user data found!");
+                return users;
+            }
             // Get data from loaded users db columns
             while (rs.next()) {
                 int userId = rs.getInt("user_id");
@@ -63,10 +71,80 @@ public class UserDatabaseManagement {
 
             pstmt.executeUpdate();
 
-            System.out.println("User added successfully!");
+            System.out.println("User added to DB successfully!");
 
         } catch (SQLException e) {
             System.out.println("Error adding user: " + e.getMessage());
+        }
+    }
+
+    public void addAdminUserToDB(AdminUser user) {
+        String sql =
+                "INSERT INTO admins (username, email, hashedPassword) VALUES (?,?, ?)";
+
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, user.getUsername());
+            pstmt.setString(2, user.getEmail());
+            pstmt.setString(3, user.getHashedPassword());
+
+            pstmt.executeUpdate();
+
+            System.out.println("Admin user added successfully!");
+
+        } catch (SQLException e) {
+            System.out.println("Error adding admin user: " + e.getMessage());
+        }
+    }
+
+    public ArrayList<AdminUser> loadAdminUsersFromDB() {
+        ArrayList<AdminUser> users = new ArrayList<>();
+
+        String sql = "SELECT * FROM admins";
+
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            if (rs.isClosed()) {
+                System.out.println("No admin user data found!");
+                return users;
+            }
+            // Get data from loaded users db columns
+            while (rs.next()) {
+                int adminId = rs.getInt("admin_id");
+                String username = rs.getString("username");
+                String email = rs.getString("email");
+                String hashedPassword = rs.getString("hashedPassword");
+
+                AdminUser user = new AdminUser(adminId, username, email, hashedPassword);
+                users.add(user);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error loading admin users: " + e.getMessage());
+        }
+
+        if (!users.isEmpty()) {
+            System.out.printf("Loaded %d admin user(s) successfully!\n", users.size());
+        }
+        return users;
+    }
+
+    public void deleteUserFromDB(int userId) {
+        String sql = "DELETE FROM users WHERE user_id = ?";
+
+        try (Connection conn = DatabaseManager.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, userId);
+            pstmt.executeUpdate();
+
+            System.out.println("User deleted successfully!");
+
+        } catch (SQLException e) {
+            System.out.println("Error deleting user: " + e.getMessage());
         }
     }
 }

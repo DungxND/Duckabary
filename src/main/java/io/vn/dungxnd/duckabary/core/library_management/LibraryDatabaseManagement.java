@@ -21,13 +21,19 @@ public class LibraryDatabaseManagement {
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 ResultSet rs = pstmt.executeQuery()) {
+
+            if (rs.isClosed()) {
+                System.out.println("No document data found!");
+                return documents;
+            }
+
             while (rs.next()) {
                 int docId = rs.getInt("doc_id");
                 String title = rs.getString("title");
                 String author = rs.getString("author");
                 String description = rs.getString("description");
                 String publisher = rs.getString("publisher");
-                String publishYear = rs.getString("publish_year");
+                int publishYear = rs.getInt("publish_year");
                 String genre = rs.getString("genre");
                 String language = rs.getString("language");
                 String ISBN = rs.getString("ISBN");
@@ -64,7 +70,7 @@ public class LibraryDatabaseManagement {
             pstmt.setString(2, document.getAuthor());
             pstmt.setString(3, document.getDescription().toString());
             pstmt.setString(4, document.getPublisher());
-            pstmt.setString(5, document.getPublishYear());
+            pstmt.setInt(5, document.getPublishYear());
             pstmt.setString(6, document.getGenre());
             pstmt.setString(7, document.getLanguage());
             pstmt.setString(8, document.getISBN());
@@ -75,7 +81,7 @@ public class LibraryDatabaseManagement {
             if (document.getDescription().toString().isEmpty())
                 pstmt.setNull(3, java.sql.Types.VARCHAR);
             if (document.getPublisher().isEmpty()) pstmt.setNull(4, java.sql.Types.VARCHAR);
-            if (document.getPublishYear().isEmpty()) pstmt.setNull(5, java.sql.Types.VARCHAR);
+            if (document.getPublishYear() == -1) pstmt.setNull(5, java.sql.Types.VARCHAR);
             if (document.getGenre().isEmpty()) pstmt.setNull(6, java.sql.Types.VARCHAR);
             if (document.getLanguage().isEmpty()) pstmt.setNull(7, java.sql.Types.VARCHAR);
             if (document.getISBN().isEmpty()) pstmt.setNull(8, java.sql.Types.VARCHAR);

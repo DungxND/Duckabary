@@ -13,7 +13,28 @@ public class LibraryService {
         return libraryManagement.getDocumentList();
     }
 
-    public void addDocument(Document doc) {
+    public void addDocument(
+            String title,
+            String author,
+            StringBuilder description,
+            String publisher,
+            int publishYear,
+            String genre,
+            String language,
+            String ISBN,
+            int quantity) {
+        Document doc =
+                new Document(
+                        getNewDocumentID(),
+                        title,
+                        author,
+                        description,
+                        publisher,
+                        publishYear,
+                        genre,
+                        language,
+                        ISBN,
+                        quantity);
         libraryManagement.addDocument(doc);
     }
 
@@ -39,5 +60,9 @@ public class LibraryService {
 
     public void returnDocumentByID(int docId) {
         libraryManagement.returnDocumentByID(docId);
+    }
+
+    public int getNewDocumentID() {
+        return libraryManagement.getNewDocumentID();
     }
 }

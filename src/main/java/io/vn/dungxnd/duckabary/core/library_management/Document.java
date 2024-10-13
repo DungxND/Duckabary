@@ -6,85 +6,23 @@ public class Document {
     private String author;
     private StringBuilder description;
     private String publisher;
-    private String publishYear;
+    private int publishYear;
     private String genre;
     private String language;
     private String ISBN;
     private int quantity;
 
-    public Document(int id, String title, String author) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-    }
 
-    public Document(
-            int id,
-            String title,
-            String author,
-            String publisher,
-            StringBuilder description,
-            int quantity) {
-        this.id = id;
+    public Document(int nextDocumentID, String title, String author, StringBuilder description, String publisher, int publishYear, String genre, String language, String isbn, int quantity) {
+        this.id = nextDocumentID;
         this.title = title;
         this.author = author;
-        this.publisher = publisher;
         this.description = description;
-        this.quantity = quantity;
-    }
-
-    public Document(
-            int id,
-            String title,
-            String author,
-            StringBuilder description,
-            String publisher,
-            String publishYear,
-            String ISBN,
-            int quantity) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
         this.publisher = publisher;
         this.publishYear = publishYear;
-        this.ISBN = ISBN;
-        this.description = description;
-        this.quantity = quantity;
-    }
-
-    public Document(
-            int id,
-            String title,
-            String author,
-            StringBuilder description,
-            String publisher,
-            String publishYear,
-            String genre,
-            String language,
-            String ISBN,
-            int quantity) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.publisher = publisher;
-        this.publishYear = publishYear;
-        this.ISBN = ISBN;
         this.genre = genre;
         this.language = language;
-        this.description = description;
-        this.quantity = quantity;
-    }
-
-    public Document(
-            String title,
-            String author,
-            String publisher,
-            StringBuilder stringBuilder,
-            int quantity) {
-        this.title = title;
-        this.author = author;
-        this.publisher = publisher;
-        this.description = stringBuilder;
+        this.ISBN = isbn;
         this.quantity = quantity;
     }
 
@@ -150,15 +88,15 @@ public class Document {
         this.quantity = quantity;
     }
 
-    public String getPublishYear() {
-        if (publishYear == null) {
-            return "Unknown publish year";
+    public int getPublishYear() {
+        if (publishYear == 0) {
+            return -1;
         }
 
         return publishYear;
     }
 
-    public void setPublishYear(String publishYear) {
+    public void setPublishYear(int publishYear) {
         this.publishYear = publishYear;
     }
 

@@ -1,13 +1,13 @@
 package io.vn.dungxnd.duckabary.core.user_management;
 
 public class User {
-    protected int id;
-    protected String username;
-    protected String firstName;
-    protected String lastName;
-    protected String email;
-    protected String phone;
-    protected String address;
+    private int id;
+    private String username;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
+    private String address;
 
     public User(
             int id,
@@ -25,8 +25,6 @@ public class User {
         this.phone = phone;
         this.address = address;
     }
-
-    public User(String username, String email) {}
 
     public int getId() {
         return id;

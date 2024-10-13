@@ -41,9 +41,14 @@ public class LibraryManagement {
         return documents;
     }
 
-    public void addDocument(Document doc) {
+    public void addDocument(
+          Document doc) {
         library.addDocument(doc);
         libraryDatabaseManagement.addDocumentToDB(doc);
+    }
+
+    public int getNewDocumentID() {
+        return library.getDocumentList().size();
     }
 
     public void removeDocumentByID(int id) {
