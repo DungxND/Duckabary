@@ -12,11 +12,12 @@ public class UserDatabaseManagement {
     private static final String DB_PATH =
             "src/main/resources/io/vn/dungxnd/duckabary/db/duckabary.db";
     private static final String DB_URL = "jdbc:sqlite:" + DB_PATH;
-    private Connection conn;
 
     static {
         DatabaseManager.checkAndInitDB();
     }
+
+    private Connection conn;
 
     public ArrayList<User> loadUsersFromDB() {
         ArrayList<User> users = new ArrayList<>();
@@ -79,11 +80,10 @@ public class UserDatabaseManagement {
     }
 
     public void addAdminUserToDB(AdminUser user) {
-        String sql =
-                "INSERT INTO admins (username, email, hashedPassword) VALUES (?,?, ?)";
+        String sql = "INSERT INTO admins (username, email, hashedPassword) VALUES (?,?, ?)";
 
         try (Connection conn = DatabaseManager.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, user.getUsername());
             pstmt.setString(2, user.getEmail());
@@ -104,8 +104,8 @@ public class UserDatabaseManagement {
         String sql = "SELECT * FROM admins";
 
         try (Connection conn = DatabaseManager.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery()) {
 
             if (rs.isClosed()) {
                 System.out.println("No admin user data found!");

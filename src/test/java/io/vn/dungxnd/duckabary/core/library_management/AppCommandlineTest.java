@@ -1,19 +1,19 @@
-//package io.vn.dungxnd.duckabary.core.library_management;
+// package io.vn.dungxnd.duckabary.core.library_management;
 //
-//import io.vn.dungxnd.duckabary.core.user_management.User;
-//import io.vn.dungxnd.duckabary.core.user_management.UserManagement;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
+// import io.vn.dungxnd.duckabary.core.user_management.User;
+// import io.vn.dungxnd.duckabary.core.user_management.UserManagement;
+// import org.junit.jupiter.api.BeforeEach;
+// import org.junit.jupiter.api.Test;
 //
-//import java.io.ByteArrayInputStream;
-//import java.io.ByteArrayOutputStream;
-//import java.io.PrintStream;
-//import java.util.Scanner;
+// import java.io.ByteArrayInputStream;
+// import java.io.ByteArrayOutputStream;
+// import java.io.PrintStream;
+// import java.util.Scanner;
 //
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertTrue;
+// import static org.junit.jupiter.api.Assertions.assertEquals;
+// import static org.junit.jupiter.api.Assertions.assertTrue;
 //
-//class AppCommandlineTest {
+// class AppCommandlineTest {
 //
 //    private LibraryManagement libraryManagement;
 //    private UserManagement userManagement;
@@ -116,4 +116,4 @@
 //        assertTrue(outContent.toString().contains("Username: TestUser"));
 //        assertTrue(outContent.toString().contains("Email: TestEmail"));
 //    }
-//}
+// }

@@ -12,8 +12,17 @@ public class Document {
     private String ISBN;
     private int quantity;
 
-
-    public Document(int nextDocumentID, String title, String author, StringBuilder description, String publisher, int publishYear, String genre, String language, String isbn, int quantity) {
+    public Document(
+            int nextDocumentID,
+            String title,
+            String author,
+            StringBuilder description,
+            String publisher,
+            int publishYear,
+            String genre,
+            String language,
+            String isbn,
+            int quantity) {
         this.id = nextDocumentID;
         this.title = title;
         this.author = author;
@@ -89,10 +98,6 @@ public class Document {
     }
 
     public int getPublishYear() {
-        if (publishYear == 0) {
-            return -1;
-        }
-
         return publishYear;
     }
 

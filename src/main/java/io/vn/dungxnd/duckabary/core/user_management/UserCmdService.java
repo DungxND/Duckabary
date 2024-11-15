@@ -6,6 +6,15 @@ public class UserCmdService extends UserService {
     }
 
     @Override
+    public User getUser(int userId) {
+        if (super.getUser(userId) == null) {
+            System.out.println("User not found");
+            return null;
+        }
+        return super.getUser(userId);
+    }
+
+    @Override
     public void createUser(
             String username,
             String email,
@@ -13,8 +22,13 @@ public class UserCmdService extends UserService {
             String lastName,
             String phone,
             String address) {
+        if (super.isUsernameAlreadyExist(username)) {
+            System.out.println("Username " + username + " already exists, please use another one");
+            return;
+        }
         super.createUser(username, email, firstName, lastName, phone, address);
-        System.out.println("User created successfully with id " + (getNewUserID()));
+        System.out.println(
+                "User " + username + " created successfully with id " + (getNewUserID()));
     }
 
     public void getUserInfo(int userId) {
@@ -23,7 +37,7 @@ public class UserCmdService extends UserService {
             System.out.println("User not found");
             return;
         }
-        System.out.println("======= UID " +  userId + " =======");
+        System.out.println("======= UID " + userId + " =======");
         System.out.println("First Name: " + foundUser.getFirstName());
         System.out.println("Last Name: " + foundUser.getLastName());
         System.out.println("Username: " + foundUser.getUsername());
@@ -32,4 +46,5 @@ public class UserCmdService extends UserService {
         System.out.println("Address: " + foundUser.getAddress());
         System.out.println("======================");
     }
+
 }

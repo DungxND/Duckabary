@@ -1,12 +1,17 @@
 package io.vn.dungxnd.duckabary.core.library_management;
 
+import io.vn.dungxnd.duckabary.core.user_management.User;
+import io.vn.dungxnd.duckabary.core.user_management.UserService;
+
 import java.util.ArrayList;
 
 public class LibraryService {
     private final LibraryManagement libraryManagement;
+    private final UserService userService;
 
-    public LibraryService(LibraryManagement libraryManagement) {
+    public LibraryService(LibraryManagement libraryManagement, UserService userService) {
         this.libraryManagement = libraryManagement;
+        this.userService = userService;
     }
 
     public ArrayList<Document> getDocumentList() {
@@ -47,22 +52,41 @@ public class LibraryService {
     }
 
     public ArrayList<Document> getDocumentByTitle(String title) {
-        return libraryManagement.getDocumentByTitle(title);
+        return libraryManagement.getDocumentsByTitle(title);
     }
 
     public ArrayList<Document> getDocumentByAuthor(String author) {
-        return libraryManagement.getDocumentByAuthor(author);
+        return libraryManagement.getDocumentsByAuthor(author);
     }
 
-    public boolean borrowDocumentByID(int docId) {
-        return libraryManagement.borrowDocumentByID(docId);
+    public ArrayList<Document> getDocumentByGenre(String genre) {
+        return libraryManagement.getDocumentsByGenre(genre);
     }
 
-    public void returnDocumentByID(int docId) {
-        libraryManagement.returnDocumentByID(docId);
+    public boolean borrowDocumentByID(int userId, int docId) {
+        if (getUserByID(userId) == null) {
+            return false;
+        }
+        return libraryManagement.borrowDocumentByID(userId, docId);
+    }
+
+    public boolean returnDocumentByID(int userId, int docId) {
+        return libraryManagement.returnDocumentByID(userId, docId);
     }
 
     public int getNewDocumentID() {
-        return libraryManagement.getNewDocumentID();
+        return libraryManagement.generateNewDocumentID();
+    }
+
+    public User getUserByID(int userId) {
+        return userService.getUser(userId);
+    }
+
+    public LibraryManagement getLibraryMgr() {
+        return libraryManagement;
+    }
+
+    public UserService getUserService() {
+        return userService;
     }
 }

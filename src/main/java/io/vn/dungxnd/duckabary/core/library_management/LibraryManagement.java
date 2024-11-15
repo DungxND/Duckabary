@@ -2,6 +2,7 @@ package io.vn.dungxnd.duckabary.core.library_management;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.stream.Collectors;
 
 public class LibraryManagement {
     private final Library library;
@@ -21,33 +22,31 @@ public class LibraryManagement {
         return library.getDocument(id);
     }
 
-    public ArrayList<Document> getDocumentByTitle(String title) {
-        ArrayList<Document> documents = new ArrayList<>();
-        for (Document doc : library.getDocumentList()) {
-            if (doc.getTitle().toLowerCase().contains(title.toLowerCase())) {
-                documents.add(doc);
-            }
-        }
-        return documents;
+    public ArrayList<Document> getDocumentsByTitle(String title) {
+        return library.getDocumentList().stream()
+                .filter(doc -> doc.getTitle().toLowerCase().contains(title.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public ArrayList<Document> getDocumentByAuthor(String author) {
-        ArrayList<Document> documents = new ArrayList<>();
-        for (Document doc : library.getDocumentList()) {
-            if (doc.getAuthor().toLowerCase().contains(author.toLowerCase())) {
-                documents.add(doc);
-            }
-        }
-        return documents;
+
+    public ArrayList<Document> getDocumentsByAuthor(String author) {
+        return library.getDocumentList().stream()
+                .filter(doc -> doc.getAuthor().toLowerCase().contains(author.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public void addDocument(
-          Document doc) {
+    public ArrayList<Document> getDocumentsByGenre(String genre) {
+        return library.getDocumentList().stream()
+                .filter(doc -> doc.getGenre().toLowerCase().contains(genre.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public void addDocument(Document doc) {
         library.addDocument(doc);
         libraryDatabaseManagement.addDocumentToDB(doc);
     }
 
-    public int getNewDocumentID() {
+    public int generateNewDocumentID() {
         return library.getDocumentList().size();
     }
 
@@ -57,25 +56,26 @@ public class LibraryManagement {
         updateDocumentIDs();
     }
 
-    public boolean borrowDocumentByID(int docId) {
+    public boolean borrowDocumentByID(int userId, int docId) {
         Document doc = library.getDocument(docId);
         if (doc != null) {
             if (doc.getQuantity() > 0) {
                 doc.setQuantity(doc.getQuantity() - 1);
+                libraryDatabaseManagement.borrowDocument(userId, docId);
                 return true;
             }
         }
         return false;
     }
 
-    public void returnDocumentByID(int docId) {
+    public boolean returnDocumentByID(int userId, int docId) {
         Document doc = library.getDocument(docId);
         if (doc != null) {
             doc.setQuantity(doc.getQuantity() + 1);
-            System.out.println("Document returned successfully");
-        } else {
-            System.out.println("Document not found");
+            libraryDatabaseManagement.returnDocument(userId, docId);
+            return true;
         }
+        return false;
     }
 
     public ArrayList<Document> getDocumentList() {
@@ -83,12 +83,16 @@ public class LibraryManagement {
     }
 
     private void updateDocumentIDs() {
-        LinkedHashMap<Integer, Document> documents = library.getDocumentListMap();
+        LinkedHashMap<Integer, Document> documents = library.getDocumentLkHashMap();
         int newId = 1;
         for (Document doc : documents.values()) {
             doc.setId(newId);
             libraryDatabaseManagement.updateDocumentIDInDB(doc.getId(), newId);
             newId++;
         }
+    }
+
+    public LibraryDatabaseManagement getLibraryDatabaseManagement() {
+        return libraryDatabaseManagement;
     }
 }

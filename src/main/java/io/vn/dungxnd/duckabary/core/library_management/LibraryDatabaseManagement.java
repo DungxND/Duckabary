@@ -28,7 +28,7 @@ public class LibraryDatabaseManagement {
             }
 
             while (rs.next()) {
-                int docId = rs.getInt("doc_id");
+                int docId = rs.getInt("document_id");
                 String title = rs.getString("title");
                 String author = rs.getString("author");
                 String description = rs.getString("description");
@@ -56,6 +56,7 @@ public class LibraryDatabaseManagement {
         } catch (SQLException e) {
             System.out.println("Error loading documents: " + e.getMessage());
         }
+        System.out.println("Loaded " + documents.size() + " documents from database.");
         return documents;
     }
 
@@ -81,7 +82,6 @@ public class LibraryDatabaseManagement {
             if (document.getDescription().toString().isEmpty())
                 pstmt.setNull(3, java.sql.Types.VARCHAR);
             if (document.getPublisher().isEmpty()) pstmt.setNull(4, java.sql.Types.VARCHAR);
-            if (document.getPublishYear() == -1) pstmt.setNull(5, java.sql.Types.VARCHAR);
             if (document.getGenre().isEmpty()) pstmt.setNull(6, java.sql.Types.VARCHAR);
             if (document.getLanguage().isEmpty()) pstmt.setNull(7, java.sql.Types.VARCHAR);
             if (document.getISBN().isEmpty()) pstmt.setNull(8, java.sql.Types.VARCHAR);
@@ -115,6 +115,46 @@ public class LibraryDatabaseManagement {
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error updating document ID: " + e.getMessage());
+        }
+    }
+
+    public void updateDocumentQuantityInDB(int docId, int newQuantity) {
+        String sql = "UPDATE documents SET quantity = ? WHERE doc_id = ?";
+        try (Connection conn = DatabaseManager.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, newQuantity);
+            pstmt.setInt(2, docId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error updating document quantity: " + e.getMessage());
+        }
+    }
+
+    public void borrowDocument(int userId, int docId) {
+        String sql = "INSERT INTO borrow(user_id, document_id) VALUES (?, ?)";
+
+        try (Connection conn = DatabaseManager.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, userId);
+            pstmt.setInt(2, docId);
+            pstmt.executeUpdate();
+            System.out.println("Document borrowed successfully.");
+        } catch (SQLException e) {
+            System.out.println("Error borrowing document: " + e.getMessage());
+        }
+    }
+
+    public void returnDocument(int userId, int docId) {
+        String sql = "DELETE FROM borrow WHERE user_id = ? AND document_id = ?";
+        try (Connection conn = DatabaseManager.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, userId);
+            pstmt.setInt(2, docId);
+            pstmt.executeUpdate();
+            System.out.println("Document returned successfully.");
+        } catch (SQLException e) {
+            System.out.println("Error returning document: " + e.getMessage());
         }
     }
 }

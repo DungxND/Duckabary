@@ -1,5 +1,7 @@
 package io.vn.dungxnd.duckabary.core.user_management;
 
+import java.util.ArrayList;
+
 public class UserService {
     private final UserManagement userManager;
 
@@ -24,7 +26,22 @@ public class UserService {
     }
 
     public User getUser(int userId) {
-        return userManager.getUser(userId);
+        if (userId <= 0 || userId > userManager.getUsers().size()) {
+            return null;
+        }
+        return userManager.getUserById(userId);
+    }
+
+    public boolean isUsernameAlreadyExist(String username) {
+        return userManager.checkUsernameExist(username);
+    }
+
+    public User getUserByID(int userId) {
+        return userManager.getUserById(userId);
+    }
+
+    public ArrayList<User> getUsers() {
+        return userManager.getUsers();
     }
 
 }

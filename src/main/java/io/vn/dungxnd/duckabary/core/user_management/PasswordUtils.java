@@ -10,7 +10,7 @@ public class PasswordUtils {
     static Argon2Function argon2 = Argon2Function.getInstance(131072, 5, 4, 40, Argon2.ID, 19);
 
     public static String hashPassword(String plainTextPassword) {
-        return Password.hash(plainTextPassword).with(argon2).getResult();
+        return Password.hash(plainTextPassword).addRandomSalt().with(argon2).getResult();
     }
 
     // Verify a password with retrieved DB stored hash

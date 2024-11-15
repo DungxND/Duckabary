@@ -39,7 +39,7 @@ bin/
 .DS_Store
 
 # Fake generated data
-fakeDataGen/datas/*
+fakeDataGen/datas/
 
 .env
 

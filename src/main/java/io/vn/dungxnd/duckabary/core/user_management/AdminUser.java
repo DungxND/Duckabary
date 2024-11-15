@@ -37,10 +37,6 @@ public class AdminUser {
         this.hashedPassword = PasswordUtils.hashPassword(rawPassword);
     }
 
-    public int getNextAdminId() {
-        return adminId + 1;
-    }
-
     public String getHashedPassword() {
         return hashedPassword;
     }

@@ -1,13 +1,19 @@
 package io.vn.dungxnd.duckabary.core.user_management;
 
+import io.vn.dungxnd.duckabary.core.borrow_management.BorrowRecord;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
-    private int id;
+    private final int id;
     private String username;
     private String firstName;
     private String lastName;
     private String email;
     private String phone;
     private String address;
+    private final List<BorrowRecord> borrowRecords;
 
     public User(
             int id,
@@ -24,6 +30,7 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.address = address;
+        borrowRecords = new ArrayList<>();
     }
 
     public int getId() {
@@ -76,5 +83,17 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<BorrowRecord> getBorrowRecords() {
+        return borrowRecords;
+    }
+
+    public void addBorrowRecord(BorrowRecord borrowRecord) {
+        this.borrowRecords.add(borrowRecord);
+    }
+
+    public void removeBorrowRecord(BorrowRecord borrowRecord) {
+        this.borrowRecords.remove(borrowRecord);
     }
 }

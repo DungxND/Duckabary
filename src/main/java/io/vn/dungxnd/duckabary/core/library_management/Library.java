@@ -26,7 +26,7 @@ public class Library {
         return new ArrayList<>(documentList.values());
     }
 
-    public LinkedHashMap<Integer, Document> getDocumentListMap() {
+    public LinkedHashMap<Integer, Document> getDocumentLkHashMap() {
         return documentList;
     }
 }
