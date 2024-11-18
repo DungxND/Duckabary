@@ -63,17 +63,6 @@ public class LibraryService {
         return libraryManagement.getDocumentsByGenre(genre);
     }
 
-    public boolean borrowDocumentByID(int userId, int docId) {
-        if (getUserByID(userId) == null) {
-            return false;
-        }
-        return libraryManagement.borrowDocumentByID(userId, docId);
-    }
-
-    public boolean returnDocumentByID(int userId, int docId) {
-        return libraryManagement.returnDocumentByID(userId, docId);
-    }
-
     public int getNewDocumentID() {
         return libraryManagement.generateNewDocumentID();
     }

@@ -3,6 +3,20 @@
 ## To-do
 - [ ] Refactor the code
 - [ ] Test app
+
+## 18 Nov 2024 (DungxND):
+
+### Added
+
+- Check for correct date time format when inputting date time.
+
+### Changed
+
+- Update deps
+
+### Fixed
+
+- Unable/wrongly borrow&return document.
  
 
 ## 15 Nov 2024 (DungxND):

@@ -9,7 +9,7 @@ public class BorrowCmdService extends BorrowService {
     }
 
     @Override
-    public boolean borrowDocumentByUIdnDId(int documentID, int userID, LocalDateTime dueDate) {
+    public boolean borrowDocumentByUIdnDId(int userID, int documentID, LocalDateTime dueDate) {
 
         var user = userService.getUserByID(userID);
         var document = libraryService.getDocumentByID(documentID);

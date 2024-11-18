@@ -28,7 +28,6 @@ public class LibraryManagement {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-
     public ArrayList<Document> getDocumentsByAuthor(String author) {
         return library.getDocumentList().stream()
                 .filter(doc -> doc.getAuthor().toLowerCase().contains(author.toLowerCase()))
@@ -54,28 +53,6 @@ public class LibraryManagement {
         library.removeDocument(id);
         libraryDatabaseManagement.removeDocumentFromDB(id);
         updateDocumentIDs();
-    }
-
-    public boolean borrowDocumentByID(int userId, int docId) {
-        Document doc = library.getDocument(docId);
-        if (doc != null) {
-            if (doc.getQuantity() > 0) {
-                doc.setQuantity(doc.getQuantity() - 1);
-                libraryDatabaseManagement.borrowDocument(userId, docId);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean returnDocumentByID(int userId, int docId) {
-        Document doc = library.getDocument(docId);
-        if (doc != null) {
-            doc.setQuantity(doc.getQuantity() + 1);
-            libraryDatabaseManagement.returnDocument(userId, docId);
-            return true;
-        }
-        return false;
     }
 
     public ArrayList<Document> getDocumentList() {

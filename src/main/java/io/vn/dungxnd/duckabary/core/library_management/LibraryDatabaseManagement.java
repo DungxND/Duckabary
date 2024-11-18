@@ -85,15 +85,15 @@ public class LibraryDatabaseManagement {
             if (document.getGenre().isEmpty()) pstmt.setNull(6, java.sql.Types.VARCHAR);
             if (document.getLanguage().isEmpty()) pstmt.setNull(7, java.sql.Types.VARCHAR);
             if (document.getISBN().isEmpty()) pstmt.setNull(8, java.sql.Types.VARCHAR);
-
             pstmt.executeUpdate();
+
         } catch (SQLException e) {
             System.out.println("Error adding document: " + e.getMessage());
         }
     }
 
     public void removeDocumentFromDB(int docId) {
-        String sql = "DELETE FROM documents WHERE doc_id = ?";
+        String sql = "DELETE FROM documents WHERE document_id = ?";
 
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -107,7 +107,7 @@ public class LibraryDatabaseManagement {
     }
 
     public void updateDocumentIDInDB(int oldId, int newId) {
-        String sql = "UPDATE documents SET id = ? WHERE id = ?";
+        String sql = "UPDATE documents SET document_id = ? WHERE document_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, newId);
@@ -118,8 +118,27 @@ public class LibraryDatabaseManagement {
         }
     }
 
+    public void updateDocumentData(Document doc){
+        String sql = "UPDATE documents SET title = ?, author = ?, description = ?, publisher = ?, publish_year = ?, genre = ?, language = ?, ISBN = ?, quantity = ? WHERE document_id = ?";
+        try (Connection conn = DatabaseManager.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, doc.getTitle());
+            pstmt.setString(2, doc.getAuthor());
+            pstmt.setString(3, doc.getDescription().toString());
+            pstmt.setString(4, doc.getPublisher());
+            pstmt.setInt(5, doc.getPublishYear());
+            pstmt.setString(6, doc.getGenre());
+            pstmt.setString(7, doc.getLanguage());
+            pstmt.setString(8, doc.getISBN());
+            pstmt.setInt(9, doc.getQuantity());
+            pstmt.setInt(10, doc.getId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error updating document data: " + e.getMessage());
+        }
+    }
     public void updateDocumentQuantityInDB(int docId, int newQuantity) {
-        String sql = "UPDATE documents SET quantity = ? WHERE doc_id = ?";
+        String sql = "UPDATE documents SET quantity = ? WHERE document_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, newQuantity);
@@ -127,34 +146,6 @@ public class LibraryDatabaseManagement {
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error updating document quantity: " + e.getMessage());
-        }
-    }
-
-    public void borrowDocument(int userId, int docId) {
-        String sql = "INSERT INTO borrow(user_id, document_id) VALUES (?, ?)";
-
-        try (Connection conn = DatabaseManager.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, userId);
-            pstmt.setInt(2, docId);
-            pstmt.executeUpdate();
-            System.out.println("Document borrowed successfully.");
-        } catch (SQLException e) {
-            System.out.println("Error borrowing document: " + e.getMessage());
-        }
-    }
-
-    public void returnDocument(int userId, int docId) {
-        String sql = "DELETE FROM borrow WHERE user_id = ? AND document_id = ?";
-        try (Connection conn = DatabaseManager.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, userId);
-            pstmt.setInt(2, docId);
-            pstmt.executeUpdate();
-            System.out.println("Document returned successfully.");
-        } catch (SQLException e) {
-            System.out.println("Error returning document: " + e.getMessage());
         }
     }
 }
