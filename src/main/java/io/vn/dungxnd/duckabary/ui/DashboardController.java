@@ -1,6 +1,5 @@
 package io.vn.dungxnd.duckabary.ui;
 
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -10,7 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.util.Duration;
 
 import java.io.File;
 import java.net.URL;
@@ -18,35 +16,28 @@ import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
 
-    @FXML
-    private ImageView avatarButton;
+    @FXML private ImageView avatarButton;
 
-    @FXML
-    private VBox menuPane;
+    @FXML private VBox menuPane;
 
-    @FXML
-    private StackPane contentArea;
+    @FXML private StackPane contentArea;
 
-    @FXML
-    private Button borrowedManagement;
+    @FXML private Button borrowedManagement;
 
-    @FXML
-    private Button btnExit;
+    @FXML private Button btnExit;
 
-    @FXML
-    private Button docManagement;
+    @FXML private Button docManagement;
 
-    @FXML
-    private Button userManagement;
+    @FXML private Button userManagement;
 
     @FXML
     private void handleAvatarChange() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Chọn ảnh đại diện");
 
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
-        );
+        fileChooser
+                .getExtensionFilters()
+                .addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
 
         File selectedFile = fileChooser.showOpenDialog(avatarButton.getScene().getWindow());
 
@@ -68,12 +59,22 @@ public class DashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         menuPane.setVisible(true);
         menuPane.setManaged(true);
-        menuPane.getChildren().filtered(node -> node instanceof Button).forEach(button -> {
-            ((Button) button).setOnAction(e -> {
-                String buttonText = ((Button) e.getSource()).getText();
-                contentArea.getChildren().clear();
-                contentArea.getChildren().add(new javafx.scene.control.Label(buttonText + " selected"));
-            });
-        });
+        menuPane.getChildren()
+                .filtered(node -> node instanceof Button)
+                .forEach(
+                        button -> {
+                            ((Button) button)
+                                    .setOnAction(
+                                            e -> {
+                                                String buttonText =
+                                                        ((Button) e.getSource()).getText();
+                                                contentArea.getChildren().clear();
+                                                contentArea
+                                                        .getChildren()
+                                                        .add(
+                                                                new javafx.scene.control.Label(
+                                                                        buttonText + " selected"));
+                                            });
+                        });
     }
 }

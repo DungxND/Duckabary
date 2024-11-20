@@ -18,4 +18,9 @@ module io.vn.dungxnd.duckabary {
     exports io.vn.dungxnd.duckabary.core.user_management;
     exports io.vn.dungxnd.duckabary.core.borrow_management;
     exports io.vn.dungxnd.duckabary;
+
+    opens io.vn.dungxnd.duckabary to
+            javafx.fxml;
+
+    exports io.vn.dungxnd.duckabary.db;
 }

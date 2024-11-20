@@ -3,14 +3,14 @@ package io.vn.dungxnd.duckabary.db;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
 
 public class DatabaseManager {
-    private static final String DB_PATH =
-            "src/main/resources/io/vn/dungxnd/duckabary/db/duckabary.db";
+    private static final String DB_PATH = "db/duckabary.db";
     private static final String DB_URL = "jdbc:sqlite:" + DB_PATH;
     private static final String[] TABLES_CREATION_SQL_STATEMENTS = {
         "CREATE TABLE IF NOT EXISTS users ("
@@ -41,24 +41,19 @@ public class DatabaseManager {
                 + "    ISBN text UNIQUE,"
                 + "    quantity INTEGER DEFAULT 0"
                 + ");",
-        "CREATE TABLE IF NOT EXISTS borrow ("
+        "CREATE TABLE IF NOT EXISTS borrows ("
                 + "    borrow_id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "    user_id INTEGER NOT NULL,"
                 + "    document_id INTEGER NOT NULL,"
                 + "    borrow_date datetime DEFAULT CURRENT_TIMESTAMP,"
                 + "    due_date datetime,"
                 + "    return_date datetime,"
-                + "    is_returned BOOLEAN DEFAULT 0,"
                 + "    FOREIGN key (user_id) REFERENCES users (user_id),"
                 + "    FOREIGN key (document_id) REFERENCES documents (document_id)"
-                + ");",
-        "CREATE index idx_user_email ON users (email);",
-        "CREATE index idx_document_title ON documents (title);",
-        "CREATE index idx_borrow_user ON borrow (user_id);",
-        "CREATE index idx_borrow_document ON borrow (document_id);"
+                + ");"
     };
     private static final String[] SQL_ALTER_TABLES = {
-        "ALTER TABLE borrow RENAME TO _borrow_old;",
+        "ALTER TABLE borrows RENAME TO _borrow_old;",
         "CREATE TABLE borrow ("
                 + "    borrow_id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "    user_id INTEGER NOT NULL,"
@@ -72,61 +67,67 @@ public class DatabaseManager {
         "INSERT INTO borrow (borrow_id, user_id, document_id, borrow_date, due_date, return_date)"
                 + "SELECT borrow_id, user_id, document_id, borrow_date, due_date, return_date FROM _borrow_old;",
     };
-    private static final HikariDataSource dataSource;
+    private static volatile HikariDataSource dataSource;
 
     // https://gpcoder.com/6257-gioi-thieu-jdbc-connection-pool/
-    static {
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(DB_URL);
+    private static synchronized HikariDataSource getDataSource() {
+        if (dataSource == null) {
+            try {
+                createDatabaseIfNotExist();
 
-        config.setMaximumPoolSize(10);
-        config.setMinimumIdle(2);
-        config.setIdleTimeout(30000);
+                HikariConfig config = new HikariConfig();
+                config.setJdbcUrl(DB_URL);
+                config.setMaximumPoolSize(10);
+                config.setMinimumIdle(2);
+                config.setIdleTimeout(30000);
+                config.setConnectionTimeout(30000);
+                config.setLeakDetectionThreshold(2000);
 
-        config.setConnectionTimeout(30000);
-        config.setLeakDetectionThreshold(2000);
-
-        dataSource = new HikariDataSource(config);
+                dataSource = new HikariDataSource(config);
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to initialize database", e);
+            }
+        }
+        return dataSource;
     }
 
     public static Connection getConnection() throws SQLException {
-        return dataSource.getConnection();
+        return getDataSource().getConnection();
     }
 
     public static void close() {
         if (dataSource != null) {
             dataSource.close();
+            dataSource = null;
         }
     }
 
+    private static File getDatabaseFile() {
+        File dbFile = new File(DB_PATH);
+        if (!dbFile.exists()) {
+            dbFile.getParentFile().mkdirs();
+        }
+        return dbFile;
+    }
+
     public static void createDatabaseIfNotExist() throws IOException {
-        Path dbPath = Paths.get("src/main/resources/io/vn/dungxnd/duckabary/db/duckabary.db");
-        createDBFileIfNotExist(dbPath);
-        String url = "jdbc:sqlite:" + dbPath;
+        File dbFile = getDatabaseFile();
+        if (!dbFile.exists()) {
+            System.out.println("Database file not found, creating a new one...");
+            try {
+                dbFile.getParentFile().mkdirs();
+                dbFile.createNewFile();
 
-        try (Connection conn = DriverManager.getConnection(url);
-                Statement stmt = conn.createStatement()) {
-
-            // check if tables already exist
-            ResultSet userRs = conn.getMetaData().getTables(null, null, "users", null);
-            ResultSet adminRs = conn.getMetaData().getTables(null, null, "admins", null);
-            ResultSet docRs = conn.getMetaData().getTables(null, null, "documents", null);
-            ResultSet borrowRs = conn.getMetaData().getTables(null, null, "borrow", null);
-
-            if (userRs.next() && adminRs.next() && docRs.next() && borrowRs.next()) {
-                return;
-            } else {
-                System.out.println("Database tables not found, creating new tables");
+                try (Connection conn = DriverManager.getConnection(DB_URL);
+                        Statement stmt = conn.createStatement()) {
+                    for (String sql : TABLES_CREATION_SQL_STATEMENTS) {
+                        stmt.execute(sql);
+                    }
+                }
+                System.out.println("Database created successfully!");
+            } catch (IOException | SQLException e) {
+                throw new RuntimeException("Failed to initialize database", e);
             }
-
-            for (String sql : TABLES_CREATION_SQL_STATEMENTS) {
-                stmt.execute(sql);
-            }
-
-            System.out.println("Tables created successfully!");
-
-        } catch (SQLException e) {
-            System.err.println("SQL error: " + e.getMessage());
         }
     }
 
@@ -151,18 +152,6 @@ public class DatabaseManager {
         }
     }
 
-    public static void createDBFileIfNotExist(Path dbPath) throws IOException {
-        if (!dbPath.toFile().exists()) {
-            System.out.println("Database file not found, creating a new one");
-            boolean created = dbPath.toFile().createNewFile();
-            if (created) {
-                System.out.println("Database file created successfully!");
-            } else {
-                System.err.println("Failed to create the database file!");
-            }
-        }
-    }
-
     public static void checkCorrectnessOfTablesColumns() {
         try (Connection conn = getConnection();
                 ResultSet rs = conn.getMetaData().getColumns(null, null, "users", null)) {
@@ -184,15 +173,6 @@ public class DatabaseManager {
             }
         } catch (SQLException e) {
             System.err.println("SQL error: " + e.getMessage());
-        }
-    }
-
-    public static void checkAndInitDB() {
-        Path dbPath = Paths.get(DB_PATH);
-        try {
-            createDatabaseIfNotExist();
-        } catch (IOException e) {
-            System.err.println("Error creating database file: " + e.getMessage());
         }
     }
 

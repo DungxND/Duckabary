@@ -75,7 +75,6 @@ public class LibraryCmdService extends LibraryService {
         return documents;
     }
 
-
     @Override
     public UserCmdService getUserService() {
         return (UserCmdService) super.getUserService();

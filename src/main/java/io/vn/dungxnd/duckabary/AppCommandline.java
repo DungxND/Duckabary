@@ -1,5 +1,7 @@
 package io.vn.dungxnd.duckabary;
 
+import static io.vn.dungxnd.duckabary.core.Utils.getFormattedTime;
+
 import io.vn.dungxnd.duckabary.core.Utils;
 import io.vn.dungxnd.duckabary.core.borrow_management.BorrowCmdService;
 import io.vn.dungxnd.duckabary.core.borrow_management.BorrowManagement;
@@ -14,8 +16,6 @@ import io.vn.dungxnd.duckabary.db.DatabaseManager;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import static io.vn.dungxnd.duckabary.core.Utils.getFormattedTime;
 
 public class AppCommandline {
     public static void main(String[] args) {
@@ -47,8 +47,14 @@ public class AppCommandline {
             System.out.println("9. Display User Info");
             System.out.println("10. Show user borrowed document(s)");
             System.out.print("Choose: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            String input = scanner.nextLine();
+            int choice;
+            try {
+                choice = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input!");
+                continue;
+            }
             switch (choice) {
                 case 0:
                     System.out.print("Exiting...");
@@ -97,22 +103,26 @@ public class AppCommandline {
         int userId = scanner.nextInt();
         UserCmdService userCmdServices = libraryCmdService.getUserService();
         User user = userCmdServices.getUser(userId);
-        if (user.getBorrowRecords().isEmpty()) {
-            System.out.println("User " + user.getUsername() + "has not borrowed any document.");
+        if (user.borrowRecords().isEmpty()) {
+            System.out.println("User " + user.username() + " has not borrowed any document yet.");
             return;
         }
-        System.out.println("User " + user.getUsername() + " borrowed documents: ");
-        for (BorrowRecord r : user.getBorrowRecords()) {
-            System.out.println("====Record ID: " + r.getRecordId()+"====");
-            System.out.println("Document: " + libraryCmdService.getDocumentByID(r.getDocumentId()).getTitle() + " (ID: " + r.getDocumentId() + ")");
-            System.out.println("Borrow date: " + getFormattedTime(r.getBorrowDate()));
-            System.out.println("Due date: " + getFormattedTime(r.getDueDate()));
-            if (r.getReturnDate() != null) {
-                System.out.println("Return date: " + getFormattedTime(r.getReturnDate()));
+        System.out.println("User " + user.username() + " borrowed documents: ");
+        for (BorrowRecord r : user.borrowRecords()) {
+            System.out.println("====Record ID: " + r.recordId() + "====");
+            System.out.println(
+                    "Document: "
+                            + libraryCmdService.getDocumentByID(r.documentId()).getTitle()
+                            + " (ID: "
+                            + r.documentId()
+                            + ")");
+            System.out.println("Borrow date: " + getFormattedTime(r.borrowDate()));
+            System.out.println("Due date: " + getFormattedTime(r.dueDate()));
+            if (r.returnDate().isPresent()) {
+                System.out.println("Return date: " + getFormattedTime(r.returnDate().get()));
             } else {
                 System.out.println("Document not returned");
             }
-
         }
     }
 
@@ -123,7 +133,10 @@ public class AppCommandline {
         userCmdServices.getUserInfo(userId);
     }
 
-    static void returnDocument(Scanner scanner, BorrowCmdService borrowCmdService, LibraryCmdService libraryCmdService) {
+    static void returnDocument(
+            Scanner scanner,
+            BorrowCmdService borrowCmdService,
+            LibraryCmdService libraryCmdService) {
         System.out.println("====Return document=====");
         System.out.print("Enter user ID who return document: ");
         int userId = scanner.nextInt();
@@ -149,7 +162,8 @@ public class AppCommandline {
             System.out.println("Invalid date time format");
             return;
         }
-        borrowCmdService.borrowDocumentByUIdnDId(userId, borrowId, Utils.getDateTimeFromString(dueDate));
+        borrowCmdService.borrowDocumentByUIdnDId(
+                userId, borrowId, Utils.getDateTimeFromString(dueDate));
     }
 
     static void addUser(Scanner scanner, UserCmdService userService) {

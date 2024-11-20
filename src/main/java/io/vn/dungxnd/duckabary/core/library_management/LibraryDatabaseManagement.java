@@ -9,10 +9,6 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 
 public class LibraryDatabaseManagement {
-    private static final String DB_PATH =
-            "src/main/resources/io/vn/dungxnd/duckabary/db/duckabary.db";
-    private static final String DB_URL = "jdbc:sqlite:" + DB_PATH;
-
     public LinkedHashMap<Integer, Document> loadDocumentsFromDB() {
         LinkedHashMap<Integer, Document> documents = new LinkedHashMap<>();
 
@@ -23,7 +19,7 @@ public class LibraryDatabaseManagement {
                 ResultSet rs = pstmt.executeQuery()) {
 
             if (rs.isClosed()) {
-                System.out.println("No document data found!");
+                System.out.println("No document data found in database!");
                 return documents;
             }
 
@@ -56,7 +52,11 @@ public class LibraryDatabaseManagement {
         } catch (SQLException e) {
             System.out.println("Error loading documents: " + e.getMessage());
         }
-        System.out.println("Loaded " + documents.size() + " documents from database.");
+        if (!documents.isEmpty()) {
+            System.out.printf("Loaded %d document(s) successfully!\n", documents.size());
+        } else {
+            System.out.println("No document data found in database!");
+        }
         return documents;
     }
 
@@ -118,8 +118,9 @@ public class LibraryDatabaseManagement {
         }
     }
 
-    public void updateDocumentData(Document doc){
-        String sql = "UPDATE documents SET title = ?, author = ?, description = ?, publisher = ?, publish_year = ?, genre = ?, language = ?, ISBN = ?, quantity = ? WHERE document_id = ?";
+    public void updateDocumentData(Document doc) {
+        String sql =
+                "UPDATE documents SET title = ?, author = ?, description = ?, publisher = ?, publish_year = ?, genre = ?, language = ?, ISBN = ?, quantity = ? WHERE document_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, doc.getTitle());
@@ -137,6 +138,7 @@ public class LibraryDatabaseManagement {
             System.out.println("Error updating document data: " + e.getMessage());
         }
     }
+
     public void updateDocumentQuantityInDB(int docId, int newQuantity) {
         String sql = "UPDATE documents SET quantity = ? WHERE document_id = ?";
         try (Connection conn = DatabaseManager.getConnection();

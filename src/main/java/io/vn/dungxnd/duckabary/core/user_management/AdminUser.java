@@ -1,43 +1,19 @@
 package io.vn.dungxnd.duckabary.core.user_management;
 
-public class AdminUser {
-    private final int adminId;
-    private String username;
-    private String email;
-    private String hashedPassword;
-
-    public AdminUser(int id, String username, String email, String rawPassword) {
-        this.adminId = id;
-        this.username = username;
-        this.email = email;
-        this.hashedPassword = PasswordUtils.hashPassword(rawPassword);
+public record AdminUser(int adminId, String username, String email, String hashedPassword) {
+    public static AdminUser createAdmin(int id, String username, String email, String rawPassword) {
+        return new AdminUser(id, username, email, PasswordUtils.hashPassword(rawPassword));
     }
 
-    public int getAdminId() {
-        return adminId;
+    public AdminUser withUsername(String newUsername) {
+        return new AdminUser(adminId, newUsername, email, hashedPassword);
     }
 
-    public String getUsername() {
-        return username;
+    public AdminUser withEmail(String newEmail) {
+        return new AdminUser(adminId, username, newEmail, hashedPassword);
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void changeUsername(String newUsername) {
-        this.username = newUsername;
-    }
-
-    public void changeEmail(String newEmail) {
-        this.email = newEmail;
-    }
-
-    public void changePassword(String rawPassword) {
-        this.hashedPassword = PasswordUtils.hashPassword(rawPassword);
-    }
-
-    public String getHashedPassword() {
-        return hashedPassword;
+    public AdminUser withNewPassword(String rawPassword) {
+        return new AdminUser(adminId, username, email, PasswordUtils.hashPassword(rawPassword));
     }
 }

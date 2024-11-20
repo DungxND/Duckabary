@@ -9,7 +9,12 @@ public class PasswordUtils {
     /* Hash a password for storing. */
     static Argon2Function argon2 = Argon2Function.getInstance(131072, 5, 4, 40, Argon2.ID, 19);
 
+    private PasswordUtils() {}
+
     public static String hashPassword(String plainTextPassword) {
+        if (plainTextPassword == null || plainTextPassword.isBlank()) {
+            throw new IllegalArgumentException("Password cannot be empty");
+        }
         return Password.hash(plainTextPassword).addRandomSalt().with(argon2).getResult();
     }
 

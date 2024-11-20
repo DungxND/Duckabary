@@ -23,9 +23,10 @@ public class BorrowManagement {
 
     private void distributeBorrowRecordsToUsers() {
         for (BorrowRecord record : borrowRecords) {
-            User user = userService.getUserByID(record.getUserId());
+            User user = userService.getUserByID(record.userId());
             if (user != null) {
-                user.addBorrowRecord(record);
+                user = user.addBorrowRecord(record);
+                userService.updateUser(user);
             }
         }
     }
@@ -37,23 +38,37 @@ public class BorrowManagement {
     public void saveBorrowRecord(BorrowRecord record) {
         borrowRecords.add(record);
 
-        borrowDatabaseManagement.saveBorrowRecord(record.getUserId(), record.getDocumentId());
+        borrowDatabaseManagement.saveBorrowRecord(
+                record.userId(),
+                record.documentId(),
+                record.borrowDate(),
+                record.dueDate(),
+                record.returnDate().orElse(null));
 
-        User user = userService.getUserByID(record.getUserId());
+        User user = userService.getUserByID(record.userId());
         if (user != null) {
-            user.addBorrowRecord(record);
+            user = user.addBorrowRecord(record);
+            userService.updateUser(user);
         }
     }
 
     public void returnDocument(BorrowRecord record) {
-        borrowRecords.remove(record);
+        BorrowRecord updatedRecord = record.returnDocument();
+
+        int index = borrowRecords.indexOf(record);
+        if (index != -1) {
+            borrowRecords.set(index, updatedRecord);
+        }
 
         borrowDatabaseManagement.returnDocument(
-                record.getUserId(), record.getDocumentId(), record.getReturnDate());
+                updatedRecord.userId(),
+                updatedRecord.documentId(),
+                updatedRecord.returnDate().orElseThrow());
 
-        User user = userService.getUserByID(record.getUserId());
+        User user = userService.getUserByID(updatedRecord.userId());
         if (user != null) {
-            user.removeBorrowRecord(record);
+            user = user.returnDocument(updatedRecord);
+            userService.updateUser(user);
         }
     }
 
@@ -71,11 +86,10 @@ public class BorrowManagement {
 
     public BorrowRecord getBorrowRecordByID(int recordId) {
         for (BorrowRecord record : borrowRecords) {
-            if (record.getRecordId() == recordId) {
+            if (record.recordId() == recordId) {
                 return record;
             }
         }
         return null;
     }
-
 }

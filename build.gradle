@@ -3,9 +3,9 @@ plugins {
     id 'application'
     id 'org.javamodularity.moduleplugin' version '1.8.15'
     id 'org.openjfx.javafxplugin' version '0.1.0'
-    id 'org.beryx.jlink' version '3.0.1'
+    id 'org.beryx.jlink' version '3.1.0-rc-1'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
-    id 'org.jetbrains.kotlin.jvm' version '2.1.0-Beta1'
+    id 'org.jetbrains.kotlin.jvm' version '2.1.0-RC2'
 }
 
 group 'io.vn.dungxnd.duckabary'
@@ -19,8 +19,8 @@ ext {
     junitVersion = '5.11.3'
 }
 
-sourceCompatibility = '22'
-targetCompatibility = '22'
+sourceCompatibility = '23'
+targetCompatibility = '23'
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
@@ -28,7 +28,10 @@ tasks.withType(JavaCompile).configureEach {
 
 application {
     mainModule = 'io.vn.dungxnd.duckabary'
-    mainClass = 'io.vn.dungxnd.duckabary.HelloApplication'
+    mainClass = 'io.vn.dungxnd.duckabary.AppCommandline'
+
+    // use of J23 garbage collector
+    applicationDefaultJvmArgs = ['-XX:+UseZGC', '-XX:+ZGenerational']
 }
 
 java {
@@ -66,7 +69,7 @@ dependencies {
 //    implementation 'tech.turso.libsql:libsql:0.1.0'
 
     // Kotlin to run DB things
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.0-Beta1'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.0-RC2'
 
     // Encrypt password
     implementation 'com.password4j:password4j:1.8.2'
@@ -77,6 +80,19 @@ dependencies {
 
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'io.vn.dungxnd.duckabary.AppCommandline',
+                'Class-Path': configurations.runtimeClasspath.files.collect { "libs/$it.name" }.join(' ')
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
 
 test {
     useJUnitPlatform()
@@ -89,11 +105,12 @@ jlink {
         name = 'Duckabary'
     }
     jpackage {
-        installerType='msi'
-        installerName='Duckabary Installer'
+        installerType = 'msi'
+        installerName = 'Duckabary Installer'
     }
 }
 
 jlinkZip {
     group = 'distribution'
 }
+

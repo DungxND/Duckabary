@@ -14,11 +14,11 @@ public class Utils {
             time = time.substring(time.indexOf("(") + 1, time.indexOf(")"));
         }
 
-        if (time.length()==16){
+        if (time.length() == 16) {
             time = time + ":00";
         }
 
-        if (time.length()==13){
+        if (time.length() == 13) {
             time = time + ":00:00";
         }
 

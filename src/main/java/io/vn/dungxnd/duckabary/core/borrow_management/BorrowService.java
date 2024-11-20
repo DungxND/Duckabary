@@ -19,7 +19,6 @@ public class BorrowService {
         this.userService = borrowManagement.getUserService();
     }
 
-
     public boolean borrowDocumentByUIdnDId(int documentID, int userID, LocalDateTime dueDate) {
         var user = userService.getUserByID(userID);
         var document = libraryService.getDocumentByID(documentID);
@@ -29,7 +28,7 @@ public class BorrowService {
         }
 
         BorrowRecord borrowRecord =
-                new BorrowRecord(
+                BorrowRecord.createBorrowRecord(
                         borrowDatabaseManagement.getNextRecordId(),
                         userID,
                         documentID,
@@ -61,8 +60,8 @@ public class BorrowService {
 
     public boolean returnDocumentByRecordId(int recordId) {
         BorrowRecord record = borrowManagement.getBorrowRecordByID(recordId);
-        var user = userService.getUserByID(record.getUserId());
-        var document = libraryService.getDocumentByID(record.getDocumentId());
+        var user = userService.getUserByID(record.userId());
+        var document = libraryService.getDocumentByID(record.documentId());
 
         if (user == null || document == null) {
             return false;

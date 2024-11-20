@@ -1,5 +1,6 @@
 package io.vn.dungxnd.duckabary.core.user_management;
 
+import io.vn.dungxnd.duckabary.db.DatabaseException;
 import io.vn.dungxnd.duckabary.db.DatabaseManager;
 
 import java.sql.Connection;
@@ -9,13 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserDatabaseManagement {
-    private static final String DB_PATH =
-            "src/main/resources/io/vn/dungxnd/duckabary/db/duckabary.db";
-    private static final String DB_URL = "jdbc:sqlite:" + DB_PATH;
-
-    static {
-        DatabaseManager.checkAndInitDB();
-    }
 
     private Connection conn;
 
@@ -29,7 +23,7 @@ public class UserDatabaseManagement {
                 ResultSet rs = pstmt.executeQuery()) {
 
             if (rs.isClosed()) {
-                System.out.println("No user data found!");
+                System.out.println("No user data found in database!");
                 return users;
             }
             // Get data from loaded users db columns
@@ -42,7 +36,10 @@ public class UserDatabaseManagement {
                 String phone = rs.getString("phone");
                 String address = rs.getString("address");
 
-                User user = new User(userId, username, firstName, lastName, email, phone, address);
+                User user =
+                        User.createUser(
+                                userId, username, firstName, lastName, email, phone, address);
+
                 users.add(user);
             }
 
@@ -52,7 +49,10 @@ public class UserDatabaseManagement {
 
         if (!users.isEmpty()) {
             System.out.printf("Loaded %d user(s) successfully!\n", users.size());
+        } else {
+            System.out.println("No user data found in database!");
         }
+
         return users;
     }
 
@@ -60,22 +60,28 @@ public class UserDatabaseManagement {
         String sql =
                 "INSERT INTO users (username, firstname, lastname, email, phone, address) VALUES ( ?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = DatabaseManager.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseManager.getConnection()) {
+            conn.setAutoCommit(false);
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, user.getUsername());
-            pstmt.setString(2, user.getFirstName());
-            pstmt.setString(3, user.getLastName());
-            pstmt.setString(4, user.getEmail());
-            pstmt.setString(5, user.getPhone());
-            pstmt.setString(6, user.getAddress());
+                pstmt.setString(1, user.username());
+                pstmt.setString(2, user.firstName());
+                pstmt.setString(3, user.lastName());
+                pstmt.setString(4, user.email());
+                pstmt.setString(5, user.phone());
+                pstmt.setString(6, user.address());
 
-            pstmt.executeUpdate();
+                pstmt.executeUpdate();
+                conn.commit();
 
-            System.out.println("User added to DB successfully!");
+                System.out.println("User added to DB successfully!");
 
+            } catch (SQLException e) {
+                System.out.println("Error adding user: " + e.getMessage());
+                conn.rollback();
+            }
         } catch (SQLException e) {
-            System.out.println("Error adding user: " + e.getMessage());
+            throw new DatabaseException("Failed to add user to database", e);
         }
     }
 
@@ -85,9 +91,9 @@ public class UserDatabaseManagement {
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, user.getUsername());
-            pstmt.setString(2, user.getEmail());
-            pstmt.setString(3, user.getHashedPassword());
+            pstmt.setString(1, user.username());
+            pstmt.setString(2, user.email());
+            pstmt.setString(3, user.hashedPassword());
 
             pstmt.executeUpdate();
 
@@ -99,7 +105,7 @@ public class UserDatabaseManagement {
     }
 
     public ArrayList<AdminUser> loadAdminUsersFromDB() {
-        ArrayList<AdminUser> users = new ArrayList<>();
+        ArrayList<AdminUser> admins = new ArrayList<>();
 
         String sql = "SELECT * FROM admins";
 
@@ -108,8 +114,8 @@ public class UserDatabaseManagement {
                 ResultSet rs = pstmt.executeQuery()) {
 
             if (rs.isClosed()) {
-                System.out.println("No admin user data found!");
-                return users;
+                System.out.println("No admin user data found in database!");
+                return admins;
             }
             // Get data from loaded users db columns
             while (rs.next()) {
@@ -118,18 +124,20 @@ public class UserDatabaseManagement {
                 String email = rs.getString("email");
                 String hashedPassword = rs.getString("hashedPassword");
 
-                AdminUser user = new AdminUser(adminId, username, email, hashedPassword);
-                users.add(user);
+                AdminUser user = AdminUser.createAdmin(adminId, username, email, hashedPassword);
+                admins.add(user);
             }
 
         } catch (SQLException e) {
             System.out.println("Error loading admin users: " + e.getMessage());
         }
 
-        if (!users.isEmpty()) {
-            System.out.printf("Loaded %d admin user(s) successfully!\n", users.size());
+        if (!admins.isEmpty()) {
+            System.out.printf("Loaded %d admin user(s) successfully!\n", admins.size());
+        } else {
+            System.out.println("No admin user data found in database!");
         }
-        return users;
+        return admins;
     }
 
     public void deleteUserFromDB(int userId) {
@@ -145,6 +153,30 @@ public class UserDatabaseManagement {
 
         } catch (SQLException e) {
             System.out.println("Error deleting user: " + e.getMessage());
+        }
+    }
+
+    public void updateUserInDB(User updatedUser) {
+        String sql =
+                "UPDATE users SET username = ?, firstname = ?, lastname = ?, email = ?, phone = ?, address = ? WHERE user_id = ?";
+
+        try (Connection conn = DatabaseManager.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, updatedUser.username());
+            pstmt.setString(2, updatedUser.firstName());
+            pstmt.setString(3, updatedUser.lastName());
+            pstmt.setString(4, updatedUser.email());
+            pstmt.setString(5, updatedUser.phone());
+            pstmt.setString(6, updatedUser.address());
+            pstmt.setInt(7, updatedUser.id());
+
+            pstmt.executeUpdate();
+
+            System.out.println("User updated in DB successfully!");
+
+        } catch (SQLException e) {
+            System.out.println("Error updating user: " + e.getMessage());
         }
     }
 }

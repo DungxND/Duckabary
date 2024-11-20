@@ -15,20 +15,17 @@ public class UserCmdService extends UserService {
     }
 
     @Override
-    public void createUser(
+    public User createUser(
             String username,
             String email,
             String firstName,
             String lastName,
             String phone,
             String address) {
-        if (super.isUsernameAlreadyExist(username)) {
-            System.out.println("Username " + username + " already exists, please use another one");
-            return;
-        }
         super.createUser(username, email, firstName, lastName, phone, address);
         System.out.println(
                 "User " + username + " created successfully with id " + (getNewUserID()));
+        return getUser(getNewUserID());
     }
 
     public void getUserInfo(int userId) {
@@ -38,13 +35,12 @@ public class UserCmdService extends UserService {
             return;
         }
         System.out.println("======= UID " + userId + " =======");
-        System.out.println("First Name: " + foundUser.getFirstName());
-        System.out.println("Last Name: " + foundUser.getLastName());
-        System.out.println("Username: " + foundUser.getUsername());
-        System.out.println("Email: " + foundUser.getEmail());
-        System.out.println("Phone: " + foundUser.getPhone());
-        System.out.println("Address: " + foundUser.getAddress());
+        System.out.println("First Name: " + foundUser.firstName());
+        System.out.println("Last Name: " + foundUser.lastName());
+        System.out.println("Username: " + foundUser.username());
+        System.out.println("Email: " + foundUser.email());
+        System.out.println("Phone: " + foundUser.phone());
+        System.out.println("Address: " + foundUser.address());
         System.out.println("======================");
     }
-
 }

@@ -3,6 +3,35 @@
 ## To-do
 - [ ] Refactor the code
 - [ ] Test app
+- [ ] Logger instead of System.out
+
+## 21 Nov 2024 #1 (DungxND)
+
+### Added
+
+- Added Gradle .jar building configuration.
+- Added Generational Z Garbage Collector ([ZGC](https://docs.oracle.com/en/java/javase/23/gctuning/z-garbage-collector.html)) to the project. (Java 23)
+
+### Changed
+
+- Use of record instead of class BorrowRecord, User, AdminUser (reduced a lot of code and may improve performance) (**NEED TO CONDUCT TESTS TO MAKE SURE NEW SYSTEM WORKS**)
+- Better handling of borrow/return document
+- Better initialization/handling of the database creation, connection
+  - Stop using static block to initialize the database, replace with synchronized method to prevent many creation.
+  - Using volatile keyword to make sure other threads see the updated value of the database connection.
+- Using relative path of the database file, app can now run in Debug/Release env without path/file error.
+- Update Java version 21 to 23 (to use ZGC and compatible with JavaFX 24+ea15)
+- Update deps
+
+### Fixed
+
+- Fixed if the option input is string, the app will crash
+
+## 19 Nov 2024 (DucLH)
+
+### Added
+
+- Added pp main menu UI.
 
 ## 18 Nov 2024 (DungxND):
 

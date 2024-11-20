@@ -1,5 +1,7 @@
 package io.vn.dungxnd.duckabary.core.borrow_management;
 
+import io.vn.dungxnd.duckabary.core.library_management.Document;
+
 import java.time.LocalDateTime;
 
 public class BorrowCmdService extends BorrowService {
@@ -28,7 +30,7 @@ public class BorrowCmdService extends BorrowService {
         }
 
         BorrowRecord borrowRecord =
-                new BorrowRecord(
+                BorrowRecord.createBorrowRecord(
                         borrowDatabaseManagement.getNextRecordId(),
                         userID,
                         documentID,
@@ -36,9 +38,7 @@ public class BorrowCmdService extends BorrowService {
                         dueDate);
         borrowManagement.saveBorrowRecord(borrowRecord);
 
-        libraryService
-                .getDocumentByID(documentID)
-                .setQuantity(libraryService.getDocumentByID(documentID).getQuantity() - 1);
+        document.setQuantity(document.getQuantity() - 1);
 
         System.out.println("Document borrowed successfully");
         return true;
@@ -56,15 +56,15 @@ public class BorrowCmdService extends BorrowService {
             System.out.println("User with id " + userId + " not found");
             return false;
         }
-        if (libraryService.getDocumentByID(docId) == null) {
+
+        Document document = libraryService.getDocumentByID(docId);
+        if (document == null) {
             System.out.println("Document with id " + docId + " not found");
             return false;
         }
         borrowManagement.returnDocument(record);
 
-        libraryService
-                .getDocumentByID(docId)
-                .setQuantity(libraryService.getDocumentByID(docId).getQuantity() + 1);
+        document.setQuantity(document.getQuantity() + 1);
 
         System.out.println("Document returned successfully");
         return true;

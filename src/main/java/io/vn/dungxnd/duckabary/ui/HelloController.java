@@ -21,32 +21,23 @@ import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
 
-    @FXML
-    private ImageView anhSach;
+    @FXML private ImageView anhSach;
 
-    @FXML
-    private TextField enterPassword;
+    @FXML private TextField enterPassword;
 
-    @FXML
-    private TextField enterUsername;
+    @FXML private TextField enterUsername;
 
-    @FXML
-    private AnchorPane imagePart;
+    @FXML private AnchorPane imagePart;
 
-    @FXML
-    private Button loginButton;
+    @FXML private Button loginButton;
 
-    @FXML
-    private Label passWord;
+    @FXML private Label passWord;
 
-    @FXML
-    private BorderPane signInGUI;
+    @FXML private BorderPane signInGUI;
 
-    @FXML
-    private Button signupButton;
+    @FXML private Button signupButton;
 
-    @FXML
-    private Label userName;
+    @FXML private Label userName;
 
     @FXML
     private void enterMainMenu(ActionEvent event) {
@@ -80,7 +71,5 @@ public class HelloController implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
+    public void initialize(URL url, ResourceBundle resourceBundle) {}
 }
