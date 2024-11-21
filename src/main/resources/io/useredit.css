@@ -1,0 +1,24 @@
+
+
+#ttPane {
+    -fx-background-color: #62533D;
+
+}
+
+#ttPane .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+#saveBut{
+    -fx-background-color: #FAAA3A;
+    -fx-text-fill: #FDFBF4;
+    -fx-font-weight: bold;
+}
+
+#cancelBut{
+    -fx-background-color: #D6D6D6;
+    -fx-font-weight: bold;
+}
+
+
