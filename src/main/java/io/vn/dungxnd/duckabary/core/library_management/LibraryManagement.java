@@ -72,4 +72,8 @@ public class LibraryManagement {
     public LibraryDatabaseManagement getLibraryDatabaseManagement() {
         return libraryDatabaseManagement;
     }
+
+    public boolean isISBNExists(String isbn) {
+        return library.getDocumentList().stream().anyMatch(doc -> doc.getISBN().equals(isbn));
+    }
 }

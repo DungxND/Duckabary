@@ -1,4 +1,4 @@
-package io.vn.dungxnd.duckabary.db;
+package io.vn.dungxnd.duckabary.core.db;
 
 public class DatabaseUtils {
     private static final String DB_PATH =

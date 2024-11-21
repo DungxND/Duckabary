@@ -1,6 +1,6 @@
 package io.vn.dungxnd.duckabary.core.borrow_management;
 
-import io.vn.dungxnd.duckabary.db.DatabaseManager;
+import io.vn.dungxnd.duckabary.core.db.DatabaseManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -127,13 +127,12 @@ public class BorrowDatabaseManagement {
 
     public void returnDocument(int userId, int documentId, LocalDateTime returnDate) {
         String sql =
-                "UPDATE borrows SET return_date = ?, is_returned = ? WHERE user_id = ? AND document_id = ?";
+                "UPDATE borrows SET return_date = ? WHERE user_id = ? AND document_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setTimestamp(1, java.sql.Timestamp.valueOf(returnDate));
-            pstmt.setBoolean(2, true);
-            pstmt.setInt(3, userId);
-            pstmt.setInt(4, documentId);
+            pstmt.setInt(2, userId);
+            pstmt.setInt(3, documentId);
             pstmt.executeUpdate();
             System.out.println("Document returned successfully.");
         } catch (SQLException e) {
@@ -145,7 +144,7 @@ public class BorrowDatabaseManagement {
 
         // TODO: Clean up records, update user's Borrow Record array borrow id
 
-        String sql = "DELETE FROM borrows WHERE is_returned = true";
+        String sql = "DELETE FROM borrows WHERE return_date IS NOT NULL";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.executeUpdate();

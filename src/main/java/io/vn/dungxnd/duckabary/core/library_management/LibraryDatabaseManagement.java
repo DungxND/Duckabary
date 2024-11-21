@@ -1,6 +1,6 @@
 package io.vn.dungxnd.duckabary.core.library_management;
 
-import io.vn.dungxnd.duckabary.db.DatabaseManager;
+import io.vn.dungxnd.duckabary.core.db.DatabaseManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

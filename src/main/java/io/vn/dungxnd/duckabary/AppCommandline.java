@@ -4,15 +4,12 @@ import static io.vn.dungxnd.duckabary.core.Utils.getFormattedTime;
 
 import io.vn.dungxnd.duckabary.core.Utils;
 import io.vn.dungxnd.duckabary.core.borrow_management.BorrowCmdService;
-import io.vn.dungxnd.duckabary.core.borrow_management.BorrowManagement;
 import io.vn.dungxnd.duckabary.core.borrow_management.BorrowRecord;
 import io.vn.dungxnd.duckabary.core.library_management.Document;
 import io.vn.dungxnd.duckabary.core.library_management.LibraryCmdService;
-import io.vn.dungxnd.duckabary.core.library_management.LibraryManagement;
 import io.vn.dungxnd.duckabary.core.user_management.User;
 import io.vn.dungxnd.duckabary.core.user_management.UserCmdService;
-import io.vn.dungxnd.duckabary.core.user_management.UserManagement;
-import io.vn.dungxnd.duckabary.db.DatabaseManager;
+import io.vn.dungxnd.duckabary.core.db.DatabaseManager;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -23,13 +20,10 @@ public class AppCommandline {
 
         AppCliManagement appCliManagement = new AppCliManagement();
 
-        UserManagement userManagement = appCliManagement.getUserManagement();
         UserCmdService userCmdServices = appCliManagement.getUserCmdService();
 
-        LibraryManagement libraryManagement = appCliManagement.getLibraryManagement();
         LibraryCmdService libraryCmdService = appCliManagement.getLibraryCmdService();
 
-        BorrowManagement borrowManagement = appCliManagement.getBorrowManagement();
         BorrowCmdService borrowCmdService = appCliManagement.getBorrowCmdService();
 
         //noinspection InfiniteLoopStatement
@@ -102,7 +96,7 @@ public class AppCommandline {
         System.out.print("Enter user ID: ");
         int userId = scanner.nextInt();
         UserCmdService userCmdServices = libraryCmdService.getUserService();
-        User user = userCmdServices.getUser(userId);
+        User user = userCmdServices.getUserByID(userId);
         if (user.borrowRecords().isEmpty()) {
             System.out.println("User " + user.username() + " has not borrowed any document yet.");
             return;
@@ -385,7 +379,7 @@ public class AppCommandline {
         if (genre.isEmpty()) {
             genre = "";
         }
-        System.out.print("Enter document language: ");
+        System.out.print("Enter document language (using ISO-639 format - https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes): ");
         String language = scanner.nextLine();
         if (language.isEmpty()) {
             language = "";

@@ -2,6 +2,7 @@ package io.vn.dungxnd.duckabary.core.borrow_management;
 
 import io.vn.dungxnd.duckabary.core.library_management.LibraryService;
 import io.vn.dungxnd.duckabary.core.user_management.UserService;
+import io.vn.dungxnd.duckabary.utils.LoggerUtils;
 
 import java.time.LocalDateTime;
 
@@ -39,6 +40,7 @@ public class BorrowService {
 
         document.setQuantity(document.getQuantity() - 1);
 
+        LoggerUtils.info("Document borrowed successfully");
         return true;
     }
 
@@ -55,6 +57,7 @@ public class BorrowService {
 
         document.setQuantity(document.getQuantity() + 1);
 
+        LoggerUtils.info("Document returned successfully");
         return true;
     }
 
@@ -71,6 +74,7 @@ public class BorrowService {
 
         document.setQuantity(document.getQuantity() + 1);
 
+        LoggerUtils.info("Document returned successfully");
         return true;
     }
 }

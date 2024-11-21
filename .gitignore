@@ -46,3 +46,5 @@ fakeDataGen/datas/
 # pycache
 **/__pycache__/
 /.idea/
+
+**/duckabary.db

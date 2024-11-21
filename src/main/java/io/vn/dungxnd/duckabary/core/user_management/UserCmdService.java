@@ -1,17 +1,22 @@
 package io.vn.dungxnd.duckabary.core.user_management;
 
+import io.vn.dungxnd.duckabary.utils.LoggerUtils;
+
 public class UserCmdService extends UserService {
     public UserCmdService(UserManagement userManager) {
         super(userManager);
+        LoggerUtils.debug("UserCmdService initialized");
     }
 
     @Override
-    public User getUser(int userId) {
-        if (super.getUser(userId) == null) {
+    public User getUserByID(int userId) {
+        User user = super.getUserByID(userId);
+        if (user == null) {
+            LoggerUtils.info("User not found with ID: " + userId);
             System.out.println("User not found");
             return null;
         }
-        return super.getUser(userId);
+        return user;
     }
 
     @Override
@@ -22,14 +27,20 @@ public class UserCmdService extends UserService {
             String lastName,
             String phone,
             String address) {
-        super.createUser(username, email, firstName, lastName, phone, address);
+        var user = super.createUser(username, email, firstName, lastName, phone, address);
+
+        if (user == null) {
+            System.out.println("User creation failed");
+            return null;
+        }
+
         System.out.println(
                 "User " + username + " created successfully with id " + (getNewUserID()));
-        return getUser(getNewUserID());
+        return user;
     }
 
     public void getUserInfo(int userId) {
-        User foundUser = super.getUser(userId);
+        User foundUser = super.getUserByID(userId);
         if (foundUser == null) {
             System.out.println("User not found");
             return;

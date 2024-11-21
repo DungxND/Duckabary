@@ -1,4 +1,4 @@
-package io.vn.dungxnd.duckabary.core.user_management;
+package io.vn.dungxnd.duckabary.core.exeption;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(int userId) {

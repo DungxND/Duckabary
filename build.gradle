@@ -8,6 +8,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '2.1.0-RC2'
 }
 
+
 group 'io.vn.dungxnd.duckabary'
 version '1.0-SNAPSHOT'
 
@@ -19,12 +20,10 @@ ext {
     junitVersion = '5.11.3'
 }
 
-sourceCompatibility = '23'
-targetCompatibility = '23'
-
-tasks.withType(JavaCompile).configureEach {
+tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
+
 
 application {
     mainModule = 'io.vn.dungxnd.duckabary'
@@ -35,8 +34,11 @@ application {
 }
 
 java {
-    modularity.inferModulePath.set(false)
+    sourceCompatibility = JavaVersion.VERSION_23
+    targetCompatibility = JavaVersion.VERSION_23
+    modularity.inferModulePath = false
 }
+
 
 javafx {
     version = '24-ea+15'
@@ -76,11 +78,11 @@ dependencies {
 
     // Logging?
     implementation 'org.slf4j:slf4j-api:2.1.0-alpha1'
-    implementation 'org.slf4j:slf4j-nop:2.1.0-alpha1'
+    implementation 'org.slf4j:slf4j-simple:2.1.0-alpha1'
 
 }
 
-jar {
+tasks.jar {
     manifest {
         attributes(
                 'Main-Class': 'io.vn.dungxnd.duckabary.AppCommandline',
@@ -94,12 +96,12 @@ jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
-test {
+tasks.test {
     useJUnitPlatform()
 }
 
 jlink {
-    imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
+    imageZip = project.layout.buildDirectory.file("distributions/app-${javafx.platform.classifier}.zip")
     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
     launcher {
         name = 'Duckabary'

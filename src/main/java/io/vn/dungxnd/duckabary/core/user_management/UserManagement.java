@@ -1,5 +1,7 @@
 package io.vn.dungxnd.duckabary.core.user_management;
 
+import io.vn.dungxnd.duckabary.core.exeption.UserNotFoundException;
+
 import java.util.ArrayList;
 
 public class UserManagement {
@@ -23,7 +25,7 @@ public class UserManagement {
 
     public User getUserById(int userId) {
         return users.stream()
-                .filter(user -> user.id() == userId - 1)
+                .filter(user -> user.id() == userId )
                 .findFirst()
                 .orElseThrow(() -> new UserNotFoundException(userId));
     }
@@ -31,15 +33,19 @@ public class UserManagement {
     public void createUser(User user) {
         synchronized (lock) {
             if (checkUsernameExist(user.username())) {
-                throw new IllegalArgumentException("Username already exists");
+                return;
             }
             users.add(user);
             userDatabaseManagement.addUserToDB(user);
         }
+
     }
 
     public int getNewUserID() {
-        return users.size();
+        if (users.isEmpty()) {
+            return 1;
+        }
+        return users.getLast().id() + 1;
     }
 
     public int getNewAdminUserID() {
@@ -53,8 +59,8 @@ public class UserManagement {
     }
 
     public void deleteUser(int userId) {
-        if (userId < 0 || userId >= users.size()) {
-            System.out.println("User not found");
+        int index = findUserIndexById(userId);
+        if (index == -1) {
             return;
         }
         users.remove(userId);
@@ -80,10 +86,8 @@ public class UserManagement {
 
     public boolean updateUser(User updatedUser) {
         int index = findUserIndexById(updatedUser.id());
-
         if (index != -1) {
             users.set(index, updatedUser);
-
             userDatabaseManagement.updateUserInDB(updatedUser);
             return true;
         } else {

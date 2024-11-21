@@ -5,12 +5,28 @@
 - [ ] Test app
 - [ ] Logger instead of System.out
 
+## 21 Nov 2024 #2 (DungxND)
+
+### Added
+
+- Added LoggerUtils to log app's activities.
+
+### Changed
+
+- Improved gradle.build configuration.
+
+### Fixed
+
+- Fixed problem syncing userId between local and database.
+- Fixed problem returning document cause err in BorrowDatabaseManager.
+
 ## 21 Nov 2024 #1 (DungxND)
 
 ### Added
 
 - Added Gradle .jar building configuration.
 - Added Generational Z Garbage Collector ([ZGC](https://docs.oracle.com/en/java/javase/23/gctuning/z-garbage-collector.html)) to the project. (Java 23)
+- Added validation for user creation.
 
 ### Changed
 

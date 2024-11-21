@@ -106,6 +106,9 @@ public class Document {
     }
 
     public String getISBN() {
+        if (ISBN == null) {
+            return "Unknown ISBN";
+        }
         return ISBN;
     }
 

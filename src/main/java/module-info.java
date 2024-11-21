@@ -22,5 +22,6 @@ module io.vn.dungxnd.duckabary {
     opens io.vn.dungxnd.duckabary to
             javafx.fxml;
 
-    exports io.vn.dungxnd.duckabary.db;
+    exports io.vn.dungxnd.duckabary.core.db;
+    exports io.vn.dungxnd.duckabary.core.exeption;
 }
