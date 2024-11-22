@@ -41,6 +41,7 @@ public class BorrowManagement {
         borrowDatabaseManagement.saveBorrowRecord(
                 record.userId(),
                 record.documentId(),
+                record.quantity(),
                 record.borrowDate(),
                 record.dueDate(),
                 record.returnDate().orElse(null));

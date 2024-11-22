@@ -1,0 +1,25 @@
+* {
+
+}
+
+
+.button {
+    -fx-background-color: #FAAA3A;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+
+#main,
+#title,
+#down {
+    -fx-background-color: #F8F5E9 ;
+}
+
+#title .text{
+    -fx-font-weight: bold;
+}
+
+
+
+

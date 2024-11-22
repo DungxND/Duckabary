@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="signInGUI" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="442.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/23"
-            fx:controller="io.vn.dungxnd.duckabary.ui.HelloController">
+            fx:controller="io.vn.dungxnd.duckabary.ui.Login">
     <left>
         <AnchorPane fx:id="imagePart" prefHeight="442.0" prefWidth="262.0" BorderPane.alignment="CENTER"/>
     </left>

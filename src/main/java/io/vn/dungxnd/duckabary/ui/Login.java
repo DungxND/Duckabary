@@ -1,5 +1,6 @@
 package io.vn.dungxnd.duckabary.ui;
 
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +20,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class HelloController implements Initializable {
+import static javafx.application.Application.launch;
+
+public class Login extends Application  {
 
     @FXML private ImageView anhSach;
 
@@ -55,10 +58,11 @@ public class HelloController implements Initializable {
         }
     }
 
+
     @FXML
     void openRegisterPopup(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("register.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
             Parent root = loader.load();
 
             Stage registerStage = new Stage();
@@ -70,6 +74,11 @@ public class HelloController implements Initializable {
         }
     }
 
+
+
+
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {}
+    public void start(Stage stage) throws Exception {
+
+    }
 }
