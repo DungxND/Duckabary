@@ -5,11 +5,11 @@ import static io.vn.dungxnd.duckabary.core.Utils.getFormattedTime;
 import io.vn.dungxnd.duckabary.core.Utils;
 import io.vn.dungxnd.duckabary.core.borrow_management.BorrowCmdService;
 import io.vn.dungxnd.duckabary.core.borrow_management.BorrowRecord;
+import io.vn.dungxnd.duckabary.core.db.DatabaseManager;
 import io.vn.dungxnd.duckabary.core.library_management.Document;
 import io.vn.dungxnd.duckabary.core.library_management.LibraryCmdService;
 import io.vn.dungxnd.duckabary.core.user_management.User;
 import io.vn.dungxnd.duckabary.core.user_management.UserCmdService;
-import io.vn.dungxnd.duckabary.core.db.DatabaseManager;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -34,12 +34,13 @@ public class AppCommandline {
             System.out.println("2. Remove document");
             System.out.println("3. Update document");
             System.out.println("4. Find document");
-            System.out.println("5. Display Document");
-            System.out.println("6. Add User");
-            System.out.println("7. Borrow Document");
-            System.out.println("8. Return Document");
-            System.out.println("9. Display User Info");
+            System.out.println("5. Show document list");
+            System.out.println("6. Add new user");
+            System.out.println("7. Borrow document");
+            System.out.println("8. Return document");
+            System.out.println("9. Show user Info");
             System.out.println("10. Show user borrowed document(s)");
+            System.out.println("11. Show document info");
             System.out.print("Choose: ");
             String input = scanner.nextLine();
             int choice;
@@ -85,16 +86,28 @@ public class AppCommandline {
                 case 10:
                     showUserBorrowedDocuments(scanner, libraryCmdService);
                     break;
+                case 11:
+                    showDocumentInfo(scanner, libraryCmdService);
                 default:
                     System.out.println("Action not found");
             }
         }
     }
 
+    private static void showDocumentInfo(Scanner scanner, LibraryCmdService libraryCmdService) {
+        System.out.println("====Show document info=====");
+        int docId = readInteger(scanner, "Enter document ID: ");
+        Document document = libraryCmdService.getDocumentByID(docId);
+        if (document != null) {
+            printDocumentInfo(document);
+        } else {
+            System.out.println("Document not found");
+        }
+    }
+
     static void showUserBorrowedDocuments(Scanner scanner, LibraryCmdService libraryCmdService) {
         System.out.println("====Show user borrowed documents=====");
-        System.out.print("Enter user ID: ");
-        int userId = scanner.nextInt();
+        int userId = readInteger(scanner, "Enter user ID: ");
         UserCmdService userCmdServices = libraryCmdService.getUserService();
         User user = userCmdServices.getUserByID(userId);
         if (user.borrowRecords().isEmpty()) {
@@ -122,8 +135,7 @@ public class AppCommandline {
 
     static void displayUserInfo(Scanner scanner, UserCmdService userCmdServices) {
         System.out.println("====Display user info=====");
-        System.out.print("Enter user ID: ");
-        int userId = scanner.nextInt();
+        int userId = readInteger(scanner, "Enter user ID: ");
         userCmdServices.getUserInfo(userId);
     }
 
@@ -132,8 +144,8 @@ public class AppCommandline {
             BorrowCmdService borrowCmdService,
             LibraryCmdService libraryCmdService) {
         System.out.println("====Return document=====");
-        System.out.print("Enter user ID who return document: ");
-        int userId = scanner.nextInt();
+        int userId = readInteger(scanner, "Enter user ID who's returning the document: ");
+        System.out.println("User borrowed documents: ");
         showUserBorrowedDocuments(scanner, libraryCmdService);
         System.out.print("Enter document ID to return: ");
         int returnId = scanner.nextInt();
@@ -142,11 +154,9 @@ public class AppCommandline {
 
     static void borrowDocument(Scanner scanner, BorrowCmdService borrowCmdService) {
         System.out.println("====Borrow document=====");
-        System.out.print("Enter user ID who borrow: ");
-        int userId = scanner.nextInt();
-        System.out.print("Enter document ID to borrow: ");
-        int borrowId = scanner.nextInt();
-        scanner.nextLine();
+        int userId = readInteger(scanner, "Enter user ID who's borrowing the document: ");
+        int borrowId = readInteger(scanner, "Enter document ID to borrow: ");
+        int borrowQuantity = readInteger(scanner, "Enter quantity to borrow: ");
         System.out.print("Enter due date (yyyy-MM-dd HH:mm): ");
         String dueDate = scanner.nextLine();
         if (dueDate.isBlank()) {
@@ -157,7 +167,7 @@ public class AppCommandline {
             return;
         }
         borrowCmdService.borrowDocumentByUIdnDId(
-                userId, borrowId, Utils.getDateTimeFromString(dueDate));
+                userId, borrowId, borrowQuantity, Utils.getDateTimeFromString(dueDate));
     }
 
     static void addUser(Scanner scanner, UserCmdService userService) {
@@ -333,8 +343,7 @@ public class AppCommandline {
 
     static void removeDocument(Scanner scanner, LibraryCmdService libraryCmdService) {
         System.out.println("====Remove document=====");
-        System.out.print("Enter id: ");
-        int removeId = scanner.nextInt();
+        int removeId = readInteger(scanner, "Enter id: ");
         libraryCmdService.removeDocumentByID(removeId);
     }
 
@@ -379,7 +388,8 @@ public class AppCommandline {
         if (genre.isEmpty()) {
             genre = "";
         }
-        System.out.print("Enter document language (using ISO-639 format - https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes): ");
+        System.out.print(
+                "Enter document language (using ISO-639 format - https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes): ");
         String language = scanner.nextLine();
         if (language.isEmpty()) {
             language = "";
@@ -394,6 +404,9 @@ public class AppCommandline {
         int quantity;
         try {
             quantity = Integer.parseInt(quantityInput);
+            if (quantity < 0) {
+                quantity = 0;
+            }
         } catch (NumberFormatException e) {
             System.out.println("Invalid input. Set correct quantity later, now set to 0");
             quantity = 0;
@@ -434,5 +447,20 @@ public class AppCommandline {
     private static void exitCommandline() {
         Runtime.getRuntime().addShutdownHook(new Thread(DatabaseManager::close));
         System.exit(0);
+    }
+
+    public static int readInteger(Scanner scanner, String prompt) {
+        int number;
+        while (true) {
+            System.out.print(prompt);
+            if (scanner.hasNextInt()) {
+                number = scanner.nextInt();
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter a valid integer.");
+                scanner.nextLine();
+            }
+        }
+        return number;
     }
 }

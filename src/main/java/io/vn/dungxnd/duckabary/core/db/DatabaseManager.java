@@ -45,6 +45,7 @@ public class DatabaseManager {
                 + "    borrow_id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "    user_id INTEGER NOT NULL,"
                 + "    document_id INTEGER NOT NULL,"
+                + "    borrow_quantity INTEGER NOT NULL,"
                 + "    borrow_date datetime DEFAULT CURRENT_TIMESTAMP,"
                 + "    due_date datetime,"
                 + "    return_date datetime,"
@@ -54,7 +55,7 @@ public class DatabaseManager {
     };
     private static final String[] SQL_ALTER_TABLES = {
         "ALTER TABLE borrows RENAME TO _borrow_old;",
-        "CREATE TABLE borrow ("
+        "CREATE TABLE borrows ("
                 + "    borrow_id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "    user_id INTEGER NOT NULL,"
                 + "    document_id INTEGER NOT NULL,"

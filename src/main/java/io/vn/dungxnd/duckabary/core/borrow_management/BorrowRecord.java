@@ -7,6 +7,7 @@ public record BorrowRecord(
         int recordId,
         int userId,
         int documentId,
+        int quantity,
         LocalDateTime borrowDate,
         LocalDateTime dueDate,
         Optional<LocalDateTime> returnDate) {
@@ -15,21 +16,23 @@ public record BorrowRecord(
             int recordId,
             int userId,
             int documentId,
+            int quantity,
             LocalDateTime borrowDate,
             LocalDateTime dueDate) {
         return new BorrowRecord(
-                recordId, userId, documentId, borrowDate, dueDate, Optional.empty());
+                recordId, userId, documentId, quantity, borrowDate, dueDate, Optional.empty());
     }
 
     public static BorrowRecord createBorrowRecord(
             int recordId,
             int userId,
             int documentId,
+            int quantity,
             LocalDateTime borrowDate,
             LocalDateTime dueDate,
             LocalDateTime returnDate) {
         return new BorrowRecord(
-                recordId, userId, documentId, borrowDate, dueDate, Optional.of(returnDate));
+                recordId, userId, documentId, quantity, borrowDate, dueDate, Optional.of(returnDate));
     }
 
     public BorrowRecord returnDocument() {
@@ -37,6 +40,7 @@ public record BorrowRecord(
                 this.recordId,
                 this.userId,
                 this.documentId,
+                this.quantity,
                 this.borrowDate,
                 this.dueDate,
                 Optional.of(LocalDateTime.now()));

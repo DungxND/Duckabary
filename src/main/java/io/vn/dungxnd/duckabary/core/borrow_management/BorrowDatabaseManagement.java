@@ -23,6 +23,7 @@ public class BorrowDatabaseManagement {
                 int borrowId = rs.getInt("borrow_id");
                 int userId = rs.getInt("user_id");
                 int documentId = rs.getInt("document_id");
+                int quantity = rs.getInt("borrow_quantity");
                 LocalDateTime borrowDate = rs.getTimestamp("borrow_date").toLocalDateTime();
                 LocalDateTime dueDate = rs.getTimestamp("due_date").toLocalDateTime();
                 LocalDateTime returnDate =
@@ -31,7 +32,7 @@ public class BorrowDatabaseManagement {
                                 : null;
                 BorrowRecord record =
                         BorrowRecord.createBorrowRecord(
-                                borrowId, userId, documentId, borrowDate, dueDate, returnDate);
+                                borrowId, userId, documentId, quantity, borrowDate, dueDate, returnDate);
                 borrowRecords.add(record);
             }
         } catch (SQLException e) {
@@ -48,17 +49,19 @@ public class BorrowDatabaseManagement {
     public void saveBorrowRecord(
             int userId,
             int docId,
+            int quantity,
             LocalDateTime borrowDate,
             LocalDateTime dueDate,
             LocalDateTime returnDate) {
         String sql =
-                "INSERT INTO borrows(user_id, document_id, borrow_date, due_date, return_date) VALUES (?, ?, ?, ?, ?)";
+                "INSERT INTO borrows(user_id, document_id, borrow_quantity, borrow_date, due_date, return_date) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, userId);
             pstmt.setInt(2, docId);
+            pstmt.setInt(3, quantity);
             pstmt.setTimestamp(3, java.sql.Timestamp.valueOf(borrowDate));
             pstmt.setTimestamp(4, java.sql.Timestamp.valueOf(dueDate));
             pstmt.setTimestamp(
@@ -90,6 +93,7 @@ public class BorrowDatabaseManagement {
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 int borrowId = rs.getInt("borrow_id");
+                int quantity = rs.getInt("borrow_quantity");
                 LocalDateTime borrowDate = rs.getTimestamp("borrow_date").toLocalDateTime();
                 LocalDateTime dueDate = rs.getTimestamp("due_date").toLocalDateTime();
                 LocalDateTime returnDate =
@@ -100,6 +104,7 @@ public class BorrowDatabaseManagement {
                         borrowId,
                         userId,
                         docId,
+                        quantity,
                         borrowDate,
                         dueDate,
                         Optional.ofNullable(returnDate));

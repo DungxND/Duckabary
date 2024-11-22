@@ -11,7 +11,7 @@ public class BorrowCmdService extends BorrowService {
     }
 
     @Override
-    public boolean borrowDocumentByUIdnDId(int userID, int documentID, LocalDateTime dueDate) {
+    public boolean borrowDocumentByUIdnDId(int userID, int documentID, int borrowQuantity, LocalDateTime dueDate) {
 
         var user = userService.getUserByID(userID);
         var document = libraryService.getDocumentByID(documentID);
@@ -24,7 +24,7 @@ public class BorrowCmdService extends BorrowService {
             System.out.println("Document with id " + documentID + " not found");
             return false;
         }
-        if (document.getQuantity() <= 0) {
+        if (document.getQuantity() <= 0||borrowQuantity>document.getQuantity()) {
             System.out.println("Document with id " + documentID + " is out of stock");
             return false;
         }
@@ -34,6 +34,7 @@ public class BorrowCmdService extends BorrowService {
                         borrowDatabaseManagement.getNextRecordId(),
                         userID,
                         documentID,
+                        borrowQuantity,
                         LocalDateTime.now(),
                         dueDate);
         borrowManagement.saveBorrowRecord(borrowRecord);

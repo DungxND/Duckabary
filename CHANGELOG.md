@@ -5,6 +5,18 @@
 - [ ] Test app
 - [ ] Logger instead of System.out
 
+## 22 Nov 2024 #2 (DungxND)
+
+### Added
+
+- Added borrow quantity to borrow record.
+
+## 22 Nov 2024 #1 (DucLD)
+
+### Added
+
+- Added UIs 
+
 ## 21 Nov 2024 #2 (DungxND)
 
 ### Added

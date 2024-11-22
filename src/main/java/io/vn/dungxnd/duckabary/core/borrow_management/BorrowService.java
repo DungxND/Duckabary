@@ -20,7 +20,7 @@ public class BorrowService {
         this.userService = borrowManagement.getUserService();
     }
 
-    public boolean borrowDocumentByUIdnDId(int documentID, int userID, LocalDateTime dueDate) {
+    public boolean borrowDocumentByUIdnDId(int documentID, int userID, int borrowQuantity, LocalDateTime dueDate) {
         var user = userService.getUserByID(userID);
         var document = libraryService.getDocumentByID(documentID);
 
@@ -33,6 +33,7 @@ public class BorrowService {
                         borrowDatabaseManagement.getNextRecordId(),
                         userID,
                         documentID,
+                        borrowQuantity,
                         LocalDateTime.now(),
                         dueDate);
 

@@ -131,15 +131,6 @@ public class LibraryService {
         return libraryManagement.generateNewDocumentID();
     }
 
-    public User getUserByID(int userId) {
-        LoggerUtils.debug("Retrieving user with ID: " + userId);
-        User user = userService.getUserByID(userId);
-        if (user == null) {
-            LoggerUtils.warn("User not found with ID: " + userId);
-        }
-        return user;
-    }
-
     public LibraryManagement getLibraryMgr() {
         return libraryManagement;
     }
