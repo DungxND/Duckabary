@@ -1,4 +1,4 @@
-package io.vn.dungxnd.duckabary.ui;
+package io.vn.dungxnd.duckabary.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

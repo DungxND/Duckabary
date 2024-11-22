@@ -9,9 +9,9 @@ module io.vn.dungxnd.duckabary {
     requires org.slf4j;
     requires org.checkerframework.checker.qual;
 
-    exports io.vn.dungxnd.duckabary.ui;
+    exports io.vn.dungxnd.duckabary.controllers;
 
-    opens io.vn.dungxnd.duckabary.ui to
+    opens io.vn.dungxnd.duckabary.controllers to
             javafx.fxml;
 
     exports io.vn.dungxnd.duckabary.core.library_management;
