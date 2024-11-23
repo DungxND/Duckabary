@@ -7,15 +7,14 @@ assignees: ''
 
 ---
 
-Chức năng xảy ra vấn đề: Thêm người dùng bằng CommandLine
+Chức năng xảy ra vấn đề: 
 
- - **Mô tả:** Khi thêm người dùng, mặc dù đúng cú pháp và định dạng, app báo lỗi: "Can not create user with ID ..".
- - **Nếu hoạt động đúng:** App tạo người dùng thành công và in thông báo.
+ - **Mô tả:** 
+ - **Nếu hoạt động đúng:** 
  -  **Các bước tạo ra lỗi:**
-
-    Chạy app commandline
-    Nhập số 8 để chọn chức năng "Add new user"
-    Nhập các đúng thông tin được yêu cầu
+1. 
+2.
+3.
 
 **Video/Ảnh chụp commandline và lỗi được hiện thị trong commandline:**
 
