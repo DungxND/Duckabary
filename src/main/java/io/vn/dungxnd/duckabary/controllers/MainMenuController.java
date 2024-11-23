@@ -1,50 +1,65 @@
 package io.vn.dungxnd.duckabary.controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainMenuController implements Initializable {
-    @FXML
-    private ImageView avatarButton;
 
     @FXML
-    private AnchorPane DOC;
+    private ImageView avaButton;
 
     @FXML
-    private AnchorPane USER;
+    private AnchorPane borOption;
 
     @FXML
-    private AnchorPane BORROW;
+    private AnchorPane brBg;
+
+    @FXML
+    private AnchorPane docBg;
+
+    @FXML
+    private AnchorPane docOption;
+
+    @FXML
+    private AnchorPane usOption;
+
+    @FXML
+    private AnchorPane userBg;
 
 
     public void enterDocManage() {
-        USER.setVisible(false);
-        BORROW.setVisible(false);
-        DOC.setVisible(true);
+        userBg.setVisible(false);
+        brBg.setVisible(false);
+        docBg.setVisible(true);
     }
 
     public void enterUserManage() {
-        DOC.setVisible(false);
-        BORROW.setVisible(false);
-        USER.setVisible(true);
+        docBg.setVisible(false);
+        brBg.setVisible(false);
+        userBg.setVisible(true);
 
     }
 
     public void enterBorrowManage() {
-        DOC.setVisible(false);
-        USER.setVisible(false);
-        BORROW.setVisible(true);
-
+        docBg.setVisible(false);
+        userBg.setVisible(false);
+        brBg.setVisible(true);
     }
 
 
@@ -57,12 +72,19 @@ public class MainMenuController implements Initializable {
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
         );
 
-        File selectedFile = fileChooser.showOpenDialog(avatarButton.getScene().getWindow());
+        File selectedFile = fileChooser.showOpenDialog(avaButton.getScene().getWindow());
 
         if (selectedFile != null) {
             try {
+                Circle clip = new Circle();
+                clip.setCenterX(avaButton.getFitWidth() / 2);
+                clip.setCenterY(avaButton.getFitHeight() / 2);
+                clip.setRadius(Math.min(avaButton.getFitWidth(), avaButton.getFitHeight()) / 2);
+
+                avaButton.setClip(clip);
+
                 Image avatarImage = new Image(selectedFile.toURI().toString());
-                avatarButton.setImage(avatarImage);
+                avaButton.setImage(avatarImage);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");
@@ -75,6 +97,11 @@ public class MainMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Circle clip = new Circle();
+        clip.setCenterX(avaButton.getFitWidth() / 2);
+        clip.setCenterY(avaButton.getFitHeight() / 2);
+        clip.setRadius(Math.min(avaButton.getFitWidth(), avaButton.getFitHeight()) / 2);
 
+        avaButton.setClip(clip);
     }
 }

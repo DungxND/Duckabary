@@ -3,55 +3,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.SVGPath?>
-<?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../userdt.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../useredit.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <AnchorPane fx:id="titlePane" layoutX="5.0" layoutY="7.0" prefHeight="66.0" prefWidth="588.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="7.2000000000000455" AnchorPane.topAnchor="7.0">
+            <AnchorPane fx:id="titlePane" prefHeight="60.0" prefWidth="600.0">
                <children>
-                  <Label layoutX="41.0" layoutY="15.0" prefHeight="35.0" prefWidth="182.0" text="User Details">
-                     <font>
-                        <Font size="26.0" />
-                     </font>
-                  </Label>
+                  <Label layoutX="88.0" layoutY="22.0" text="Label" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="mainPane" layoutX="11.0" layoutY="80.0" prefHeight="307.0" prefWidth="575.0" AnchorPane.bottomAnchor="12.800000000000011" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="13.599999999999909">
-               <children>
-                  <SVGPath content="M11.4999 3.83346L15.9999 8.08342M18.0773 6.07886C18.6681 5.52091 19 4.76418 19 3.97513C19 3.18607 18.6681 2.42934 18.0773 1.87139C17.4866 1.31345 16.6853 1 15.8499 1C15.0144 1 14.2132 1.31345 13.6224 1.87139L1 13.75V18H5.49996L18.0773 6.07886Z" layoutX="13.0" layoutY="54.0" />
-                  <SVGPath content="M11.4999 3.83346L15.9999 8.08342M18.0773 6.07886C18.6681 5.52091 19 4.76418 19 3.97513C19 3.18607 18.6681 2.42934 18.0773 1.87139C17.4866 1.31345 16.6853 1 15.8499 1C15.0144 1 14.2132 1.31345 13.6224 1.87139L1 13.75V18H5.49996L18.0773 6.07886Z" layoutX="13.0" layoutY="94.0" />
-                  <VBox layoutX="46.0" layoutY="10.0" prefHeight="290.0" prefWidth="128.0" styleClass="vbox" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="10.0">
-                     <children>
-                        <Label prefHeight="26.0" prefWidth="102.0" text="User ID:" />
-                        <Label prefHeight="26.0" prefWidth="125.0" text="Username:" />
-                        <Label prefHeight="26.0" prefWidth="113.0" text="First Name:" />
-                        <Label prefHeight="26.0" prefWidth="115.0" text="Last Name:" />
-                        <Label prefHeight="26.0" prefWidth="122.0" text="Email:" />
-                        <Label prefHeight="26.0" prefWidth="125.0" text="Phone Number:" />
-                        <Label prefHeight="26.0" prefWidth="119.0" text="Address:" />
-                     </children>
-                  </VBox>
-                  <SVGPath content="M11.4999 3.83346L15.9999 8.08342M18.0773 6.07886C18.6681 5.52091 19 4.76418 19 3.97513C19 3.18607 18.6681 2.42934 18.0773 1.87139C17.4866 1.31345 16.6853 1 15.8499 1C15.0144 1 14.2132 1.31345 13.6224 1.87139L1 13.75V18H5.49996L18.0773 6.07886Z" layoutX="13.0" layoutY="136.0" />
-                  <SVGPath content="M11.4999 3.83346L15.9999 8.08342M18.0773 6.07886C18.6681 5.52091 19 4.76418 19 3.97513C19 3.18607 18.6681 2.42934 18.0773 1.87139C17.4866 1.31345 16.6853 1 15.8499 1C15.0144 1 14.2132 1.31345 13.6224 1.87139L1 13.75V18H5.49996L18.0773 6.07886Z" layoutX="13.0" layoutY="176.0" />
-                  <SVGPath content="M11.4999 3.83346L15.9999 8.08342M18.0773 6.07886C18.6681 5.52091 19 4.76418 19 3.97513C19 3.18607 18.6681 2.42934 18.0773 1.87139C17.4866 1.31345 16.6853 1 15.8499 1C15.0144 1 14.2132 1.31345 13.6224 1.87139L1 13.75V18H5.49996L18.0773 6.07886Z" layoutX="13.0" layoutY="218.0" />
-                  <SVGPath content="M11.4999 3.83346L15.9999 8.08342M18.0773 6.07886C18.6681 5.52091 19 4.76418 19 3.97513C19 3.18607 18.6681 2.42934 18.0773 1.87139C17.4866 1.31345 16.6853 1 15.8499 1C15.0144 1 14.2132 1.31345 13.6224 1.87139L1 13.75V18H5.49996L18.0773 6.07886Z" layoutX="13.0" layoutY="258.0" />
-                  <VBox fx:id="detailVbox" layoutX="191.0" layoutY="8.0" prefHeight="290.0" prefWidth="362.0" AnchorPane.bottomAnchor="6.400000000000034" AnchorPane.rightAnchor="21.800000000000068" AnchorPane.topAnchor="8.0">
-                     <children>
-                        <Label prefHeight="26.0" prefWidth="102.0" text="............" />
-                        <Label prefHeight="26.0" prefWidth="125.0" text="............" />
-                        <Label prefHeight="26.0" prefWidth="113.0" text=".............." />
-                        <Label prefHeight="26.0" prefWidth="115.0" text="..............." />
-                        <Label prefHeight="26.0" prefWidth="122.0" text=".............." />
-                        <Label prefHeight="26.0" prefWidth="125.0" text="............." />
-                        <Label prefHeight="26.0" prefWidth="119.0" text="............." />
-                     </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
+            <AnchorPane fx:id="mainPane" layoutY="60.0" prefHeight="340.0" prefWidth="600.0" />
          </children>
       </AnchorPane>
    </children>

@@ -1,7 +1,11 @@
-* {
-
+@font-face {
+    font-family: 'Montserrat';
+    src: url('font/Montserrat-VariableFont_wght.ttf');
 }
 
+.root {
+    -fx-font-family: 'Montserrat';
+}
 
 .button {
     -fx-background-color: #FAAA3A;
@@ -18,8 +22,20 @@
 
 #title .text{
     -fx-font-weight: bold;
+    -fx-font-size: 28px;
 }
 
 
+#usnField,
+#pwField {
+    -fx-padding: 10 10 10 25;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: black;
+}
+
+#regisBut {
+    -fx-underline: true;
+}
 
 

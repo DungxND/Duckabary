@@ -1,6 +1,4 @@
 
-
-
 #titlePane {
     -fx-background-color: #62533D;
 }
@@ -11,24 +9,18 @@
     -fx-font-size: 26;
 }
 
-#leftMain .label{
-    -fx-font-size: 15;
+
+#contentPane {
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
 }
 
-
-.text-area {
-    -fx-background-color: #FDFBF4;
-    -fx-background-radius: 0;
-    -fx-border-color: transparent;
-    -fx-border-width: 0;
-    -fx-padding: 0;
-}
-
-#leftMain,
 #mainPane {
     -fx-background-color: #FDFBF4;
 }
 
-#mainPane .label{
+.button {
+    -fx-background-color: #EEE2CD;
+    -fx-text-fill: black;
     -fx-font-weight: bold;
 }

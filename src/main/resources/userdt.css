@@ -1,37 +1,22 @@
 
-
 #titlePane {
-    -fx-background-color: #62533D;
+    -fx-background-color: #4B402F;
 }
 
- #mainPane {
-    -fx-background-color: white; /* Màu nền (vàng) */
-    -fx-background-radius: 15px;  /* Bo góc (15px) */
-    -fx-border-radius: 15px;      /* Bo góc cho viền (tương ứng với nền) */
-    -fx-border-color: grey;   /* Màu viền (đen) */
-    -fx-border-width: 2px;
+#titlePane .label{
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 26;
 }
 
- #mainPane  .label {
-     -fx-font-weight: bold;
- }
-
- #titlePane .label {
-     -fx-font-weight: bold;
-     -fx-text-fill: white;
- }
-
-#mainPane .vbox {
-    -fx-spacing: 15px;
-    -fx-alignment: left;
-    -fx-font-size: 16px;
+#mainPane .label {
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
 }
 
-#detailVbox {
-    -fx-spacing: 15px;
-    -fx-alignment: left;
-    -fx-font-size: 12 px;
-    -fx-text-transform: none;
+#mainPane {
+    -fx-background-color: #FDFBF4;
 }
+
 
 

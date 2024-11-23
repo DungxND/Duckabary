@@ -14,15 +14,15 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.vn.dungxnd.duckabary.controllers.MainMenuController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.vn.dungxnd.duckabary.controllers.MainMenuController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <BorderPane prefHeight="600.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <BorderPane prefHeight="600.0" prefWidth="1100.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <left>
-                  <AnchorPane prefHeight="600.0" prefWidth="267.0" styleClass="bg" stylesheets="@../../../leftmenu.css" BorderPane.alignment="CENTER">
+                  <AnchorPane prefHeight="600.0" prefWidth="264.0" styleClass="bg" stylesheets="@../../../leftmenu.css" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane layoutX="49.0" layoutY="7.0" prefHeight="138.0" prefWidth="186.0">
+                        <AnchorPane layoutX="49.0" layoutY="7.0" prefHeight="130.0" prefWidth="176.0">
                            <children>
                               <ImageView fx:id="avatarButton" fitHeight="66.0" fitWidth="62.0" layoutX="57.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -92,14 +92,14 @@
                                  </font>
                               </Label>
                               <TableView layoutX="32.0" layoutY="61.0" prefHeight="429.0" prefWidth="783.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="15.0">
-                                <columns>
-                                  <TableColumn prefWidth="127.20004653930664" text="ID" />
-                                  <TableColumn prefWidth="125.59996032714844" text="USERNAME" />
+                                 <columns>
+                                    <TableColumn prefWidth="127.20004653930664" text="ID" />
+                                    <TableColumn prefWidth="125.59996032714844" text="USERNAME" />
                                     <TableColumn prefWidth="109.5999755859375" text="FULLNAME" />
                                     <TableColumn prefWidth="153.5999755859375" text="ADDRESS" />
                                     <TableColumn prefWidth="154.39996337890625" text="PHONE" />
                                     <TableColumn prefWidth="110.39995117187493" text="EDIT" />
-                                </columns>
+                                 </columns>
                               </TableView>
                            </children>
                         </AnchorPane>
@@ -138,15 +138,15 @@
                         <AnchorPane fx:id="DOC" layoutX="3.0" layoutY="76.0" prefHeight="522.0" prefWidth="824.0" styleClass="column-header-background" stylesheets="@../../../central.css">
                            <children>
                               <TableView layoutX="15.2" prefHeight="447.0" prefWidth="794.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
-                                <columns>
-                                  <TableColumn prefWidth="49.60000991821289" text="ID" />
-                                  <TableColumn prefWidth="133.5999755859375" text="TITLE" />
+                                 <columns>
+                                    <TableColumn prefWidth="49.60000991821289" text="ID" />
+                                    <TableColumn prefWidth="133.5999755859375" text="TITLE" />
                                     <TableColumn prefWidth="89.59996032714844" text="AUTHOR" />
                                     <TableColumn prefWidth="106.39996337890625" text="PUBLISHER" />
                                     <TableColumn prefWidth="140.79998779296875" text="YEAR" />
                                     <TableColumn prefWidth="137.59991455078125" text="DETAIL" />
                                     <TableColumn prefWidth="133.60006103515616" text="MODIFY" />
-                                </columns>
+                                 </columns>
                               </TableView>
                               <Label fx:id="docLabel" prefHeight="35.0" prefWidth="230.0" text="Docment Manament">
                                  <font>
