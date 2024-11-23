@@ -36,8 +36,8 @@ public class LibraryCmdService extends LibraryService {
                 quantity);
 
         if (doc != null) {
-            LoggerUtils.info("Document added successfully: " + title);
-            System.out.println("Document added successfully");
+            LoggerUtils.info("Document "+ title + " added successfully with ID: " + doc.getId());
+            System.out.println("Document " + title + " added successfully with ID: " + doc.getId());
         } else {
             LoggerUtils.warn("Failed to add document: " + title);
             System.out.println("Failed to add document");

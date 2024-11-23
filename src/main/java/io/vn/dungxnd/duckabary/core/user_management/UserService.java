@@ -46,9 +46,14 @@ public class UserService {
             throw new IllegalArgumentException("Username already exists");
         }
 
-        if (username.length() < 5 || username.length() > 20) {
+        if (username.length() < 5 || username.length() > 16) {
             LoggerUtils.warn("Invalid username length: " + username);
-            throw new IllegalArgumentException("Username must be between 5 and 20 characters");
+            throw new IllegalArgumentException("Username must be between 5 and 16 characters");
+        }
+
+        if (!username.matches("^[A-Za-z0-9_]+$")) {
+            LoggerUtils.warn("Invalid username format: " + username);
+            throw new IllegalArgumentException("Username must contain only letters, numbers, and underscores");
         }
 
         if (email == null || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {

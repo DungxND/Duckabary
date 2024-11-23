@@ -5,11 +5,27 @@
 - [ ] Test app
 - [ ] Logger instead of System.out
 
+## 24 Nov 2024 #2 (DungxND)
+
+### Added
+
+- Added quick first README.md for tester's testing purpose. (Need to be refined and updated)
+
+## 24 Nov 2024 #1 (DucLH)
+
+### Added
+
+- Added app main menu UI, register UI, login UI, user management UI, document management UI, borrow management UI.
+
 ## 22 Nov 2024 #2 (DungxND)
 
 ### Added
 
 - Added borrow quantity to borrow record.
+
+### Fixed
+
+- Fixed that JavaFX app cannot be run with error "Missing JavaFX runtime components".
 
 ## 22 Nov 2024 #1 (DucLD)
 

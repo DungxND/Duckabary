@@ -22,6 +22,10 @@ public class Utils {
             time = time + ":00:00";
         }
 
+        if (time.length() == 10) {
+            time = time + " 00:00:00";
+        }
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return LocalDateTime.parse(time, formatter);
     }
