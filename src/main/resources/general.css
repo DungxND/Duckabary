@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'Montserrat';
     src: url('../io/Montserrat-Regular.woff2') format('woff2'),
-         url('/Montserrat-Regular.ttf') format('truetype');
+    url('/Montserrat-Regular.ttf') format('truetype');
 }
 
 * {

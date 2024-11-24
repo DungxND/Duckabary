@@ -47,4 +47,4 @@ fakeDataGen/datas/
 **/__pycache__/
 /.idea/
 
-**/duckabary.db
+db/duckabary.db

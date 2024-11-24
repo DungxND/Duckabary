@@ -57,7 +57,7 @@ def generate_admins(num_admins=5):
         admins.append([i, fake.user_name(), fake.email(), hashed_password])
 
     write_to_csv(ADMIN_FILE,
-                 ['admin_id','username','email','hashedPassword'], admins)
+                 ['manager_id','username','email','hashedPassword'], admins)
 
 
 def generate_documents(num_docs=1000):

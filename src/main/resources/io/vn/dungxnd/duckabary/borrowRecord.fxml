@@ -1,70 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
-
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <BorderPane layoutX="74.0" layoutY="108.0" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../brRec.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <top>
-                  <AnchorPane fx:id="titlePane" prefHeight="60.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Label layoutX="34.0" layoutY="11.0" text="Record Details" />
-                     </children>
-                  </AnchorPane>
-               </top>
-               <center>
-                  <AnchorPane fx:id="mainPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <AnchorPane prefHeight="340.0" prefWidth="200.0">
-                           <children>
-                              <ImageView fitHeight="212.0" fitWidth="161.0" layoutX="28.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@image/book.png" />
-                                 </image>
-                              </ImageView>
-                              <Label layoutX="69.0" layoutY="249.0" text="Book cover">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+           prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1">
+    <children>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <BorderPane layoutX="74.0" layoutY="108.0" prefHeight="400.0" prefWidth="600.0"
+                            stylesheets="@../../../../brRec.css" AnchorPane.bottomAnchor="0.0"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <top>
+                        <AnchorPane fx:id="titlePane" prefHeight="60.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <Label layoutX="34.0" layoutY="11.0" text="Record Details"/>
+                            </children>
                         </AnchorPane>
-                        <AnchorPane layoutX="200.0" prefHeight="340.0" prefWidth="400.0">
-                           <children>
-                              <AnchorPane fx:id="contentPane" layoutX="6.0" layoutY="9.0" prefHeight="246.0" prefWidth="384.0">
-                                 <children>
-                                    <Label layoutX="35.0" layoutY="20.0" prefHeight="22.0" prefWidth="110.0" text="Record ID:" />
-                                    <Label layoutX="35.0" layoutY="50.0" prefHeight="22.0" prefWidth="113.0" text="Borrow User:" />
-                                    <Label layoutX="35.0" layoutY="80.0" prefHeight="22.0" prefWidth="143.0" text="Borrowed Document:" />
-                                    <Label layoutX="35.0" layoutY="110.0" prefHeight="22.0" prefWidth="147.0" text="Borrowed Date:" />
-                                    <Label layoutX="35.0" layoutY="140.0" prefHeight="22.0" prefWidth="92.0" text="Due date:" />
-                                    <Label layoutX="35.0" layoutY="170.0" prefHeight="22.0" prefWidth="98.0" text="Is returned:" />
-                                    <Label layoutX="35.0" layoutY="200.0" prefHeight="22.0" prefWidth="79.0" text="Return Date:" />
-                                    <SVGPath content="M8 2.99998L11 5.99998M12.385 4.58499C12.7788 4.19114 13.0001 3.65697 13.0001 3.09998C13.0001 2.543 12.7788 2.00883 12.385 1.61498C11.9912 1.22114 11.457 0.999878 10.9 0.999878C10.343 0.999878 9.80885 1.22114 9.415 1.61498L1 9.99998V13H4L12.385 4.58499Z" layoutX="15.0" layoutY="145.0" />
-                                    <SVGPath content="M8 2.99998L11 5.99998M12.385 4.58499C12.7788 4.19114 13.0001 3.65697 13.0001 3.09998C13.0001 2.543 12.7788 2.00883 12.385 1.61498C11.9912 1.22114 11.457 0.999878 10.9 0.999878C10.343 0.999878 9.80885 1.22114 9.415 1.61498L1 9.99998V13H4L12.385 4.58499Z" layoutX="15.0" layoutY="115.0" />
-                                    <SVGPath content="M4.99295 11.016C4.77572 11.0162 4.56433 10.9457 4.39075 10.8151C4.21716 10.6845 4.09082 10.5009 4.03083 10.2922C3.97084 10.0834 3.98047 9.86074 4.05825 9.65792C4.13603 9.4551 4.27774 9.28312 4.46195 9.16799L7.14995 6.47999C7.33759 6.29248 7.59203 6.18719 7.8573 6.18729C8.12257 6.18738 8.37694 6.29285 8.56445 6.48049C8.75196 6.66813 8.85724 6.92257 8.85715 7.18784C8.85706 7.45311 8.75159 7.70748 8.56395 7.89499L7.44295 9.01499H14.9929C15.2582 9.01499 15.5125 9.12035 15.7001 9.30788C15.8876 9.49542 15.9929 9.74977 15.9929 10.015C15.9929 10.2802 15.8876 10.5346 15.7001 10.7221C15.5125 10.9096 15.2582 11.015 14.9929 11.015L4.99295 11.016ZM19.0069 12.985C19.2242 12.9848 19.4356 13.0553 19.6091 13.1859C19.7827 13.3165 19.9091 13.5 19.9691 13.7088C20.0291 13.9176 20.0194 14.1402 19.9416 14.3431C19.8639 14.5459 19.7222 14.7179 19.5379 14.833L16.8499 17.52C16.757 17.6128 16.6468 17.6865 16.5254 17.7367C16.404 17.7869 16.2739 17.8127 16.1426 17.8127C16.0112 17.8126 15.8812 17.7867 15.7599 17.7364C15.6385 17.6861 15.5283 17.6124 15.4354 17.5195C15.3426 17.4266 15.269 17.3163 15.2187 17.1949C15.1685 17.0736 15.1427 16.9435 15.1427 16.8121C15.1428 16.6808 15.1687 16.5507 15.219 16.4294C15.2693 16.3081 15.343 16.1978 15.4359 16.105L16.5569 14.985H9.00695C8.74173 14.985 8.48738 14.8796 8.29984 14.6921C8.11231 14.5046 8.00695 14.2502 8.00695 13.985C8.00695 13.7198 8.11231 13.4654 8.29984 13.2779C8.48738 13.0903 8.74173 12.985 9.00695 12.985H19.0069Z" layoutX="10.0" layoutY="170.0" />
-                                 </children>
-                              </AnchorPane>
-                              <Button layoutX="276.0" layoutY="300.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" text="User details" />
-                              <Button layoutX="133.0" layoutY="300.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="130.0" text="Document details" />
-                           </children>
+                    </top>
+                    <center>
+                        <AnchorPane fx:id="mainPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <AnchorPane prefHeight="340.0" prefWidth="200.0">
+                                    <children>
+                                        <ImageView fitHeight="212.0" fitWidth="161.0" layoutX="28.0" layoutY="27.0"
+                                                   pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@image/book.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label layoutX="69.0" layoutY="249.0" text="Book cover">
+                                            <font>
+                                                <Font size="15.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane layoutX="200.0" prefHeight="340.0" prefWidth="400.0">
+                                    <children>
+                                        <AnchorPane fx:id="contentPane" layoutX="6.0" layoutY="9.0" prefHeight="246.0"
+                                                    prefWidth="384.0">
+                                            <children>
+                                                <Label layoutX="35.0" layoutY="20.0" prefHeight="22.0" prefWidth="110.0"
+                                                       text="Record ID:"/>
+                                                <Label layoutX="35.0" layoutY="50.0" prefHeight="22.0" prefWidth="113.0"
+                                                       text="Borrow User:"/>
+                                                <Label layoutX="35.0" layoutY="80.0" prefHeight="22.0" prefWidth="143.0"
+                                                       text="Borrowed Document:"/>
+                                                <Label layoutX="35.0" layoutY="110.0" prefHeight="22.0"
+                                                       prefWidth="147.0" text="Borrowed Date:"/>
+                                                <Label layoutX="35.0" layoutY="140.0" prefHeight="22.0" prefWidth="92.0"
+                                                       text="Due date:"/>
+                                                <Label layoutX="35.0" layoutY="170.0" prefHeight="22.0" prefWidth="98.0"
+                                                       text="Is returned:"/>
+                                                <Label layoutX="35.0" layoutY="200.0" prefHeight="22.0" prefWidth="79.0"
+                                                       text="Return Date:"/>
+                                                <SVGPath
+                                                        content="M8 2.99998L11 5.99998M12.385 4.58499C12.7788 4.19114 13.0001 3.65697 13.0001 3.09998C13.0001 2.543 12.7788 2.00883 12.385 1.61498C11.9912 1.22114 11.457 0.999878 10.9 0.999878C10.343 0.999878 9.80885 1.22114 9.415 1.61498L1 9.99998V13H4L12.385 4.58499Z"
+                                                        layoutX="15.0" layoutY="145.0"/>
+                                                <SVGPath
+                                                        content="M8 2.99998L11 5.99998M12.385 4.58499C12.7788 4.19114 13.0001 3.65697 13.0001 3.09998C13.0001 2.543 12.7788 2.00883 12.385 1.61498C11.9912 1.22114 11.457 0.999878 10.9 0.999878C10.343 0.999878 9.80885 1.22114 9.415 1.61498L1 9.99998V13H4L12.385 4.58499Z"
+                                                        layoutX="15.0" layoutY="115.0"/>
+                                                <SVGPath
+                                                        content="M4.99295 11.016C4.77572 11.0162 4.56433 10.9457 4.39075 10.8151C4.21716 10.6845 4.09082 10.5009 4.03083 10.2922C3.97084 10.0834 3.98047 9.86074 4.05825 9.65792C4.13603 9.4551 4.27774 9.28312 4.46195 9.16799L7.14995 6.47999C7.33759 6.29248 7.59203 6.18719 7.8573 6.18729C8.12257 6.18738 8.37694 6.29285 8.56445 6.48049C8.75196 6.66813 8.85724 6.92257 8.85715 7.18784C8.85706 7.45311 8.75159 7.70748 8.56395 7.89499L7.44295 9.01499H14.9929C15.2582 9.01499 15.5125 9.12035 15.7001 9.30788C15.8876 9.49542 15.9929 9.74977 15.9929 10.015C15.9929 10.2802 15.8876 10.5346 15.7001 10.7221C15.5125 10.9096 15.2582 11.015 14.9929 11.015L4.99295 11.016ZM19.0069 12.985C19.2242 12.9848 19.4356 13.0553 19.6091 13.1859C19.7827 13.3165 19.9091 13.5 19.9691 13.7088C20.0291 13.9176 20.0194 14.1402 19.9416 14.3431C19.8639 14.5459 19.7222 14.7179 19.5379 14.833L16.8499 17.52C16.757 17.6128 16.6468 17.6865 16.5254 17.7367C16.404 17.7869 16.2739 17.8127 16.1426 17.8127C16.0112 17.8126 15.8812 17.7867 15.7599 17.7364C15.6385 17.6861 15.5283 17.6124 15.4354 17.5195C15.3426 17.4266 15.269 17.3163 15.2187 17.1949C15.1685 17.0736 15.1427 16.9435 15.1427 16.8121C15.1428 16.6808 15.1687 16.5507 15.219 16.4294C15.2693 16.3081 15.343 16.1978 15.4359 16.105L16.5569 14.985H9.00695C8.74173 14.985 8.48738 14.8796 8.29984 14.6921C8.11231 14.5046 8.00695 14.2502 8.00695 13.985C8.00695 13.7198 8.11231 13.4654 8.29984 13.2779C8.48738 13.0903 8.74173 12.985 9.00695 12.985H19.0069Z"
+                                                        layoutX="10.0" layoutY="170.0"/>
+                                            </children>
+                                        </AnchorPane>
+                                        <Button layoutX="276.0" layoutY="300.0" mnemonicParsing="false"
+                                                prefHeight="26.0" prefWidth="110.0" text="User details"/>
+                                        <Button layoutX="133.0" layoutY="300.0" mnemonicParsing="false"
+                                                prefHeight="26.0" prefWidth="130.0" text="Document details"/>
+                                    </children>
+                                </AnchorPane>
+                            </children>
                         </AnchorPane>
-                     </children>
-                  </AnchorPane>
-               </center>
-            </BorderPane>
-         </children>
-      </AnchorPane>
-   </children>
+                    </center>
+                </BorderPane>
+            </children>
+        </AnchorPane>
+    </children>
 </StackPane>

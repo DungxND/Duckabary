@@ -1,82 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.SVGPath?>
-<?import javafx.scene.text.Font?>
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <AnchorPane prefHeight="400.0" prefWidth="454.0">
-         <children>
-            <BorderPane layoutX="138.0" layoutY="94.0" prefHeight="400.0" prefWidth="500.0" stylesheets="@../../../../login.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <top>
-                  <AnchorPane fx:id="title" prefHeight="56.0" prefWidth="500.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Label layoutX="211.0" layoutY="8.0" prefHeight="40.0" prefWidth="78.0" text="Login" />
-                     </children>
-                  </AnchorPane>
-               </top>
-               <center>
-                  <AnchorPane fx:id="main" prefHeight="292.0" prefWidth="500.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <AnchorPane layoutX="48.0" layoutY="20.0" prefHeight="82.0" prefWidth="369.0">
-                           <children>
-                              <TextField fx:id="usnField" layoutX="23.0" layoutY="41.0" prefHeight="30.0" prefWidth="340.0" promptText="abc123@gmail.com" styleClass="text-prompt" />
-                              <Label layoutX="23.0" layoutY="14.0" prefHeight="26.0" prefWidth="121.0" text="Username/Email">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                              <SVGPath content="M4.10421 4.18754C4.10421 3.65268 4.20498 3.12305 4.40076 2.6289C4.59654 2.13475 4.88351 1.68576 5.24527 1.30755C5.60703 0.929348 6.03651 0.629339 6.50917 0.424656C6.98183 0.219973 7.48843 0.114624 8.00004 0.114624C8.51165 0.114624 9.01825 0.219973 9.49091 0.424656C9.96358 0.629339 10.393 0.929348 10.7548 1.30755C11.1166 1.68576 11.4035 2.13475 11.5993 2.6289C11.7951 3.12305 11.8959 3.65268 11.8959 4.18754C11.8959 5.26775 11.4854 6.30371 10.7548 7.06753C10.0242 7.83135 9.03328 8.26046 8.00004 8.26046C6.9668 8.26046 5.97588 7.83135 5.24527 7.06753C4.51466 6.30371 4.10421 5.26775 4.10421 4.18754ZM8.00004 1.55212C7.33147 1.55212 6.69029 1.82978 6.21754 2.32402C5.74479 2.81826 5.47921 3.48858 5.47921 4.18754C5.47921 4.8865 5.74479 5.55683 6.21754 6.05106C6.69029 6.5453 7.33147 6.82296 8.00004 6.82296C8.66861 6.82296 9.30979 6.5453 9.78254 6.05106C10.2553 5.55683 10.5209 4.8865 10.5209 4.18754C10.5209 3.48858 10.2553 2.81826 9.78254 2.32402C9.30979 1.82978 8.66861 1.55212 8.00004 1.55212ZM4.33337 11.1355C3.78636 11.1355 3.26176 11.3626 2.87497 11.767C2.48817 12.1714 2.27087 12.7198 2.27087 13.2917V14.4302C2.27087 14.4475 2.28279 14.4628 2.29929 14.4657C6.07504 15.1097 9.92596 15.1097 13.7008 14.4657C13.7086 14.4638 13.7156 14.4593 13.7207 14.4529C13.7258 14.4465 13.7288 14.4385 13.7292 14.4302V13.2917C13.7292 12.7198 13.5119 12.1714 13.1251 11.767C12.7383 11.3626 12.2137 11.1355 11.6667 11.1355H11.355C11.3305 11.1359 11.3062 11.1398 11.2826 11.147L10.4897 11.4182C8.87196 11.9704 7.12812 11.9704 5.51037 11.4182L4.71654 11.147C4.69359 11.1399 4.66986 11.1361 4.64596 11.1355H4.33337ZM0.895874 13.2917C0.895874 12.3386 1.25804 11.4245 1.90269 10.7505C2.54735 10.0766 3.42169 9.69796 4.33337 9.69796H4.64504C4.81615 9.6986 4.98237 9.72607 5.14371 9.78037L5.93754 10.0516C7.27774 10.509 8.72235 10.509 10.0625 10.0516L10.8564 9.78037C11.0168 9.72575 11.1855 9.69796 11.3541 9.69796H11.6667C12.5784 9.69796 13.4527 10.0766 14.0974 10.7505C14.742 11.4245 15.1042 12.3386 15.1042 13.2917V14.4302C15.1042 15.1528 14.6037 15.768 13.9217 15.884C9.99988 16.5533 6.0002 16.5533 2.07837 15.884C1.74854 15.8273 1.44867 15.65 1.23213 15.3838C1.01559 15.1176 0.896432 14.7797 0.895874 14.4302V13.2917Z" layoutX="28.0" layoutY="52.0" />
-                           </children>
+<?import javafx.scene.text.*?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+           prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/23.0.1">
+    <children>
+        <AnchorPane prefHeight="400.0" prefWidth="454.0">
+            <children>
+                <BorderPane layoutX="138.0" layoutY="94.0" prefHeight="400.0" prefWidth="500.0"
+                            stylesheets="@../../../../login.css" AnchorPane.bottomAnchor="0.0"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <top>
+                        <AnchorPane fx:id="title" prefHeight="56.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <Label layoutX="211.0" layoutY="8.0" prefHeight="40.0" prefWidth="78.0" text="Login"/>
+                            </children>
                         </AnchorPane>
-                        <AnchorPane layoutX="48.0" layoutY="120.0" prefHeight="82.0" prefWidth="360.0">
-                           <children>
-                              <Label layoutX="23.0" layoutY="14.0" prefHeight="18.0" prefWidth="91.0" text="Password">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                              <PasswordField fx:id="pwField" layoutX="23.0" layoutY="43.0" prefHeight="30.0" prefWidth="340.0" />
-                              <SVGPath content="M3.875 6.62591V4.7498C3.875 3.75529 4.36228 2.80151 5.22963 2.09829C6.09699 1.39507 7.27337 1 8.5 1C9.72663 1 10.903 1.39507 11.7704 2.09829C12.6377 2.80151 13.125 3.75529 13.125 4.7498V6.6251M5.031 13.1874H11.969M13.5 6.62591H3.5C2.12 6.62591 1 7.46506 1 8.50041V14.1255C1 15.1609 2.12 16 3.5 16H13.5C14.88 16 16 15.1609 16 14.1255V8.50041C16 7.46506 14.88 6.62591 13.5 6.62591Z" layoutX="28.0" layoutY="54.0" />
-                           </children>
+                    </top>
+                    <center>
+                        <AnchorPane fx:id="main" prefHeight="292.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <AnchorPane layoutX="48.0" layoutY="20.0" prefHeight="82.0" prefWidth="369.0">
+                                    <children>
+                                        <TextField fx:id="usnField" layoutX="23.0" layoutY="41.0" prefHeight="30.0"
+                                                   prefWidth="340.0" promptText="abc123@gmail.com"
+                                                   styleClass="text-prompt"/>
+                                        <Label layoutX="23.0" layoutY="14.0" prefHeight="26.0" prefWidth="121.0"
+                                               text="Username/Email">
+                                            <font>
+                                                <Font size="16.0"/>
+                                            </font>
+                                        </Label>
+                                        <SVGPath
+                                                content="M4.10421 4.18754C4.10421 3.65268 4.20498 3.12305 4.40076 2.6289C4.59654 2.13475 4.88351 1.68576 5.24527 1.30755C5.60703 0.929348 6.03651 0.629339 6.50917 0.424656C6.98183 0.219973 7.48843 0.114624 8.00004 0.114624C8.51165 0.114624 9.01825 0.219973 9.49091 0.424656C9.96358 0.629339 10.393 0.929348 10.7548 1.30755C11.1166 1.68576 11.4035 2.13475 11.5993 2.6289C11.7951 3.12305 11.8959 3.65268 11.8959 4.18754C11.8959 5.26775 11.4854 6.30371 10.7548 7.06753C10.0242 7.83135 9.03328 8.26046 8.00004 8.26046C6.9668 8.26046 5.97588 7.83135 5.24527 7.06753C4.51466 6.30371 4.10421 5.26775 4.10421 4.18754ZM8.00004 1.55212C7.33147 1.55212 6.69029 1.82978 6.21754 2.32402C5.74479 2.81826 5.47921 3.48858 5.47921 4.18754C5.47921 4.8865 5.74479 5.55683 6.21754 6.05106C6.69029 6.5453 7.33147 6.82296 8.00004 6.82296C8.66861 6.82296 9.30979 6.5453 9.78254 6.05106C10.2553 5.55683 10.5209 4.8865 10.5209 4.18754C10.5209 3.48858 10.2553 2.81826 9.78254 2.32402C9.30979 1.82978 8.66861 1.55212 8.00004 1.55212ZM4.33337 11.1355C3.78636 11.1355 3.26176 11.3626 2.87497 11.767C2.48817 12.1714 2.27087 12.7198 2.27087 13.2917V14.4302C2.27087 14.4475 2.28279 14.4628 2.29929 14.4657C6.07504 15.1097 9.92596 15.1097 13.7008 14.4657C13.7086 14.4638 13.7156 14.4593 13.7207 14.4529C13.7258 14.4465 13.7288 14.4385 13.7292 14.4302V13.2917C13.7292 12.7198 13.5119 12.1714 13.1251 11.767C12.7383 11.3626 12.2137 11.1355 11.6667 11.1355H11.355C11.3305 11.1359 11.3062 11.1398 11.2826 11.147L10.4897 11.4182C8.87196 11.9704 7.12812 11.9704 5.51037 11.4182L4.71654 11.147C4.69359 11.1399 4.66986 11.1361 4.64596 11.1355H4.33337ZM0.895874 13.2917C0.895874 12.3386 1.25804 11.4245 1.90269 10.7505C2.54735 10.0766 3.42169 9.69796 4.33337 9.69796H4.64504C4.81615 9.6986 4.98237 9.72607 5.14371 9.78037L5.93754 10.0516C7.27774 10.509 8.72235 10.509 10.0625 10.0516L10.8564 9.78037C11.0168 9.72575 11.1855 9.69796 11.3541 9.69796H11.6667C12.5784 9.69796 13.4527 10.0766 14.0974 10.7505C14.742 11.4245 15.1042 12.3386 15.1042 13.2917V14.4302C15.1042 15.1528 14.6037 15.768 13.9217 15.884C9.99988 16.5533 6.0002 16.5533 2.07837 15.884C1.74854 15.8273 1.44867 15.65 1.23213 15.3838C1.01559 15.1176 0.896432 14.7797 0.895874 14.4302V13.2917Z"
+                                                layoutX="28.0" layoutY="52.0"/>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane layoutX="48.0" layoutY="120.0" prefHeight="82.0" prefWidth="360.0">
+                                    <children>
+                                        <Label layoutX="23.0" layoutY="14.0" prefHeight="18.0" prefWidth="91.0"
+                                               text="Password">
+                                            <font>
+                                                <Font size="16.0"/>
+                                            </font>
+                                        </Label>
+                                        <PasswordField fx:id="pwField" layoutX="23.0" layoutY="43.0" prefHeight="30.0"
+                                                       prefWidth="340.0"/>
+                                        <SVGPath
+                                                content="M3.875 6.62591V4.7498C3.875 3.75529 4.36228 2.80151 5.22963 2.09829C6.09699 1.39507 7.27337 1 8.5 1C9.72663 1 10.903 1.39507 11.7704 2.09829C12.6377 2.80151 13.125 3.75529 13.125 4.7498V6.6251M5.031 13.1874H11.969M13.5 6.62591H3.5C2.12 6.62591 1 7.46506 1 8.50041V14.1255C1 15.1609 2.12 16 3.5 16H13.5C14.88 16 16 15.1609 16 14.1255V8.50041C16 7.46506 14.88 6.62591 13.5 6.62591Z"
+                                                layoutX="28.0" layoutY="54.0"/>
+                                    </children>
+                                </AnchorPane>
+                                <Button fx:id="loginButton" layoutX="183.0" layoutY="249.0" mnemonicParsing="false"
+                                        prefHeight="34.0" prefWidth="134.0" text="Login">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Button>
+                                <Label layoutX="186.0" layoutY="213.0" prefHeight="26.0" prefWidth="134.0"
+                                       text="Incorrect password!" textFill="RED">
+                                    <font>
+                                        <Font size="15.0"/>
+                                    </font>
+                                </Label>
+                            </children>
                         </AnchorPane>
-                        <Button fx:id="loginButton" layoutX="183.0" layoutY="249.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="134.0" text="Login">
-                           <font>
-                              <Font size="14.0" />
-                           </font></Button>
-                        <Label layoutX="186.0" layoutY="213.0" prefHeight="26.0" prefWidth="134.0" text="Incorrect password!" textFill="RED">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-               </center>
-               <bottom>
-                  <AnchorPane fx:id="down" prefHeight="45.0" prefWidth="500.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Label layoutX="123.0" layoutY="11.0" prefHeight="22.0" prefWidth="162.0" text="Don't have an account? ">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="regisBut" layoutX="285.0" layoutY="11.0" prefHeight="22.0" prefWidth="92.0" text="Register here">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-               </bottom>
-            </BorderPane>
-         </children>
-      </AnchorPane>
-   </children>
+                    </center>
+                    <bottom>
+                        <AnchorPane fx:id="down" prefHeight="45.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <Label layoutX="123.0" layoutY="11.0" prefHeight="22.0" prefWidth="162.0"
+                                       text="Don't have an account? ">
+                                    <font>
+                                        <Font size="15.0"/>
+                                    </font>
+                                </Label>
+                                <Label fx:id="regisBut" layoutX="285.0" layoutY="11.0" prefHeight="22.0"
+                                       prefWidth="92.0" text="Register here">
+                                    <font>
+                                        <Font size="15.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </AnchorPane>
+                    </bottom>
+                </BorderPane>
+            </children>
+        </AnchorPane>
+    </children>
 </StackPane>

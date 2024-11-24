@@ -5,13 +5,24 @@
 - [ ] Test app
 - [ ] Logger instead of System.out
 
-## 24 Nov 2024 #2 (DungxND)
+## 24 Nov 2024 (DungxND)
+
+### Added
+
+- Added repository for objects.
+
+### Changed
+
+- Mass refactor/rewrite the code.
+- Restructured the project. Migrate to use Database's data only instead of both local data and database data.
+
+## 23 Nov 2024 #2 (DungxND)
 
 ### Added
 
 - Added quick first README.md for tester's testing purpose. (Need to be refined and updated)
 
-## 24 Nov 2024 #1 (DucLH)
+## 23 Nov 2024 #1 (DucLH)
 
 ### Added
 

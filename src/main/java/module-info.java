@@ -9,19 +9,26 @@ module io.vn.dungxnd.duckabary {
     requires org.slf4j;
     requires org.checkerframework.checker.qual;
 
-    exports io.vn.dungxnd.duckabary.controllers;
+    exports io.vn.dungxnd.duckabary.domain.service.user;
+    exports io.vn.dungxnd.duckabary.domain.model.user;
+    exports io.vn.dungxnd.duckabary.domain.model.library;
+    exports io.vn.dungxnd.duckabary.domain.database;
+    exports io.vn.dungxnd.duckabary.domain.controller;
 
-    opens io.vn.dungxnd.duckabary.controllers to
+    opens io.vn.dungxnd.duckabary.domain.controller to
             javafx.fxml;
 
-    exports io.vn.dungxnd.duckabary.core.library_management;
-    exports io.vn.dungxnd.duckabary.core.user_management;
-    exports io.vn.dungxnd.duckabary.core.borrow_management;
-    exports io.vn.dungxnd.duckabary;
+    exports io.vn.dungxnd.duckabary.presentation.ui;
 
-    opens io.vn.dungxnd.duckabary to
+    opens io.vn.dungxnd.duckabary.presentation.ui to
             javafx.fxml;
 
-    exports io.vn.dungxnd.duckabary.core.db;
-    exports io.vn.dungxnd.duckabary.core.exeption;
+    exports io.vn.dungxnd.duckabary.presentation.cli;
+
+    opens io.vn.dungxnd.duckabary.presentation.cli to
+            javafx.fxml;
+
+    exports io.vn.dungxnd.duckabary.domain.service.library;
+    exports io.vn.dungxnd.duckabary.exeption;
+    exports io.vn.dungxnd.duckabary.domain.service.borrow;
 }

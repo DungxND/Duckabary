@@ -1,5 +1,4 @@
 
-
 #ttPane {
     -fx-background-color: #62533D;
 
@@ -10,13 +9,13 @@
     -fx-font-weight: bold;
 }
 
-#saveBut{
+#saveBut {
     -fx-background-color: #FAAA3A;
     -fx-text-fill: #FDFBF4;
     -fx-font-weight: bold;
 }
 
-#cancelBut{
+#cancelBut {
     -fx-background-color: #D6D6D6;
     -fx-font-weight: bold;
 }
