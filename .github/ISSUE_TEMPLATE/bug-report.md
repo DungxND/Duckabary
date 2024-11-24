@@ -7,10 +7,12 @@ assignees: ''
 
 ---
 
-**Khi tạo báo cáo lỗi này tôi đã:**
+**Khi tạo báo cáo lỗi này tôi đã:** (Thêm x vào [ ] để đánh dấu hoàn thành)
 - [ ] Kiểm tra bug này không lặp lại với các bug khác đang ở trạng thái "Open" trong Issues.
 - [ ] Đọc miêu tả của chức năng trong README.md và tính năng đang không hoạt động như miêu tả. (Nếu chức năng được ghi NOT IMPLEMENTED trong miêu tả, không báo lỗi phần đó.)
 
+
+**Nơi xảy ra vấn đề**: UIApp / Commandline(CLI)
 **Chức năng xảy ra vấn đề:** 
 
  - **Mô tả:** 
