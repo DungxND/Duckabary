@@ -13,6 +13,7 @@ assignees: ''
 
 
 **Nơi xảy ra vấn đề**: UIApp / Commandline(CLI)
+
 **Chức năng xảy ra vấn đề:** 
 
  - **Mô tả:** 
