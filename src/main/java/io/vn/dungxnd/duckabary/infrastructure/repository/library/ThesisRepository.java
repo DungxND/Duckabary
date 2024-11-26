@@ -14,7 +14,7 @@ public interface ThesisRepository {
 
     List<Thesis> findByTitle(String title);
 
-    List<Thesis> findByAuthor(String author);
+    List<Thesis> findByAuthorId(Long authorId);
 
     List<Thesis> findByUniversity(String university);
 

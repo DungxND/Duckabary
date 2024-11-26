@@ -1,8 +1,8 @@
-package io.vn.dungxnd.duckabary.infrastructure.repository.impl.library;
+package io.vn.dungxnd.duckabary.infrastructure.repository.library.impl;
 
 import io.vn.dungxnd.duckabary.domain.database.DatabaseManager;
 import io.vn.dungxnd.duckabary.domain.model.library.Journal;
-import io.vn.dungxnd.duckabary.exeption.DatabaseException;
+import io.vn.dungxnd.duckabary.exception.DatabaseException;
 import io.vn.dungxnd.duckabary.infrastructure.repository.library.JournalRepository;
 import io.vn.dungxnd.duckabary.util.LoggerUtils;
 
@@ -18,14 +18,13 @@ public class JournalRepositoryImpl implements JournalRepository {
             FROM document d
             LEFT JOIN journal j ON d.document_id = j.document_id
             WHERE d.type = 'JOURNAL'
-           """;
+            """;
 
     @Override
     public List<Journal> findAll() {
         List<Journal> journals = new ArrayList<>();
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(SELECT_JOURNAL)) {
-
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 journals.add(mapToJournal(rs));
@@ -43,7 +42,6 @@ public class JournalRepositoryImpl implements JournalRepository {
         String sql = SELECT_JOURNAL + " AND d.document_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -85,10 +83,8 @@ public class JournalRepositoryImpl implements JournalRepository {
     public List<Journal> findByTitle(String title) {
         String sql = SELECT_JOURNAL + " AND d.title LIKE ?";
         List<Journal> journals = new ArrayList<>();
-
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setString(1, "%" + title + "%");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -105,18 +101,13 @@ public class JournalRepositoryImpl implements JournalRepository {
     @Override
     public Optional<Journal> findByIssn(String issn) {
         String sql = SELECT_JOURNAL + " AND j.issn = ?";
-
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setString(1, issn);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                Journal journal = mapToJournal(rs);
-                LoggerUtils.info("Found journal with ISSN: " + issn);
-                return Optional.of(journal);
+                return Optional.of(mapToJournal(rs));
             }
-            LoggerUtils.info("No journal found with ISSN: " + issn);
             return Optional.empty();
         } catch (SQLException e) {
             LoggerUtils.error("Error finding journal by ISSN: " + issn, e);
@@ -125,22 +116,20 @@ public class JournalRepositoryImpl implements JournalRepository {
     }
 
     @Override
-    public List<Journal> findByAuthor(String author) {
-        String sql = SELECT_JOURNAL + " AND d.author LIKE ?";
+    public List<Journal> findByAuthorId(Long authorId) {
+        String sql = SELECT_JOURNAL + " AND d.author_id = ?";
         List<Journal> journals = new ArrayList<>();
-
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, "%" + author + "%");
+            stmt.setLong(1, authorId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 journals.add(mapToJournal(rs));
             }
-            LoggerUtils.info("Found " + journals.size() + " journals by author: " + author);
+            LoggerUtils.info("Found " + journals.size() + " journals by author ID: " + authorId);
             return journals;
         } catch (SQLException e) {
-            LoggerUtils.error("Error finding journals by author: " + author, e);
+            LoggerUtils.error("Error finding journals by author ID: " + authorId, e);
             throw new DatabaseException("Failed to find journals by author");
         }
     }
@@ -148,18 +137,18 @@ public class JournalRepositoryImpl implements JournalRepository {
     private Long insertDocument(Connection conn, Journal journal) throws SQLException {
         String sql =
                 """
-                 INSERT INTO document (title, author, description, publish_year,
-                 quantity, type, created_at, updated_at)
-                 VALUES (?, ?, ?, ?, ?, 'JOURNAL', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
-                """;
+            INSERT INTO document (title, author_id, description, publish_year,
+            quantity, type, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, 'JOURNAL', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+            """;
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, journal.title());
-            stmt.setString(2, journal.author());
+            stmt.setLong(2, journal.author_id());
             stmt.setString(3, journal.description());
             stmt.setInt(4, journal.publishYear());
             stmt.setInt(5, journal.quantity());
-
             stmt.executeUpdate();
+
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
                 return rs.getLong(1);
@@ -183,13 +172,14 @@ public class JournalRepositoryImpl implements JournalRepository {
     private void updateDocument(Connection conn, Journal journal) throws SQLException {
         String sql =
                 """
-                 UPDATE document SET title = ?, author = ?, description = ?,
-                 publish_year = ?, quantity = ?, updated_at = CURRENT_TIMESTAMP
-                 WHERE document_id = ?
-                """;
+            UPDATE document
+            SET title = ?, author_id = ?, description = ?,
+            publish_year = ?, quantity = ?, updated_at = CURRENT_TIMESTAMP
+            WHERE document_id = ?
+            """;
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, journal.title());
-            stmt.setString(2, journal.author());
+            stmt.setLong(2, journal.author_id());
             stmt.setString(3, journal.description());
             stmt.setInt(4, journal.publishYear());
             stmt.setInt(5, journal.quantity());
@@ -213,7 +203,7 @@ public class JournalRepositoryImpl implements JournalRepository {
         return new Journal(
                 rs.getLong("document_id"),
                 rs.getString("title"),
-                rs.getString("author"),
+                rs.getLong("author_id"),
                 rs.getString("description"),
                 rs.getInt("publish_year"),
                 rs.getInt("quantity"),

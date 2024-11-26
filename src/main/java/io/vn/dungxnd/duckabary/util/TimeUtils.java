@@ -1,5 +1,6 @@
 package io.vn.dungxnd.duckabary.util;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -10,6 +11,25 @@ public class TimeUtils {
 
     public static String getFormattedTime(LocalDateTime time) {
         return time.format(FORMATTER);
+    }
+
+    public static LocalDate getDateFromString(String date) {
+        if (date == null || date.trim().isEmpty()) {
+            throw new IllegalArgumentException("Date string cannot be null or empty");
+        }
+
+        date = date.contains("(") ? date.substring(date.indexOf("(") + 1, date.indexOf(")")) : date;
+        date = date.trim();
+
+        if (!date.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
+            throw new IllegalArgumentException("Invalid date format. Must be yyyy-MM-dd");
+        }
+
+        try {
+            return LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Failed to parse date: " + date, e);
+        }
     }
 
     public static LocalDateTime getDateTimeFromString(String time) {

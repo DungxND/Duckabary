@@ -5,6 +5,12 @@
 - [ ] Test app
 - [ ] Logger instead of System.out
 
+## 26 Nov 2024 (DungxND)
+
+### Added
+
+- Added Author and Publisher management.
+
 ## 24 Nov 2024 (DungxND)
 
 ### Added

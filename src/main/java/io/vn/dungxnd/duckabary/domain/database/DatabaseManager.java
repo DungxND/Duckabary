@@ -29,24 +29,43 @@ public class DatabaseManager {
                 + "    email TEXT NOT NULL,"
                 + "    hashedPassword TEXT NOT NULL"
                 + ");",
+        "CREATE TABLE IF NOT EXISTS author ("
+                + "    author_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + "    fullName TEXT NOT NULL,"
+                + "    penName TEXT,"
+                + "    email TEXT,"
+                + "    phone TEXT,"
+                + "    address TEXT,"
+                + "    birthDate datetime,"
+                + "    deathDate datetime"
+                + ");",
         "CREATE TABLE IF NOT EXISTS document ("
                 + "    document_id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "    title TEXT NOT NULL,"
-                + "    author TEXT,"
+                + "    author_id INTEGER NOT NULL,"
                 + "    description TEXT,"
                 + "    publish_year INTEGER,"
                 + "    quantity INTEGER DEFAULT 0,"
                 + "    type TEXT NOT NULL CHECK (type IN ('BOOK', 'JOURNAL', 'THESIS')),"
                 + "    created_at datetime DEFAULT CURRENT_TIMESTAMP,"
-                + "    updated_at datetime DEFAULT CURRENT_TIMESTAMP"
+                + "    updated_at datetime DEFAULT CURRENT_TIMESTAMP,"
+                + "    FOREIGN key (author_id) REFERENCES author (author_id) ON DELETE RESTRICT"
+                + ");",
+        "CREATE TABLE IF NOT EXISTS publisher ("
+                + "    publisher_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + "    name TEXT NOT NULL,"
+                + "    email TEXT,"
+                + "    phone TEXT,"
+                + "    address TEXT"
                 + ");",
         "CREATE TABLE IF NOT EXISTS book ("
                 + "    document_id INTEGER PRIMARY KEY,"
                 + "    isbn TEXT NOT NULL,"
-                + "    publisher TEXT,"
+                + "    publisher_id INT,"
                 + "    language TEXT,"
                 + "    genre TEXT,"
                 + "    FOREIGN key (document_id) REFERENCES document (document_id)"
+                + "    FOREIGN key (publisher_id) REFERENCES publisher_id (publisher_id)"
                 + ");",
         "CREATE TABLE IF NOT EXISTS journal ("
                 + "    document_id INTEGER PRIMARY KEY,"
@@ -98,23 +117,26 @@ public class DatabaseManager {
     private static volatile HikariDataSource dataSource;
 
     // https://gpcoder.com/6257-gioi-thieu-jdbc-connection-pool/
-    private static synchronized HikariDataSource getDataSource() {
+
+    private static HikariDataSource getDataSource() {
         if (dataSource == null) {
-            try {
-                createDatabaseIfNotExist();
-
-                HikariConfig config = new HikariConfig();
-                config.setJdbcUrl(DB_URL);
-                config.setMaximumPoolSize(10);
-                config.setMinimumIdle(5);
-                config.setIdleTimeout(100000);
-                config.setConnectionTimeout(20000);
-                config.setLeakDetectionThreshold(60000);
-                config.setKeepaliveTime(60000);
-
-                dataSource = new HikariDataSource(config);
-            } catch (IOException e) {
-                throw new RuntimeException("Failed to initialize database", e);
+            synchronized (DatabaseManager.class) {
+                if (dataSource == null) {
+                    try {
+                        createDatabaseIfNotExist();
+                        HikariConfig config = new HikariConfig();
+                        config.setJdbcUrl(DB_URL);
+                        config.setMaximumPoolSize(10);
+                        config.setMinimumIdle(5);
+                        config.setIdleTimeout(100000);
+                        config.setConnectionTimeout(20000);
+                        config.setLeakDetectionThreshold(60000);
+                        config.setKeepaliveTime(60000);
+                        dataSource = new HikariDataSource(config);
+                    } catch (IOException e) {
+                        throw new RuntimeException("Failed to initialize database", e);
+                    }
+                }
             }
         }
         return dataSource;

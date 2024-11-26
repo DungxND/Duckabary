@@ -3,9 +3,9 @@ package io.vn.dungxnd.duckabary.domain.service.user.impl;
 import io.vn.dungxnd.duckabary.domain.model.library.BorrowRecord;
 import io.vn.dungxnd.duckabary.domain.model.user.User;
 import io.vn.dungxnd.duckabary.domain.service.user.UserService;
-import io.vn.dungxnd.duckabary.exeption.DatabaseException;
-import io.vn.dungxnd.duckabary.infrastructure.repository.UserRepository;
+import io.vn.dungxnd.duckabary.exception.DatabaseException;
 import io.vn.dungxnd.duckabary.infrastructure.repository.library.BorrowRecordRepository;
+import io.vn.dungxnd.duckabary.infrastructure.repository.user.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,7 +48,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(int id) throws DatabaseException {
-        // Check if user has any active borrows
         List<BorrowRecord> activeBorrows =
                 borrowRepository.findByUserId(id).stream()
                         .filter(record -> !record.isReturned())

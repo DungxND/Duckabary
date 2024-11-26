@@ -13,9 +13,9 @@ module io.vn.dungxnd.duckabary {
     exports io.vn.dungxnd.duckabary.domain.model.user;
     exports io.vn.dungxnd.duckabary.domain.model.library;
     exports io.vn.dungxnd.duckabary.domain.database;
-    exports io.vn.dungxnd.duckabary.domain.controller;
+    exports io.vn.dungxnd.duckabary.presentation.controller;
 
-    opens io.vn.dungxnd.duckabary.domain.controller to
+    opens io.vn.dungxnd.duckabary.presentation.controller to
             javafx.fxml;
 
     exports io.vn.dungxnd.duckabary.presentation.ui;
@@ -29,6 +29,6 @@ module io.vn.dungxnd.duckabary {
             javafx.fxml;
 
     exports io.vn.dungxnd.duckabary.domain.service.library;
-    exports io.vn.dungxnd.duckabary.exeption;
+    exports io.vn.dungxnd.duckabary.exception;
     exports io.vn.dungxnd.duckabary.domain.service.borrow;
 }

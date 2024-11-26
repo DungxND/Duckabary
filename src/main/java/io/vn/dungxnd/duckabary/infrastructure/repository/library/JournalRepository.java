@@ -1,5 +1,6 @@
 package io.vn.dungxnd.duckabary.infrastructure.repository.library;
 
+import io.vn.dungxnd.duckabary.domain.model.library.Book;
 import io.vn.dungxnd.duckabary.domain.model.library.Journal;
 
 import java.util.List;
@@ -16,5 +17,5 @@ public interface JournalRepository {
 
     Optional<Journal> findByIssn(String issn);
 
-    List<Journal> findByAuthor(String author);
+    List<Journal> findByAuthorId(Long authorId);
 }

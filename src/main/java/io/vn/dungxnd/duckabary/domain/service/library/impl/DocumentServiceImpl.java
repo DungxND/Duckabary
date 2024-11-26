@@ -1,11 +1,15 @@
 package io.vn.dungxnd.duckabary.domain.service.library.impl;
 
+import io.vn.dungxnd.duckabary.domain.model.entity.Author;
+import io.vn.dungxnd.duckabary.domain.model.entity.Publisher;
 import io.vn.dungxnd.duckabary.domain.model.library.Book;
 import io.vn.dungxnd.duckabary.domain.model.library.Document;
 import io.vn.dungxnd.duckabary.domain.model.library.Journal;
 import io.vn.dungxnd.duckabary.domain.model.library.Thesis;
+import io.vn.dungxnd.duckabary.domain.service.entity.AuthorService;
+import io.vn.dungxnd.duckabary.domain.service.entity.PublisherService;
 import io.vn.dungxnd.duckabary.domain.service.library.DocumentService;
-import io.vn.dungxnd.duckabary.exeption.DatabaseException;
+import io.vn.dungxnd.duckabary.exception.DatabaseException;
 import io.vn.dungxnd.duckabary.infrastructure.repository.library.BookRepository;
 import io.vn.dungxnd.duckabary.infrastructure.repository.library.DocumentRepository;
 import io.vn.dungxnd.duckabary.infrastructure.repository.library.JournalRepository;
@@ -15,16 +19,24 @@ import io.vn.dungxnd.duckabary.util.TimeUtils;
 import java.util.List;
 
 public class DocumentServiceImpl implements DocumentService {
+
+    private final AuthorService authorService;
+
+    private final PublisherService publisherService;
     private final DocumentRepository documentRepository;
     private final BookRepository bookRepository;
     private final JournalRepository journalRepository;
     private final ThesisRepository thesisRepository;
 
     public DocumentServiceImpl(
+            AuthorService authorService,
+            PublisherService publisherService,
             DocumentRepository documentRepository,
             BookRepository bookRepository,
             JournalRepository journalRepository,
             ThesisRepository thesisRepository) {
+        this.authorService = authorService;
+        this.publisherService = publisherService;
         this.documentRepository = documentRepository;
         this.bookRepository = bookRepository;
         this.journalRepository = journalRepository;
@@ -45,6 +57,7 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public Document saveDocument(Document document) throws DatabaseException {
+
         return switch (document) {
             case Book book -> {
                 validateBook(book);
@@ -60,6 +73,61 @@ public class DocumentServiceImpl implements DocumentService {
             }
             default -> throw new DatabaseException("Unknown document type");
         };
+    }
+
+    @Override
+    public Document saveDocumentWithAuthor(Document document, String authorName)
+            throws DatabaseException {
+        Long authorId = document.author_id();
+
+        if (authorName != null && !authorName.isEmpty() && authorId == null) {
+            Author author = authorService.findOrCreateAuthor(authorName);
+
+            Document documentWithAuthor =
+                    switch (document) {
+                        case Book book ->
+                                new Book(
+                                        book.id(),
+                                        book.title(),
+                                        author.id(),
+                                        book.description(),
+                                        book.publishYear(),
+                                        book.quantity(),
+                                        book.type(),
+                                        book.isbn(),
+                                        book.publisher_id(),
+                                        book.language(),
+                                        book.genre());
+                        case Thesis thesis ->
+                                new Thesis(
+                                        thesis.id(),
+                                        thesis.title(),
+                                        author.id(),
+                                        thesis.description(),
+                                        thesis.publishYear(),
+                                        thesis.quantity(),
+                                        thesis.type(),
+                                        thesis.university(),
+                                        thesis.department(),
+                                        thesis.supervisor(),
+                                        thesis.degree(),
+                                        thesis.defenseDate());
+                        case Journal journal ->
+                                new Journal(
+                                        journal.id(),
+                                        journal.title(),
+                                        author.id(),
+                                        journal.description(),
+                                        journal.publishYear(),
+                                        journal.quantity(),
+                                        journal.type(),
+                                        journal.issn(),
+                                        journal.volume(),
+                                        journal.issue());
+                    };
+            return saveDocument(documentWithAuthor);
+        }
+        return saveDocument(document);
     }
 
     private void validateBook(Book book) {
@@ -138,11 +206,48 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public List<Document> searchByAuthor(String author) {
-        if (author == null || author.trim().isEmpty()) {
-            throw new IllegalArgumentException("Author cannot be empty");
+    public List<Document> searchByAuthorId(Long authorId) {
+        if (authorId == null) {
+            throw new IllegalArgumentException("Author ID cannot be null");
         }
-        return documentRepository.findByAuthor(author.trim());
+        authorService.getAuthorById(authorId);
+        return documentRepository.findByAuthorId(authorId);
+    }
+
+    @Override
+    public List<Document> searchByAuthorName(String authorName) {
+        if (authorName == null || authorName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Author name cannot be empty");
+        }
+        return documentRepository.findByAuthorName(authorName.trim());
+    }
+
+    @Override
+    public Document saveBookWithPublisher(Book book, String publisherName)
+            throws DatabaseException {
+        Publisher publisher = publisherService.findOrCreatePublisher(publisherName);
+        return saveDocument(updateBookWithPublisher(book, publisher.id()));
+    }
+
+    public Document saveDocumentWithPublisher(Book book, String publisherName)
+            throws DatabaseException {
+        Publisher publisher = publisherService.findOrCreatePublisher(publisherName);
+        return saveDocument(updateBookWithPublisher(book, publisher.id()));
+    }
+
+    private Book updateBookWithPublisher(Book book, Long publisherId) {
+        return new Book(
+                book.id(),
+                book.title(),
+                book.author_id(),
+                book.description(),
+                book.publishYear(),
+                book.quantity(),
+                book.type(),
+                book.isbn(),
+                publisherId,
+                book.language(),
+                book.genre());
     }
 
     @Override
@@ -183,20 +288,20 @@ public class DocumentServiceImpl implements DocumentService {
                             new Book(
                                     book.id(),
                                     book.title(),
-                                    book.author(),
+                                    book.author_id(),
                                     book.description(),
                                     book.publishYear(),
                                     newQuantity,
                                     book.type(),
                                     book.isbn(),
-                                    book.publisher(),
+                                    book.publisher_id(),
                                     book.language(),
                                     book.genre());
                     case Journal journal ->
                             new Journal(
                                     journal.id(),
                                     journal.title(),
-                                    journal.author(),
+                                    journal.author_id(),
                                     journal.description(),
                                     journal.publishYear(),
                                     newQuantity,
@@ -208,7 +313,7 @@ public class DocumentServiceImpl implements DocumentService {
                             new Thesis(
                                     thesis.id(),
                                     thesis.title(),
-                                    thesis.author(),
+                                    thesis.author_id(),
                                     thesis.description(),
                                     thesis.publishYear(),
                                     newQuantity,
@@ -223,7 +328,12 @@ public class DocumentServiceImpl implements DocumentService {
         saveDocument(updatedDocument);
     }
 
-    private void validateDocument(Document document) {
+    @Override
+    public boolean isValidDocumentType(String type) {
+        return false;
+    }
+
+    public void validateDocument(Document document) {
         if (document == null) {
             throw new IllegalArgumentException("Document cannot be null");
         }
@@ -232,6 +342,9 @@ public class DocumentServiceImpl implements DocumentService {
         }
         if (document.quantity() < 0) {
             throw new IllegalArgumentException("Document quantity cannot be negative");
+        }
+        if (document.publishYear() < 0) {
+            throw new IllegalArgumentException("Invalid publish year");
         }
         validateDocumentType(document.type());
     }

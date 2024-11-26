@@ -6,7 +6,7 @@ import java.util.Optional;
 public record Thesis(
         Long id,
         String title,
-        String author,
+        Long author_id,
         String description,
         int publishYear,
         int quantity,

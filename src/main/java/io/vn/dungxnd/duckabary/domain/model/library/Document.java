@@ -5,7 +5,7 @@ public sealed interface Document permits Book, Thesis, Journal {
 
     String title();
 
-    String author();
+    Long author_id();
 
     String description();
 

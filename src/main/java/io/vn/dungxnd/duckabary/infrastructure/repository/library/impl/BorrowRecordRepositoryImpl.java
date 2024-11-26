@@ -1,8 +1,8 @@
-package io.vn.dungxnd.duckabary.infrastructure.repository.impl.library;
+package io.vn.dungxnd.duckabary.infrastructure.repository.library.impl;
 
 import io.vn.dungxnd.duckabary.domain.database.DatabaseManager;
 import io.vn.dungxnd.duckabary.domain.model.library.BorrowRecord;
-import io.vn.dungxnd.duckabary.exeption.DatabaseException;
+import io.vn.dungxnd.duckabary.exception.DatabaseException;
 import io.vn.dungxnd.duckabary.infrastructure.repository.library.BorrowRecordRepository;
 import io.vn.dungxnd.duckabary.util.LoggerUtils;
 

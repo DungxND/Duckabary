@@ -1,9 +1,9 @@
-package io.vn.dungxnd.duckabary.infrastructure.repository.impl;
+package io.vn.dungxnd.duckabary.infrastructure.repository.user.impl;
 
 import io.vn.dungxnd.duckabary.domain.database.DatabaseManager;
 import io.vn.dungxnd.duckabary.domain.model.user.User;
-import io.vn.dungxnd.duckabary.exeption.DatabaseException;
-import io.vn.dungxnd.duckabary.infrastructure.repository.UserRepository;
+import io.vn.dungxnd.duckabary.exception.DatabaseException;
+import io.vn.dungxnd.duckabary.infrastructure.repository.user.UserRepository;
 import io.vn.dungxnd.duckabary.util.LoggerUtils;
 
 import java.sql.*;

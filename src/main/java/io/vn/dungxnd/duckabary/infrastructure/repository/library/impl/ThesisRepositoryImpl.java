@@ -1,13 +1,12 @@
-package io.vn.dungxnd.duckabary.infrastructure.repository.impl.library;
+package io.vn.dungxnd.duckabary.infrastructure.repository.library.impl;
 
 import io.vn.dungxnd.duckabary.domain.database.DatabaseManager;
 import io.vn.dungxnd.duckabary.domain.model.library.Thesis;
-import io.vn.dungxnd.duckabary.exeption.DatabaseException;
+import io.vn.dungxnd.duckabary.exception.DatabaseException;
 import io.vn.dungxnd.duckabary.infrastructure.repository.library.ThesisRepository;
 import io.vn.dungxnd.duckabary.util.LoggerUtils;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,10 +14,10 @@ import java.util.Optional;
 public class ThesisRepositoryImpl implements ThesisRepository {
     private static final String SELECT_THESIS =
             """
-             SELECT d.*, t.university, t.department, t.supervisor, t.degree, t.defense_date
-             FROM document d
-             LEFT JOIN thesis t ON d.document_id = t.document_id
-             WHERE d.type = 'THESIS'
+            SELECT d.*, t.university, t.department, t.supervisor, t.degree, t.defense_date
+            FROM document d
+            LEFT JOIN thesis t ON d.document_id = t.document_id
+            WHERE d.type = 'THESIS'
             """;
 
     @Override
@@ -26,7 +25,6 @@ public class ThesisRepositoryImpl implements ThesisRepository {
         List<Thesis> theses = new ArrayList<>();
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(SELECT_THESIS)) {
-
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 theses.add(mapToThesis(rs));
@@ -44,7 +42,6 @@ public class ThesisRepositoryImpl implements ThesisRepository {
         String sql = SELECT_THESIS + " AND d.document_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -86,10 +83,8 @@ public class ThesisRepositoryImpl implements ThesisRepository {
     public List<Thesis> findByTitle(String title) {
         String sql = SELECT_THESIS + " AND d.title LIKE ?";
         List<Thesis> theses = new ArrayList<>();
-
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setString(1, "%" + title + "%");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -104,23 +99,21 @@ public class ThesisRepositoryImpl implements ThesisRepository {
     }
 
     @Override
-    public List<Thesis> findByAuthor(String author) {
-        String sql = SELECT_THESIS + " AND d.author LIKE ?";
+    public List<Thesis> findByAuthorId(Long authorId) {
+        String sql = SELECT_THESIS + " AND d.author_id = ?";
         List<Thesis> theses = new ArrayList<>();
-
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, "%" + author + "%");
+            stmt.setLong(1, authorId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 theses.add(mapToThesis(rs));
             }
-            LoggerUtils.info("Found " + theses.size() + " theses by author: " + author);
+            LoggerUtils.info("Found " + theses.size() + " theses by author id: " + authorId);
             return theses;
         } catch (SQLException e) {
-            LoggerUtils.error("Error finding theses by author: " + author, e);
-            throw new DatabaseException("Failed to find theses by author");
+            LoggerUtils.error("Error finding theses by author id: " + authorId, e);
+            throw new DatabaseException("Failed to find theses by author id");
         }
     }
 
@@ -128,10 +121,8 @@ public class ThesisRepositoryImpl implements ThesisRepository {
     public List<Thesis> findByUniversity(String university) {
         String sql = SELECT_THESIS + " AND t.university LIKE ?";
         List<Thesis> theses = new ArrayList<>();
-
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setString(1, "%" + university + "%");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -149,10 +140,8 @@ public class ThesisRepositoryImpl implements ThesisRepository {
     public List<Thesis> findBySupervisor(String supervisor) {
         String sql = SELECT_THESIS + " AND t.supervisor LIKE ?";
         List<Thesis> theses = new ArrayList<>();
-
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setString(1, "%" + supervisor + "%");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -169,18 +158,18 @@ public class ThesisRepositoryImpl implements ThesisRepository {
     private Long insertDocument(Connection conn, Thesis thesis) throws SQLException {
         String sql =
                 """
-                 INSERT INTO document (title, author, description, publish_year,
-                 quantity, type, created_at, updated_at)
-                 VALUES (?, ?, ?, ?, ?, 'THESIS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
-                """;
+            INSERT INTO document (title, author_id, description, publish_year,
+            quantity, type, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, 'THESIS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+            """;
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, thesis.title());
-            stmt.setString(2, thesis.author());
+            stmt.setLong(2, thesis.author_id());
             stmt.setString(3, thesis.description());
             stmt.setInt(4, thesis.publishYear());
             stmt.setInt(5, thesis.quantity());
-
             stmt.executeUpdate();
+
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
                 return rs.getLong(1);
@@ -191,15 +180,18 @@ public class ThesisRepositoryImpl implements ThesisRepository {
 
     private void insertThesis(Connection conn, Long documentId, Thesis thesis) throws SQLException {
         String sql =
-                "INSERT INTO thesis (document_id, university, department, supervisor, degree, defense_date) VALUES (?, ?, ?, ?, ?, ?)";
+                """
+            INSERT INTO thesis (document_id, university, department, supervisor,
+            degree, defense_date)
+            VALUES (?, ?, ?, ?, ?, ?)
+            """;
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setLong(1, documentId);
             stmt.setString(2, thesis.university());
             stmt.setString(3, thesis.department());
             stmt.setString(4, thesis.supervisor());
             stmt.setString(5, thesis.degree());
-            thesis.defenseDate()
-                    .ifPresentOrElse(date -> setTimestamp(stmt, 6, date), () -> setNull(stmt, 6));
+            stmt.setTimestamp(6, thesis.defenseDate().map(Timestamp::valueOf).orElse(null));
             stmt.executeUpdate();
         }
     }
@@ -207,13 +199,14 @@ public class ThesisRepositoryImpl implements ThesisRepository {
     private void updateDocument(Connection conn, Thesis thesis) throws SQLException {
         String sql =
                 """
-                 UPDATE document SET title = ?, author = ?, description = ?,
-                 publish_year = ?, quantity = ?, updated_at = CURRENT_TIMESTAMP
-                 WHERE document_id = ?
-                """;
+            UPDATE document
+            SET title = ?, author_id = ?, description = ?,
+            publish_year = ?, quantity = ?, updated_at = CURRENT_TIMESTAMP
+            WHERE document_id = ?
+            """;
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, thesis.title());
-            stmt.setString(2, thesis.author());
+            stmt.setLong(2, thesis.author_id());
             stmt.setString(3, thesis.description());
             stmt.setInt(4, thesis.publishYear());
             stmt.setInt(5, thesis.quantity());
@@ -224,41 +217,28 @@ public class ThesisRepositoryImpl implements ThesisRepository {
 
     private void updateThesis(Connection conn, Thesis thesis) throws SQLException {
         String sql =
-                "UPDATE thesis SET university = ?, department = ?, supervisor = ?, degree = ?, defense_date = ? WHERE document_id = ?";
+                """
+            UPDATE thesis
+            SET university = ?, department = ?, supervisor = ?,
+            degree = ?, defense_date = ?
+            WHERE document_id = ?
+            """;
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, thesis.university());
             stmt.setString(2, thesis.department());
             stmt.setString(3, thesis.supervisor());
             stmt.setString(4, thesis.degree());
-            thesis.defenseDate()
-                    .ifPresentOrElse(date -> setTimestamp(stmt, 5, date), () -> setNull(stmt, 5));
+            stmt.setTimestamp(5, thesis.defenseDate().map(Timestamp::valueOf).orElse(null));
             stmt.setLong(6, thesis.id());
             stmt.executeUpdate();
         }
     }
 
-    private void setTimestamp(PreparedStatement stmt, int parameterIndex, LocalDateTime dateTime) {
-        try {
-            stmt.setTimestamp(parameterIndex, Timestamp.valueOf(dateTime));
-        } catch (SQLException e) {
-            throw new DatabaseException("Error setting timestamp", e);
-        }
-    }
-
-    private void setNull(PreparedStatement stmt, int parameterIndex) {
-        try {
-            stmt.setNull(parameterIndex, Types.TIMESTAMP);
-        } catch (SQLException e) {
-            throw new DatabaseException("Error setting null timestamp", e);
-        }
-    }
-
     private Thesis mapToThesis(ResultSet rs) throws SQLException {
-        Timestamp defenseDate = rs.getTimestamp("defense_date");
         return new Thesis(
                 rs.getLong("document_id"),
                 rs.getString("title"),
-                rs.getString("author"),
+                rs.getLong("author_id"),
                 rs.getString("description"),
                 rs.getInt("publish_year"),
                 rs.getInt("quantity"),
@@ -267,6 +247,7 @@ public class ThesisRepositoryImpl implements ThesisRepository {
                 rs.getString("department"),
                 rs.getString("supervisor"),
                 rs.getString("degree"),
-                Optional.ofNullable(defenseDate).map(Timestamp::toLocalDateTime));
+                Optional.ofNullable(rs.getTimestamp("defense_date"))
+                        .map(Timestamp::toLocalDateTime));
     }
 }

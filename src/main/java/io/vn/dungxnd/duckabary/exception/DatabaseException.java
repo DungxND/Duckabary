@@ -1,4 +1,4 @@
-package io.vn.dungxnd.duckabary.exeption;
+package io.vn.dungxnd.duckabary.exception;
 
 public class DatabaseException extends RuntimeException {
     public DatabaseException(String message, Throwable cause) {

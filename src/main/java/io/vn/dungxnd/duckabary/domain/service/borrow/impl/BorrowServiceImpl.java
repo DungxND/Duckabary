@@ -4,7 +4,7 @@ import io.vn.dungxnd.duckabary.domain.model.library.BorrowRecord;
 import io.vn.dungxnd.duckabary.domain.service.borrow.BorrowService;
 import io.vn.dungxnd.duckabary.domain.service.library.DocumentService;
 import io.vn.dungxnd.duckabary.domain.service.user.UserService;
-import io.vn.dungxnd.duckabary.exeption.DatabaseException;
+import io.vn.dungxnd.duckabary.exception.DatabaseException;
 import io.vn.dungxnd.duckabary.infrastructure.repository.library.BorrowRecordRepository;
 
 import java.time.LocalDateTime;

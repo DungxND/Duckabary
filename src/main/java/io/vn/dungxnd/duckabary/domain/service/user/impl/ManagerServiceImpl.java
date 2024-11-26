@@ -2,8 +2,8 @@ package io.vn.dungxnd.duckabary.domain.service.user.impl;
 
 import io.vn.dungxnd.duckabary.domain.model.user.Manager;
 import io.vn.dungxnd.duckabary.domain.service.user.ManagerService;
-import io.vn.dungxnd.duckabary.exeption.DatabaseException;
-import io.vn.dungxnd.duckabary.infrastructure.repository.ManagerRepository;
+import io.vn.dungxnd.duckabary.exception.DatabaseException;
+import io.vn.dungxnd.duckabary.infrastructure.repository.user.ManagerRepository;
 
 import java.util.List;
 import java.util.Optional;

@@ -16,5 +16,7 @@ public interface BookRepository {
 
     Optional<Book> findByIsbn(String isbn);
 
-    List<Book> findByAuthor(String author);
+    List<Book> findByAuthorId(Long authorId);
+
+    List<Book> findByPublisherId(Long publisherId);
 }

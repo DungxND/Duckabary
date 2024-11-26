@@ -1,9 +1,9 @@
-package io.vn.dungxnd.duckabary.infrastructure.repository.impl;
+package io.vn.dungxnd.duckabary.infrastructure.repository.user.impl;
 
 import io.vn.dungxnd.duckabary.domain.database.DatabaseManager;
 import io.vn.dungxnd.duckabary.domain.model.user.Manager;
-import io.vn.dungxnd.duckabary.exeption.DatabaseException;
-import io.vn.dungxnd.duckabary.infrastructure.repository.ManagerRepository;
+import io.vn.dungxnd.duckabary.exception.DatabaseException;
+import io.vn.dungxnd.duckabary.infrastructure.repository.user.ManagerRepository;
 import io.vn.dungxnd.duckabary.util.LoggerUtils;
 import io.vn.dungxnd.duckabary.util.PasswordUtils;
 
@@ -15,7 +15,7 @@ import java.util.Optional;
 public class ManagerRepositoryImpl implements ManagerRepository {
     private static final String SELECT_MANAGER =
             """
-            SELECT *
+            SELECT manager_id, username, email, hashedPassword
             FROM manager
             """;
 

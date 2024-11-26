@@ -4,14 +4,18 @@ import static io.vn.dungxnd.duckabary.util.PasswordUtils.hashPassword;
 import static io.vn.dungxnd.duckabary.util.TimeUtils.*;
 
 import io.vn.dungxnd.duckabary.domain.database.DatabaseManager;
+import io.vn.dungxnd.duckabary.domain.model.entity.Author;
+import io.vn.dungxnd.duckabary.domain.model.entity.Publisher;
 import io.vn.dungxnd.duckabary.domain.model.library.*;
 import io.vn.dungxnd.duckabary.domain.model.user.Manager;
 import io.vn.dungxnd.duckabary.domain.model.user.User;
 import io.vn.dungxnd.duckabary.domain.service.borrow.BorrowService;
+import io.vn.dungxnd.duckabary.domain.service.entity.AuthorService;
+import io.vn.dungxnd.duckabary.domain.service.entity.PublisherService;
 import io.vn.dungxnd.duckabary.domain.service.library.DocumentService;
 import io.vn.dungxnd.duckabary.domain.service.user.ManagerService;
 import io.vn.dungxnd.duckabary.domain.service.user.UserService;
-import io.vn.dungxnd.duckabary.exeption.DatabaseException;
+import io.vn.dungxnd.duckabary.exception.DatabaseException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +27,12 @@ import java.util.Scanner;
 
 public class AppCommandline {
     private static final Logger log = LoggerFactory.getLogger(AppCommandline.class);
+
+    private final AuthorService authorService;
+
+    private final PublisherService publisherService;
     private final DocumentService documentService;
+
     private final UserService userService;
     private final BorrowService borrowService;
     private final ManagerService managerService;
@@ -31,6 +40,8 @@ public class AppCommandline {
     private Manager currentManager = null;
 
     public AppCommandline(AppCliManagement management) {
+        this.authorService = management.getAuthorService();
+        this.publisherService = management.getPublisherService();
         this.documentService = management.getDocumentService();
         this.userService = management.getUserService();
         this.borrowService = management.getBorrowService();
@@ -120,7 +131,7 @@ public class AppCommandline {
         try {
             if (managerService.validateCredentials(username, password)) {
                 currentManager = managerService.findByUsername(username).orElseThrow();
-                System.out.println("Login successful. Welcome, " + currentManager.username());
+                System.out.println("Login successfully. Welcome, " + currentManager.username());
             } else {
                 System.out.println("Invalid credentials");
             }
@@ -152,7 +163,7 @@ public class AppCommandline {
             newManager = managerService.saveManager(newManager);
 
             System.out.println(
-                    "Manager"
+                    "Manager "
                             + username
                             + " registered successfully with ID: "
                             + newManager.managerId());
@@ -212,7 +223,8 @@ public class AppCommandline {
 
     private void addDocument(Scanner scanner) {
         System.out.println("====Add document=====");
-        System.out.println("Enter document details, type and title are required.");
+        System.out.println(
+                "Enter document details, type, title, author and quantity are required.");
 
         System.out.println("Select document type:");
         System.out.println("1. Book");
@@ -229,7 +241,8 @@ public class AppCommandline {
 
         String title = readString(scanner, "Enter title: ", true);
 
-        String author = readString(scanner, "Enter author: ", false);
+        String authorName = readString(scanner, "Enter author full name or pen name: ", true);
+        Author author = handleAuthorSelection(scanner, authorName);
 
         String description = readString(scanner, "Enter description: ", false);
 
@@ -242,7 +255,7 @@ public class AppCommandline {
             publishYear = Integer.parseInt(publishYearStr);
         }
 
-        int quantity = readInteger(scanner, "Enter quantity: ");
+        int quantity = readInteger(scanner, "Enter quantity (required): ");
         scanner.nextLine();
         if (quantity < 0) {
             System.out.println("Quantity must not be negative");
@@ -250,84 +263,228 @@ public class AppCommandline {
         }
 
         Document document =
-                switch (typeChoice) {
-                    case 1 -> {
-                        String isbn = readString(scanner, "Enter ISBN: ", false);
-                        String publisher = readString(scanner, "Enter publisher: ", false);
-                        String language =
-                                readString(
-                                        scanner, "Enter language (ISO-639 Set 1 Format): ", false);
-                        String genre = readString(scanner, "Enter genre: ", false);
-                        yield new Book(
-                                null,
-                                title,
-                                author,
-                                description,
-                                publishYear,
-                                quantity,
-                                "BOOK",
-                                isbn,
-                                publisher,
-                                language,
-                                genre);
-                    }
-                    case 2 -> {
-                        String issn = readString(scanner, "Enter ISSN: ", false);
-                        String volume = readString(scanner, "Enter volume: ", false);
-                        String issue = readString(scanner, "Enter issue: ", false);
-                        yield new Journal(
-                                null,
-                                title,
-                                author,
-                                description,
-                                publishYear,
-                                quantity,
-                                "JOURNAL",
-                                issn,
-                                volume,
-                                issue);
-                    }
-                    case 3 -> {
-                        String university = readString(scanner, "Enter university: ", false);
-                        String department = readString(scanner, "Enter department: ", false);
-                        String supervisor = readString(scanner, "Enter supervisor: ", false);
-                        String degree = readString(scanner, "Enter degree: ", false);
-                        String defenseDateStr =
-                                readString(
-                                        scanner, "Enter defense date (yyyy-MM-dd HH:mm): ", false);
-
-                        Optional<LocalDateTime> defenseDate =
-                                defenseDateStr.isEmpty()
-                                        ? Optional.empty()
-                                        : Optional.of(getDateTimeFromString(defenseDateStr));
-                        yield new Thesis(
-                                null,
-                                title,
-                                author,
-                                description,
-                                publishYear,
-                                quantity,
-                                "THESIS",
-                                university,
-                                department,
-                                supervisor,
-                                degree,
-                                defenseDate);
-                    }
-                    default -> throw new IllegalArgumentException("Invalid document type");
-                };
+                createDocumentWithBasicInfo(
+                        scanner,
+                        typeChoice,
+                        title,
+                        description,
+                        publishYear,
+                        quantity,
+                        author.id());
 
         try {
-            documentService.saveDocument(document);
-            System.out.println(
-                    "Document "
-                            + title
-                            + "(type "
-                            + document.type().toLowerCase()
-                            + ") added successfully with ID: "
-                            + document.id());
+            Document savedDocument = documentService.saveDocument(document);
+            System.out.printf(
+                    "Document %s (type %s) added successfully with ID: %d%n",
+                    savedDocument.title(), savedDocument.type().toLowerCase(), savedDocument.id());
         } catch (DatabaseException e) {
             System.out.println("Error adding document: " + e.getMessage());
+        }
+    }
+
+    private Document createDocumentWithBasicInfo(
+            Scanner scanner,
+            int typeChoice,
+            String title,
+            String description,
+            int publishYear,
+            int quantity,
+            Long author_id) {
+        return switch (typeChoice) {
+            case 1 -> {
+                String isbn = readString(scanner, "Enter ISBN: ", false);
+                String publisherName = readString(scanner, "Enter publisher name: ", true);
+                Publisher publisher = handlePublisherSelection(scanner, publisherName);
+                String language =
+                        readString(scanner, "Enter language (ISO-639 Set 1 Format): ", false);
+                String genre = readString(scanner, "Enter genre: ", false);
+                yield new Book(
+                        null,
+                        title,
+                        author_id,
+                        description,
+                        publishYear,
+                        quantity,
+                        "BOOK",
+                        isbn,
+                        publisher.id(),
+                        language,
+                        genre);
+            }
+            case 2 -> {
+                String issn = readString(scanner, "Enter ISSN: ", false);
+                String volume = readString(scanner, "Enter volume: ", false);
+                String issue = readString(scanner, "Enter issue: ", false);
+                yield new Journal(
+                        null,
+                        title,
+                        author_id,
+                        description,
+                        publishYear,
+                        quantity,
+                        "JOURNAL",
+                        issn,
+                        volume,
+                        issue);
+            }
+            case 3 -> {
+                String university = readString(scanner, "Enter university: ", false);
+                String department = readString(scanner, "Enter department: ", false);
+                String supervisor = readString(scanner, "Enter supervisor: ", false);
+                String degree = readString(scanner, "Enter degree: ", false);
+                String defenseDateStr =
+                        readString(scanner, "Enter defense date (yyyy-MM-dd HH:mm): ", false);
+
+                Optional<LocalDateTime> defenseDate =
+                        defenseDateStr.isEmpty()
+                                ? Optional.empty()
+                                : Optional.of(getDateTimeFromString(defenseDateStr));
+                yield new Thesis(
+                        null,
+                        title,
+                        author_id,
+                        description,
+                        publishYear,
+                        quantity,
+                        "THESIS",
+                        university,
+                        department,
+                        supervisor,
+                        degree,
+                        defenseDate);
+            }
+            default -> throw new IllegalArgumentException("Invalid document type");
+        };
+    }
+
+    private Author handleAuthorSelection(Scanner scanner, String authorName) {
+        List<Author> existingAuthors = authorService.getAuthorByNamePattern(authorName);
+
+        if (!existingAuthors.isEmpty()) {
+            System.out.println("\nFound existing author(s):");
+            for (Author author : existingAuthors) {
+                System.out.printf(
+                        "ID: %d, Name: %s, Pen Name: %s%n",
+                        author.id(), author.fullName(), author.penName().orElse("N/A"));
+            }
+
+            if (promptUseExistingAuthor(scanner)) {
+                return selectExistingAuthor(scanner, existingAuthors);
+            }
+        }
+
+        return createNewAuthor(scanner, authorName);
+    }
+
+    private boolean promptUseExistingAuthor(Scanner scanner) {
+        String choice = readString(scanner, "Use existing author? (y/n): ", true);
+        return choice.toLowerCase().startsWith("y");
+    }
+
+    private Author selectExistingAuthor(Scanner scanner, List<Author> authors) {
+        while (true) {
+            long id = readLong(scanner, "Enter author ID: ");
+            scanner.nextLine();
+            for (Author author : authors) {
+                if (author.id() == id) {
+                    return author;
+                }
+            }
+            System.out.println("Invalid ID. Try again.");
+        }
+    }
+
+    private Author createNewAuthor(Scanner scanner, String fullName) {
+        String penName = readString(scanner, "Enter pen name (optional): ", false);
+        String email = readString(scanner, "Enter email (optional): ", false);
+        String phone = readString(scanner, "Enter phone (optional): ", false);
+        String address = readString(scanner, "Enter address (optional): ", false);
+
+        Author newAuthor =
+                new Author(
+                        null,
+                        fullName,
+                        Optional.ofNullable(penName.isEmpty() ? null : penName),
+                        Optional.ofNullable(email.isEmpty() ? null : email),
+                        Optional.ofNullable(phone.isEmpty() ? null : phone),
+                        Optional.ofNullable(address.isEmpty() ? null : address),
+                        Optional.empty(),
+                        Optional.empty());
+
+        try {
+            Author savedAuthor = authorService.saveAuthor(newAuthor);
+            System.out.printf(
+                    "Author %s (%s) added to database with author id: %d%n",
+                    savedAuthor.fullName(), savedAuthor.penName().orElse(""), savedAuthor.id());
+            return savedAuthor;
+        } catch (DatabaseException e) {
+            System.out.println("Error creating author: " + e.getMessage());
+            throw e;
+        }
+    }
+
+    private Publisher handlePublisherSelection(Scanner scanner, String publisherName) {
+        List<Publisher> existingPublishers =
+                publisherService.getPublisherByNamePattern(publisherName);
+
+        if (!existingPublishers.isEmpty()) {
+            System.out.println("\nFound existing publisher(s):");
+            for (Publisher pub : existingPublishers) {
+                System.out.printf(
+                        "ID: %d, Name: %s, Email: %s%n",
+                        pub.id(), pub.name(), pub.email().orElse("N/A"));
+            }
+
+            if (userWantsToUseExistingPublisher(scanner)) {
+                return selectExistingPublisher(scanner, existingPublishers);
+            }
+        }
+
+        return createNewPublisher(scanner, publisherName);
+    }
+
+    private boolean userWantsToUseExistingPublisher(Scanner scanner) {
+        while (true) {
+            String choice =
+                    readString(scanner, "Do you want to use an existing publisher? (y/n): ", true)
+                            .toLowerCase();
+            if (choice.equals("y") || choice.equals("n")) {
+                return choice.equals("y");
+            }
+            System.out.println("Please enter 'y' or 'n'");
+        }
+    }
+
+    private Publisher selectExistingPublisher(Scanner scanner, List<Publisher> publishers) {
+        while (true) {
+            long publisherId = readLong(scanner, "Enter ID of publisher to use: ");
+            scanner.nextLine();
+            for (Publisher pub : publishers) {
+                if (pub.id() == publisherId) {
+                    return pub;
+                }
+            }
+            System.out.println("Invalid publisher ID. Please try again.");
+        }
+    }
+
+    private Publisher createNewPublisher(Scanner scanner, String publisherName) {
+        String email = readString(scanner, "Enter publisher email (optional): ", false);
+        String phone = readString(scanner, "Enter publisher phone (optional): ", false);
+        String address = readString(scanner, "Enter publisher address (optional): ", false);
+
+        Publisher newPublisher =
+                Publisher.createPublisher(null, publisherName, email, phone, address);
+
+        try {
+            Publisher savedPublisher = publisherService.savePublisher(newPublisher);
+            System.out.printf(
+                    "Publisher %s added to database with publisher id: %d%n",
+                    savedPublisher.name(), savedPublisher.id());
+            return savedPublisher;
+        } catch (DatabaseException e) {
+            System.out.println("Error creating publisher: " + e.getMessage());
+            throw e;
         }
     }
 
@@ -347,28 +504,14 @@ public class AppCommandline {
         System.out.println("====Update document=====");
         long docId = readInteger(scanner, "Enter document ID: ");
         scanner.nextLine();
+
         try {
-            Document document = documentService.getDocumentById(docId);
-            printDocumentInfo(document);
-            System.out.println("Enter new information for the document");
-            System.out.println("Enter document details, type and title are required.");
+            Document existingDoc = documentService.getDocumentById(docId);
+            printDocumentInfo(existingDoc);
 
-            System.out.println("Select document type:");
-            System.out.println("1. Book");
-            System.out.println("2. Journal");
-            System.out.println("3. Thesis");
-
-            int typeChoice = readInteger(scanner, "Choose document type: ");
-            scanner.nextLine();
-            if (typeChoice < 1 || typeChoice > 3) {
-                System.out.println("Invalid document type");
-                return;
-            }
-
+            System.out.println("\nEnter new information for the document");
             String title = readString(scanner, "Enter title: ", true);
-
-            String author = readString(scanner, "Enter author: ", false);
-
+            String authorName = readString(scanner, "Enter author full name: ", true);
             String description = readString(scanner, "Enter description: ", false);
 
             int publishYear;
@@ -386,35 +529,39 @@ public class AppCommandline {
                 System.out.println("Quantity must not be negative");
                 return;
             }
-            Document newDocument =
-                    switch (typeChoice) {
-                        case 1 -> {
+
+            Document updatedDoc =
+                    switch (existingDoc) {
+                        case Book book -> {
                             String isbn = readString(scanner, "Enter ISBN: ", false);
                             String publisher = readString(scanner, "Enter publisher: ", false);
+                            Publisher changedPublisher =
+                                    handlePublisherSelection(scanner, publisher);
+
                             String language =
                                     readString(scanner, "Enter language (ISO-639): ", false);
                             String genre = readString(scanner, "Enter genre: ", false);
                             yield new Book(
                                     docId,
                                     title,
-                                    author,
+                                    existingDoc.author_id(),
                                     description,
                                     publishYear,
                                     quantity,
                                     "BOOK",
                                     isbn,
-                                    publisher,
+                                    changedPublisher.id(),
                                     language,
                                     genre);
                         }
-                        case 2 -> {
+                        case Journal journal -> {
                             String issn = readString(scanner, "Enter ISSN: ", false);
                             String volume = readString(scanner, "Enter volume: ", false);
                             String issue = readString(scanner, "Enter issue: ", false);
                             yield new Journal(
                                     docId,
                                     title,
-                                    author,
+                                    existingDoc.author_id(),
                                     description,
                                     publishYear,
                                     quantity,
@@ -423,15 +570,24 @@ public class AppCommandline {
                                     volume,
                                     issue);
                         }
-                        case 3 -> {
+                        case Thesis thesis -> {
                             String university = readString(scanner, "Enter university: ", false);
                             String department = readString(scanner, "Enter department: ", false);
                             String supervisor = readString(scanner, "Enter supervisor: ", false);
                             String degree = readString(scanner, "Enter degree: ", false);
+                            String defenseDateStr =
+                                    readString(
+                                            scanner,
+                                            "Enter defense date (yyyy-MM-dd HH:mm): ",
+                                            false);
+                            Optional<LocalDateTime> defenseDate =
+                                    defenseDateStr.isEmpty()
+                                            ? Optional.empty()
+                                            : Optional.of(getDateTimeFromString(defenseDateStr));
                             yield new Thesis(
                                     docId,
                                     title,
-                                    author,
+                                    existingDoc.author_id(),
                                     description,
                                     publishYear,
                                     quantity,
@@ -440,12 +596,13 @@ public class AppCommandline {
                                     department,
                                     supervisor,
                                     degree,
-                                    Optional.empty());
+                                    defenseDate);
                         }
-                        default -> throw new IllegalArgumentException("Invalid document type");
                     };
-            documentService.saveDocument(newDocument);
-            System.out.println("Document with ID " + docId + " updated successfully");
+
+            Document savedDoc = documentService.saveDocumentWithAuthor(updatedDoc, authorName);
+            System.out.println("Document with ID " + savedDoc.id() + " updated successfully");
+
         } catch (DatabaseException e) {
             System.out.println("Error updating document: " + e.getMessage());
         }
@@ -468,7 +625,7 @@ public class AppCommandline {
             }
             case 2 -> {
                 String author = readString(scanner, "Enter author: ", true);
-                List<Document> documents = documentService.searchByAuthor(author);
+                List<Document> documents = documentService.searchByAuthorName(author);
                 printDocumentListInfo(documents);
             }
             case 3 -> {
@@ -606,14 +763,13 @@ public class AppCommandline {
 
     private void showDocumentInfo(Scanner scanner) {
         System.out.println("====Show document info=====");
-        long docId = readInteger(scanner, "Enter document ID: ");
+        long docId = readLong(scanner, "Enter document ID: ");
         scanner.nextLine();
-
         try {
             Document document = documentService.getDocumentById(docId);
             printDocumentInfo(document);
         } catch (DatabaseException e) {
-            System.out.println("Document not found");
+            System.out.println("Error retrieving document info: " + e.getMessage());
         }
     }
 
@@ -621,7 +777,10 @@ public class AppCommandline {
         System.out.println("====Document Info====");
         System.out.println("ID: " + document.id());
         System.out.println("Title: " + document.title());
-        System.out.println("Author: " + document.author());
+        Author author = authorService.getAuthorById(document.author_id());
+        System.out.printf(
+                "Author: %s (%s) (ID: %d)",
+                author.fullName(), author.penName().orElse("N/A"), author.id());
         System.out.println("Description: " + document.description());
         System.out.println("Publish year: " + document.publishYear());
         System.out.println("Quantity: " + document.quantity());
@@ -629,7 +788,8 @@ public class AppCommandline {
         switch (document) {
             case Book book -> {
                 System.out.println("ISBN: " + book.isbn());
-                System.out.println("Publisher: " + book.publisher());
+                Publisher publisher = publisherService.getPublisherById(book.publisher_id());
+                System.out.println("Publisher: " + publisher.name());
                 System.out.println("Language: " + book.language());
                 System.out.println("Genre: " + book.genre());
             }

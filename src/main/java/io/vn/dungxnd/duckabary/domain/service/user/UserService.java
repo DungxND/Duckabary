@@ -1,7 +1,7 @@
 package io.vn.dungxnd.duckabary.domain.service.user;
 
 import io.vn.dungxnd.duckabary.domain.model.user.User;
-import io.vn.dungxnd.duckabary.exeption.DatabaseException;
+import io.vn.dungxnd.duckabary.exception.DatabaseException;
 
 import java.util.List;
 import java.util.Optional;

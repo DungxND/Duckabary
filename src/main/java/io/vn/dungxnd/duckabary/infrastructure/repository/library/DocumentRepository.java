@@ -14,7 +14,9 @@ public interface DocumentRepository {
 
     List<Document> findByTitle(String title);
 
-    List<Document> findByAuthor(String author);
+    List<Document> findByAuthorId(Long authorId);
+
+    List<Document> findByAuthorName(String nameOrPenName);
 
     List<Document> findByType(String type);
 

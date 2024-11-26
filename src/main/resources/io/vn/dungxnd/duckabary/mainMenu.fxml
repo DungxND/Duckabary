@@ -7,9 +7,10 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.*?>
 <?import java.lang.String?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+<StackPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+           minWidth="-Infinity"
            prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1"
-           fx:controller="io.vn.dungxnd.duckabary.domain.controller.MainMenuController">
+           fx:controller="io.vn.dungxnd.duckabary.presentation.controller.MainMenuController">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>

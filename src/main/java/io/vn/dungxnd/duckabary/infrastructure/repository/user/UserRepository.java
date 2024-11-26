@@ -1,4 +1,4 @@
-package io.vn.dungxnd.duckabary.infrastructure.repository;
+package io.vn.dungxnd.duckabary.infrastructure.repository.user;
 
 import io.vn.dungxnd.duckabary.domain.model.user.User;
 

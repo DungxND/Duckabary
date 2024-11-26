@@ -1,7 +1,7 @@
 package io.vn.dungxnd.duckabary.domain.service.borrow;
 
 import io.vn.dungxnd.duckabary.domain.model.library.BorrowRecord;
-import io.vn.dungxnd.duckabary.exeption.DatabaseException;
+import io.vn.dungxnd.duckabary.exception.DatabaseException;
 
 import java.time.LocalDateTime;
 import java.util.List;
