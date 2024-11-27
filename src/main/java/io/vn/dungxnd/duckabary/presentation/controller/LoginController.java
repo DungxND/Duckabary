@@ -1,4 +1,4 @@
-package io.vn.dungxnd.duckabary.presentation.controller;
+package io.vn.dungxnd.duckabary.ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +12,10 @@ import java.io.IOException;
 
 public class LoginController {
 
-    @FXML private Button loginButton;
+    @FXML
+    private Button loginButton;
+
+
 
     @FXML
     void enterMainMenu(ActionEvent event) throws IOException {
@@ -23,4 +26,5 @@ public class LoginController {
         registerStage.setScene(new Scene(root, 200, 180));
         registerStage.show();
     }
+
 }

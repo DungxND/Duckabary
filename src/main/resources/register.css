@@ -29,6 +29,7 @@
     -fx-background-radius: 5;
     -fx-border-radius: 5;
     -fx-border-color: black;
+    -fx-border-width: 0.5;
 }
 
 .label {
