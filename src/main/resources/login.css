@@ -17,10 +17,10 @@
 #main,
 #title,
 #down {
-    -fx-background-color: #F8F5E9;
+    -fx-background-color: #F8F5E9 ;
 }
 
-#title .text {
+#title .text{
     -fx-font-weight: bold;
     -fx-font-size: 28px;
 }

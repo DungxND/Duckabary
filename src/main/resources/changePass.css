@@ -1,0 +1,50 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('font/Montserrat-VariableFont_wght.ttf');
+}
+
+.root {
+    -fx-font-family: 'Montserrat';
+}
+
+
+#titlePane {
+    -fx-background-color: #503B3A;
+}
+
+#titlePane .label{
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+#mainPane {
+    -fx-background-color: #FDFBF4;
+}
+
+.password-field {
+    -fx-padding: 10 10 10 35;
+    -fx-background-radius: 2;
+    -fx-border-radius: 2;
+    -fx-border-color: black;
+}
+.label {
+    -fx-font-weight: bold;
+}
+
+#saveBut {
+    -fx-background-color: #FAAA3A;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FDFBF4;
+}
+
+#cancelBut {
+    -fx-background-color: #D6D6D6;
+    -fx-font-weight: bold;
+}
+
+#erMessage {
+    -fx-text-fill: red;
+    -fx-font-weight: none;
+}
+
+

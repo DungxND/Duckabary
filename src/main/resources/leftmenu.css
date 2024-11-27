@@ -1,33 +1,28 @@
-#a1 {
+#a1{
     -fx-background-color: #4fb4b0;
 }
-
-#libtext {
+#libtext{
     -fx-text-fill: white;
 }
-
-#managetext {
+#managetext{
     -fx-text-fill: white;
 }
-
-#leftmenu {
+#leftmenu{
     -fx-background-color: #0f6789;
 }
 
-.button {
+.button{
     -fx-background-color: transparent;
     -fx-border-color: #fff;
     -fx-border-width: 1px;
-    -fx-cursor: hand;
+    -fx-cursor : hand ;
     -fx-text-fill: white;
     -fx-font-size: x-medium;
 }
-
-.button:hover {
+.button:hover{
     -fx-background-color: #fff;
     -fx-text-fill: #000;
 }
-
 Button:pressed {
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
@@ -35,25 +30,24 @@ Button:pressed {
     -fx-border-width: 2px;
 }
 
-.shadow {
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 0);
+.shadow{
+    -fx-effect: dropshadow(three-pass-box,rgba(0,0,0,0.5),5,0,0,0);
 }
 
-.bg {
+.bg{
     -fx-background-color: #808080;
 }
 
-.radius {
+.radius{
     -fx-background-radius: 8px;
 }
 
-.bg {
+.bg{
     -fx-background-color: #C0C0C0;
 }
-
 .bold-text {
-    -fx-font-weight: bold; /* Làm chữ đậm */
-    -fx-font-size: 16px; /* Cỡ chữ (px) */
+    -fx-font-weight: bold;    /* Làm chữ đậm */
+    -fx-font-size: 16px;      /* Cỡ chữ (px) */
 }
 
 #logoutBut {
@@ -77,7 +71,7 @@ Button:pressed {
 
 #logoutBut :pressed {
     -fx-background-color: darkred; /* Màu đỏ đậm hơn khi nhấn */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 1, 1); /* Thêm bóng */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 1, 1); /* Thêm bóng */
     -fx-scale-x: 0.95; /* Giảm kích thước để tạo cảm giác nhấn */
     -fx-scale-y: 0.95;
 }

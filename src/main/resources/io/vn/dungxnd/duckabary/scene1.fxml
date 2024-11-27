@@ -4,8 +4,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="signInGUI" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="signInGUI" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="442.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/23"
             fx:controller="io.vn.dungxnd.duckabary.ui.Login">
     <left>

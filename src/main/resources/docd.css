@@ -1,15 +1,17 @@
 
+
+
 #titlePane {
     -fx-background-color: #62533D;
 }
 
-#titlePane .label {
+#titlePane .label{
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size: 26;
 }
 
-#leftMain .label {
+#leftMain .label{
     -fx-font-size: 15;
 }
 
@@ -27,6 +29,6 @@
     -fx-background-color: #FDFBF4;
 }
 
-#mainPane .label {
+#mainPane .label{
     -fx-font-weight: bold;
 }

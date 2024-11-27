@@ -3,7 +3,7 @@
     -fx-background-color: #62533D;
 }
 
-#titlePane .label {
+#titlePane .label{
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size: 26;
