@@ -20,7 +20,7 @@ ext {
     junitVersion = '5.11.3'
 }
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
@@ -84,6 +84,7 @@ dependencies {
     // JavaFX
     implementation 'org.openjfx:javafx-controls:24-ea+15'
     implementation 'org.openjfx:javafx-fxml:24-ea+15'
+
 }
 
 tasks.jar {

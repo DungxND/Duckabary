@@ -17,16 +17,12 @@ import io.vn.dungxnd.duckabary.domain.service.user.ManagerService;
 import io.vn.dungxnd.duckabary.domain.service.user.UserService;
 import io.vn.dungxnd.duckabary.exception.DatabaseException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
 public class AppCommandline {
-    private static final Logger log = LoggerFactory.getLogger(AppCommandline.class);
 
     private final AuthorService authorService;
 

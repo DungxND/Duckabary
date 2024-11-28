@@ -1,0 +1,22 @@
+
+#titlePane {
+    -fx-background-color: #4B402F;
+}
+
+#titlePane .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 26;
+}
+
+#mainPane .label {
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+}
+
+#mainPane {
+    -fx-background-color: #FDFBF4;
+}
+
+
+

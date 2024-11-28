@@ -1,6 +1,5 @@
 package io.vn.dungxnd.duckabary.infrastructure.repository.library;
 
-import io.vn.dungxnd.duckabary.domain.model.library.Book;
 import io.vn.dungxnd.duckabary.domain.model.library.Journal;
 
 import java.util.List;

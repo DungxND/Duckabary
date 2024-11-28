@@ -3,7 +3,19 @@
 ## To-do
 - [ ] Refactor the code
 - [ ] Test app
-- [ ] Logger instead of System.out
+
+## 28 Nov 2024 (DungxND)
+
+### Added
+
+- Improve UI
+- Login now works. (Register not yet)
+
+## 27 Nov 2024 (DucLH)
+
+### Added
+
+- More app's UIs, controller base.
 
 ## 26 Nov 2024 (DungxND)
 
@@ -15,6 +27,7 @@
 
 ### Added
 
+- Use of LoggerUtils to log app's activities.
 - Added repository for objects.
 
 ### Changed

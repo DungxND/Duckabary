@@ -1,53 +1,37 @@
 package io.vn.dungxnd.duckabary.presentation.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 
-
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainMenuController implements Initializable {
 
-    @FXML
-    private ImageView avaButton;
+    @FXML private ImageView avaButton;
 
-    @FXML
-    private ImageView setAva;
+    @FXML private ImageView setAva;
 
-    @FXML
-    private AnchorPane borOption;
+    @FXML private AnchorPane borOption;
 
-    @FXML
-    private AnchorPane brBg;
+    @FXML private AnchorPane brBg;
 
-    @FXML
-    private AnchorPane docBg;
+    @FXML private AnchorPane docBg;
 
-    @FXML
-    private AnchorPane docOption;
+    @FXML private AnchorPane docOption;
 
-    @FXML
-    private AnchorPane usOption;
+    @FXML private AnchorPane usOption;
 
-    @FXML
-    private AnchorPane userBg;
+    @FXML private AnchorPane userBg;
 
-    @FXML
-    private AnchorPane settingBg;
-
+    @FXML private AnchorPane settingBg;
 
     public void enterDocManage() {
         userBg.setVisible(false);
@@ -70,22 +54,21 @@ public class MainMenuController implements Initializable {
         settingBg.setVisible(false);
     }
 
-    public void enterSetting(){
+    public void enterSetting() {
         settingBg.setVisible(true);
         userBg.setVisible(false);
         brBg.setVisible(false);
         docBg.setVisible(false);
     }
 
-
     @FXML
     private void handleAvatarChange() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Chọn ảnh đại diện");
 
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
-        );
+        fileChooser
+                .getExtensionFilters()
+                .addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
 
         File selectedFile = fileChooser.showOpenDialog(avaButton.getScene().getWindow());
 

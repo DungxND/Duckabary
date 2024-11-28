@@ -1,0 +1,40 @@
+.root {
+    -fx-font-family: 'Montserrat';
+}
+
+#ttPane {
+    -fx-background-color: #62533D;
+
+}
+
+#ttPane .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+#mainPane {
+    -fx-background-color: #F2EFE3;
+}
+
+#saveBut {
+    -fx-background-color: #FAAA3A;
+    -fx-text-fill: #FDFBF4;
+    -fx-font-weight: bold;
+}
+
+#cancelBut {
+    -fx-background-color: #D6D6D6;
+    -fx-font-weight: bold;
+}
+
+.label {
+    -fx-font-weight: bold;
+}
+
+#erMessage {
+    -fx-font-weight: none;
+}
+
+
+
+

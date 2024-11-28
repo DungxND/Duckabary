@@ -1,0 +1,39 @@
+#titlePane .label {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-font-size: 26;
+}
+
+#titlePane {
+    -fx-background-color: #F8F5E9;
+}
+
+#mainPane {
+    -fx-background-color: #F8F5E9;
+}
+
+.text-field,
+.password-field {
+    -fx-padding: 10 10 10 35;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: black;
+    -fx-border-width: 0.5;
+}
+
+.label {
+    -fx-font-weight: bold;
+}
+
+#erMessage {
+    -fx-text-fill: red;
+    -fx-font-weight: none;
+}
+
+.button {
+    -fx-background-color: #FAAA3A;
+    -fx-text-fill: white;
+    -fx-font-weight: 900;
+    -fx-font-size: 17;
+}
+

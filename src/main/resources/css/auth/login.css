@@ -1,0 +1,70 @@
+.title-text {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+.field-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: normal;
+}
+
+.input-field {
+    -fx-padding: 10 10 10 35;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #CCCCCC;
+    -fx-font-size: 15px;
+    -fx-background-color: white;
+    -fx-pref-height: 40;
+    -fx-color-label-visible: false;
+}
+
+.input-field:focused {
+    -fx-border-color: #FAAA3A;
+    -fx-border-width: 2;
+}
+
+
+.login-button {
+    -fx-background-color: #FAAA3A;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-pref-width: 134;
+    -fx-pref-height: 34;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.login-button:hover {
+    -fx-background-color: derive(#FAAA3A, -10%);
+}
+
+.error-text {
+    -fx-text-fill: #FF3B30;
+    -fx-font-size: 15px;
+}
+
+.footer-text {
+    -fx-font-size: 15px;
+}
+
+.register-link {
+    -fx-font-size: 15px;
+    -fx-underline: true;
+    -fx-cursor: hand;
+    -fx-text-fill: #FAAA3A;
+}
+
+.register-link:hover {
+    -fx-text-fill: derive(#FAAA3A, -10%);
+}
+
+#main, #title, #down {
+    -fx-background-color: #F8F5E9;
+}
+
+.password-icon {
+    -fx-shape: "M9.21875 12.1098V9.21729C9.21875 7.684 9.82784 6.21352 10.912 5.12932C11.9962 4.04513 13.4667 3.43604 15 3.43604C16.5333 3.43604 18.0038 4.04513 19.088 5.12932C20.1722 6.21352 20.7812 7.684 20.7812 9.21729V12.1085M10.6638 22.226H19.3362M21.25 12.1098H8.75C7.025 12.1098 5.625 13.4035 5.625 14.9998V23.6723C5.625 25.2685 7.025 26.5623 8.75 26.5623H21.25C22.975 26.5623 24.375 25.2685 24.375 23.6723V14.9998C24.375 13.4035 22.975 12.1098 21.25 12.1098Z";
+}
+
