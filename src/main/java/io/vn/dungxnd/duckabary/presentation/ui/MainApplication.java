@@ -23,7 +23,7 @@ public class MainApplication extends Application {
     public void start(Stage stage) {
         instance = this;
         this.primaryStage = stage;
-        showLoginView();
+        showMainView();
     }
 
     public void showLoginView() {
