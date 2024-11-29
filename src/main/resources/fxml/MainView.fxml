@@ -14,11 +14,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.vn.dungxnd.duckabary.presentation.controller.MainMenuController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.vn.dungxnd.duckabary.presentation.controller.MainMenuController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -44,32 +45,44 @@
                            <children>
                               <AnchorPane fx:id="usOption" onMouseClicked="#enterUserManage" prefHeight="132.0" prefWidth="251.0">
                                  <children>
-                                    <SVGPath content="M26 24C28.5769 24.0001 31.0543 24.9951 32.9156 26.7773C34.7768 28.5596 35.8782 30.9915 35.99 33.566L36 34V36C36.0003 37.0092 35.6192 37.9811 34.933 38.7211C34.2468 39.4611 33.3063 39.9143 32.3 39.99L32 40H4C2.99085 40.0003 2.01887 39.6192 1.2789 38.933C0.538941 38.2468 0.0856866 37.3063 0.0100002 36.3L0 36V34C0.000148885 31.4231 0.995083 28.9457 2.77732 27.0844C4.55956 25.2232 6.9915 24.1218 9.566 24.01L10 24H26ZM18 0C20.6522 0 23.1957 1.05357 25.0711 2.92893C26.9464 4.8043 28 7.34784 28 10C28 12.6522 26.9464 15.1957 25.0711 17.0711C23.1957 18.9464 20.6522 20 18 20C15.3478 20 12.8043 18.9464 10.9289 17.0711C9.05357 15.1957 8 12.6522 8 10C8 7.34784 9.05357 4.8043 10.9289 2.92893C12.8043 1.05357 15.3478 0 18 0Z" layoutX="107.0" layoutY="14.0" />
                                     <Text layoutX="81.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="User Management" textAlignment="CENTER" wrappingWidth="88.53671264648438">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Text>
+                                    <AnchorPane fx:id="leftUserIconPane" layoutX="103.0" layoutY="21.0" prefHeight="45.0" prefWidth="45.0">
+                                       <children>
+                                          <SVGPath fx:id="leftUserSvg" content="M21.6667 19.2537C23.8141 19.2538 25.8786 20.052 27.4296 21.4818C28.9807 22.9115 29.8985 24.8625 29.9917 26.9279L30 27.2761V28.8805C30.0003 29.6901 29.6827 30.4699 29.1108 31.0635C28.539 31.6571 27.7553 32.0207 26.9167 32.0815L26.6667 32.0895H3.33333C2.49237 32.0897 1.68239 31.784 1.06575 31.2335C0.449118 30.683 0.0714055 29.9285 0.00833352 29.1212L0 28.8805V27.2761C0.000124071 25.2088 0.829236 23.2213 2.31443 21.7281C3.79963 20.235 5.82625 19.3514 7.97167 19.2617L8.33333 19.2537H21.6667ZM15 0C17.2101 0 19.3298 0.845212 20.8926 2.3497C22.4554 3.85418 23.3333 5.89471 23.3333 8.02237C23.3333 10.15 22.4554 12.1906 20.8926 13.695C19.3298 15.1995 17.2101 16.0447 15 16.0447C12.7899 16.0447 10.6702 15.1995 9.10744 13.695C7.54464 12.1906 6.66667 10.15 6.66667 8.02237C6.66667 5.89471 7.54464 3.85418 9.10744 2.3497C10.6702 0.845212 12.7899 0 15 0Z" layoutX="8.0" layoutY="6.0" />
+                                       </children>
+                                    </AnchorPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="libOption" onMouseClicked="#enterLibManage" prefHeight="132.0" prefWidth="251.0" styleClass="column-header">
                                  <children>
-                                    <SVGPath content="M16.3401 4.5H34.8001C36.1341 4.5 37.4721 4.718 38.4061 5.686C39.3261 6.642 39.5001 7.966 39.5001 9.2V32.8C39.5001 33.886 39.3561 34.954 38.8001 35.818C38.4793 36.3164 38.0302 36.7191 37.5001 36.984V38.8C37.5001 40.132 37.2841 41.47 36.3181 42.404C35.3621 43.328 34.0381 43.5 32.8041 43.5H11.5001C10.7044 43.5 9.94134 43.1839 9.37873 42.6213C8.81612 42.0587 8.50005 41.2956 8.50005 40.5V12.034C8.49405 11.038 8.48805 9.794 8.76005 8.66C9.09405 7.276 9.86405 5.934 11.5021 5.1C12.1781 4.756 12.8901 4.62 13.6501 4.56C14.3801 4.5 15.2701 4.5 16.3401 4.5ZM11.5001 40.5H32.8041C33.8981 40.5 34.1701 40.308 34.2321 40.248C34.2821 40.2 34.5001 39.938 34.5001 38.8V37.5H14.5001C13.7044 37.5 12.9413 37.8161 12.3787 38.3787C11.8161 38.9413 11.5001 39.7044 11.5001 40.5Z" layoutX="101.0" layoutY="10.0" />
                                     <Text layoutX="80.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Library Management" textAlignment="CENTER" wrappingWidth="89.33673095703125">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Text>
+                                    <AnchorPane fx:id="leftLibIconPane" layoutX="103.0" layoutY="21.0" prefHeight="45.0" prefWidth="45.0">
+                                       <children>
+                                          <SVGPath fx:id="leftLibSvg" content="M7.58837 0H25.4519C26.7428 0 28.0375 0.195641 28.9413 1.06436C29.8316 1.92231 30 3.11051 30 4.21795V25.3974C30 26.3721 29.8607 27.3305 29.3226 28.1059C29.0122 28.5531 28.5777 28.9146 28.0646 29.1523V30.7821C28.0646 31.9774 27.8556 33.1782 26.9208 34.0164C25.9957 34.8456 24.7145 35 23.5204 35H2.90477C2.13483 35 1.39642 34.7163 0.851992 34.2114C0.307563 33.7065 0.00170595 33.0217 0.00170595 32.3077V6.76128C-0.00410017 5.86744 -0.00990607 4.75103 0.253305 3.73333C0.576512 2.49128 1.32163 1.28692 2.9067 0.538461C3.56086 0.229743 4.24985 0.107692 4.98529 0.0538461C5.6917 -5.01481e-08 6.55295 0 7.58837 0ZM2.90477 32.3077H23.5204C24.579 32.3077 24.8422 32.1354 24.9022 32.0815C24.9506 32.0385 25.1616 31.8033 25.1616 30.7821V29.6154H5.80783C5.03789 29.6154 4.29948 29.899 3.75505 30.4039C3.21062 30.9089 2.90477 31.5936 2.90477 32.3077Z" layoutX="8.0" layoutY="5.0" />
+                                       </children>
+                                    </AnchorPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="borOption" onMouseClicked="#enterBorrowManage" prefHeight="132.0" prefWidth="251.0">
                                  <children>
-                                    <SVGPath content="M6.79812 27.1771L10.5981 30.9771C10.9981 31.3771 11.1901 31.8437 11.1741 32.3771C11.1581 32.9104 10.9495 33.3771 10.5481 33.7771C10.1481 34.1437 9.68146 34.3357 9.14812 34.3531C8.61479 34.3704 8.14812 34.1784 7.74812 33.7771L0.548123 26.5771C0.348123 26.3771 0.206123 26.1604 0.122123 25.9271C0.0381228 25.6937 -0.00254359 25.4437 0.000123078 25.1771C0.00278974 24.9104 0.0447897 24.6604 0.126123 24.4271C0.207456 24.1937 0.348789 23.9771 0.550123 23.7771L7.75012 16.5771C8.11679 16.2104 8.57546 16.0271 9.12612 16.0271C9.67679 16.0271 10.1515 16.2104 10.5501 16.5771C10.9501 16.9771 11.1501 17.4524 11.1501 18.0031C11.1501 18.5537 10.9501 19.0284 10.5501 19.4271L6.79812 23.1771H35.1481C35.7148 23.1771 36.1901 23.3691 36.5741 23.7531C36.9581 24.1371 37.1495 24.6117 37.1481 25.1771C37.1468 25.7424 36.9548 26.2177 36.5721 26.6031C36.1895 26.9884 35.7148 27.1797 35.1481 27.1771H6.79812ZM31.4981 11.1771H3.14812C2.58146 11.1771 2.10679 10.9851 1.72412 10.6011C1.34146 10.2171 1.14946 9.74241 1.14812 9.17708C1.14679 8.61174 1.33879 8.13708 1.72412 7.75308C2.10946 7.36908 2.58412 7.17708 3.14812 7.17708H31.4981L27.6981 3.37708C27.2981 2.97708 27.1068 2.51041 27.1241 1.97708C27.1415 1.44374 27.3495 0.977077 27.7481 0.577077C28.1481 0.21041 28.6148 0.0184098 29.1481 0.00107643C29.6815 -0.0162569 30.1481 0.175743 30.5481 0.577077L37.7481 7.77708C37.9481 7.97708 38.0901 8.19374 38.1741 8.42708C38.2581 8.66041 38.2995 8.91041 38.2981 9.17708C38.2968 9.44374 38.2555 9.69374 38.1741 9.92708C38.0928 10.1604 37.9508 10.3771 37.7481 10.5771L30.5481 17.7771C30.1815 18.1437 29.7235 18.3271 29.1741 18.3271C28.6248 18.3271 28.1495 18.1437 27.7481 17.7771C27.3481 17.3771 27.1481 16.9024 27.1481 16.3531C27.1481 15.8037 27.3481 15.3284 27.7481 14.9271L31.4981 11.1771Z" layoutX="106.0" layoutY="21.0" />
                                     <Text layoutX="80.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Borrow Management" textAlignment="CENTER" wrappingWidth="89.33673095703125">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Text>
+                                    <AnchorPane fx:id="leftBorIconPane" layoutX="103.0" layoutY="21.0" prefHeight="45.0" prefWidth="45.0">
+                                       <children>
+                                          <SVGPath fx:id="leftBorSvg" content="M5.32516 27.688L8.3018 31.5594C8.61513 31.967 8.76553 32.4424 8.753 32.9858C8.74046 33.5291 8.57701 34.0046 8.26263 34.4121C7.9493 34.7856 7.58375 34.9812 7.16598 34.9989C6.7482 35.0166 6.38265 34.821 6.06932 34.4121L0.42936 27.0767C0.272694 26.873 0.161462 26.6522 0.0956622 26.4145C0.0298627 26.1768 -0.00199246 25.9221 9.64101e-05 25.6504C0.00218528 25.3787 0.035085 25.124 0.0987956 24.8863C0.162506 24.6486 0.273216 24.4278 0.430926 24.2241L6.07088 16.8887C6.3581 16.5152 6.71739 16.3284 7.14874 16.3284C7.5801 16.3284 7.95192 16.5152 8.2642 16.8887C8.57753 17.2962 8.7342 17.7805 8.7342 18.3415C8.7342 18.9025 8.57753 19.3861 8.2642 19.7923L5.32516 23.6128H27.5325C27.9764 23.6128 28.3487 23.8084 28.6495 24.1996C28.9503 24.5908 29.1002 25.0744 29.0991 25.6504C29.0981 26.2264 28.9477 26.7106 28.648 27.1032C28.3482 27.4958 27.9764 27.6907 27.5325 27.688H5.32516ZM24.6733 11.3872H2.46601C2.02213 11.3872 1.65031 11.1916 1.35055 10.8004C1.0508 10.4092 0.900401 9.92556 0.899356 9.3496C0.898312 8.77364 1.04871 8.29005 1.35055 7.89883C1.6524 7.50761 2.02421 7.312 2.46601 7.312H24.6733L21.6967 3.44056C21.3834 3.03304 21.2335 2.5576 21.2471 2.01425C21.2606 1.47089 21.4236 0.995445 21.7359 0.587926C22.0492 0.214366 22.4148 0.0187559 22.8325 0.00109667C23.2503 -0.0165625 23.6159 0.179047 23.9292 0.587926L29.5691 7.92328C29.7258 8.12704 29.837 8.34778 29.9028 8.5855C29.9686 8.82322 30.001 9.07792 30 9.3496C29.9989 9.62128 29.9666 9.87598 29.9028 10.1137C29.8391 10.3514 29.7279 10.5722 29.5691 10.7759L23.9292 18.1113C23.642 18.4848 23.2832 18.6716 22.8529 18.6716C22.4226 18.6716 22.0502 18.4848 21.7359 18.1113C21.4225 17.7038 21.2659 17.2202 21.2659 16.6605C21.2659 16.1008 21.4225 15.6166 21.7359 15.2077L24.6733 11.3872Z" layoutX="8.0" layoutY="5.0" />
+                                       </children>
+                                    </AnchorPane>
                                  </children>
                               </AnchorPane>
                            </children>
@@ -89,7 +102,7 @@
                         </AnchorPane>
                         <AnchorPane fx:id="userBg" layoutY="80.0" prefHeight="520.0" prefWidth="847.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
                            <children>
-                              <Button alignment="CENTER" layoutX="668.0" layoutY="480.0" maxWidth="159.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="153.0" text="Add new user" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="13.0" />
+                              <Button alignment="CENTER" layoutX="668.0" layoutY="480.0" maxWidth="159.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="153.0" text="Add new " AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="13.0" />
                               <Label layoutX="30.0" layoutY="8.0" prefHeight="30.0" prefWidth="179.0" text="User Management" />
                               <TableView layoutX="20.0" layoutY="45.0" prefHeight="430.0" prefWidth="820.0" AnchorPane.bottomAnchor="44.60000000000002" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="10.399999999999977" AnchorPane.topAnchor="44.80000000000001">
                                 <columns>
@@ -110,28 +123,9 @@
                         <AnchorPane fx:id="libBg" layoutY="80.0" prefHeight="520.0" prefWidth="846.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
                            <children>
                               <Label fx:id="libTitle" layoutX="30.0" layoutY="8.0" text="Document List" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="8.0" />
-                              <AnchorPane fx:id="docLeftPane" layoutX="16.0" layoutY="50.0" prefHeight="196.0" prefWidth="68.0" AnchorPane.leftAnchor="16.0">
-                                 <children>
-                                    <AnchorPane fx:id="authorIcon" layoutX="7.0" layoutY="70.0" onMouseClicked="#enterAuthorManage" prefHeight="55.0" prefWidth="55.0">
-                                       <children>
-                                          <SVGPath content="M14.8439 2.45443L12.0617 6.16514C12.1451 6.22824 12.2248 6.29728 12.301 6.37228L19.4438 13.5152C19.5189 13.5901 19.5879 13.6699 19.651 13.7545L23.3617 10.9723C23.5664 10.8188 23.7356 10.6231 23.858 10.3985C23.9804 10.1738 24.0532 9.92554 24.0713 9.67034C24.0894 9.41514 24.0525 9.1591 23.9631 8.91944C23.8736 8.67973 23.7337 8.4621 23.5528 8.28121L17.5349 2.26336C17.354 2.08247 17.1364 1.94256 16.8967 1.8531C16.6571 1.76364 16.401 1.72672 16.1458 1.74484C15.8906 1.76296 15.6423 1.83569 15.4177 1.95812C15.1931 2.08054 14.9974 2.24979 14.8439 2.45443ZM2.47421 10.1901L0.304565 23.933L5.57243 18.6652L5.02242 18.1151C4.81309 17.9058 4.69549 17.6219 4.69549 17.3259C4.69549 17.0298 4.81309 16.7459 5.02242 16.5366C5.23175 16.3272 5.51567 16.2097 5.81171 16.2097C6.10777 16.2097 6.39168 16.3272 6.60098 16.5366L9.27957 19.2151C9.48887 19.4245 9.60652 19.7084 9.60652 20.0045C9.60652 20.3004 9.48887 20.5844 9.27957 20.7937C9.07026 21.003 8.7863 21.1207 8.49031 21.1207C8.19426 21.1207 7.91035 21.003 7.70098 20.7937L7.15101 20.2437L1.88313 25.5116L15.626 23.3419C16.0126 23.281 16.3684 23.0947 16.6388 22.8117C16.9092 22.5287 17.0791 22.1648 17.1224 21.7758L17.8653 15.0937L10.7224 7.95086L4.04028 8.69369C3.65133 8.73709 3.2874 8.907 3.00444 9.17737C2.72149 9.44774 2.5352 9.80358 2.47421 10.1901Z" layoutX="15.0" layoutY="13.0" />
-                                       </children>
-                                    </AnchorPane>
-                                    <AnchorPane fx:id="publishIcon" layoutX="7.0" layoutY="133.0" onMouseClicked="#enterPublishManage" prefHeight="55.0" prefWidth="55.0">
-                                       <children>
-                                          <SVGPath content="M17.0499 0.179932C17.713 0.179932 18.3489 0.472589 18.8177 0.993524C19.2865 1.51446 19.5499 2.221 19.5499 2.95771V8.51326H22.0499C22.713 8.51326 23.3489 8.80592 23.8177 9.32686C24.2865 9.84779 24.5499 10.5543 24.5499 11.291V22.4022C24.8814 22.4022 25.1994 22.5485 25.4338 22.8089C25.6682 23.0694 25.7999 23.4227 25.7999 23.791C25.7999 24.1594 25.6682 24.5127 25.4338 24.7731C25.1994 25.0336 24.8814 25.1799 24.5499 25.1799H2.04993C1.71841 25.1799 1.40046 25.0336 1.16604 24.7731C0.931623 24.5127 0.799927 24.1594 0.799927 23.791C0.799927 23.4227 0.931623 23.0694 1.16604 22.8089C1.40046 22.5485 1.71841 22.4022 2.04993 22.4022V8.51326C2.04993 7.77655 2.31332 7.07001 2.78216 6.54908C3.251 6.02814 3.88689 5.73549 4.54993 5.73549H7.04993V2.95771C7.04993 2.221 7.31332 1.51446 7.78216 0.993524C8.251 0.472589 8.88689 0.179932 9.54993 0.179932H17.0499ZM7.04993 8.51326H4.54993V22.4022H7.04993V8.51326ZM22.0499 11.291H19.5499V22.4022H22.0499V11.291ZM14.5499 16.8466H12.0499V19.6244H14.5499V16.8466ZM14.5499 11.291H12.0499V14.0688H14.5499V11.291ZM14.5499 5.73549H12.0499V8.51326H14.5499V5.73549Z" layoutX="14.0" layoutY="14.0" />
-                                       </children>
-                                    </AnchorPane>
-                                    <AnchorPane fx:id="docIcon" layoutX="7.0" layoutY="7.0" onMouseClicked="#enterDocManage" prefHeight="55.0" prefWidth="55.0">
-                                       <children>
-                                          <SVGPath content="M5.55556 17.5H8.33333V2.5H5.55556V17.5ZM4.16667 25C3.00926 25 2.02546 24.6354 1.21528 23.9062C0.405093 23.1771 0 22.2917 0 21.25V3.75C0 2.70833 0.405093 1.82292 1.21528 1.09375C2.02546 0.364583 3.00926 0 4.16667 0H19.4444V20H4.16667C3.77315 20 3.44352 20.12 3.17778 20.36C2.91204 20.6 2.7787 20.8967 2.77778 21.25C2.77685 21.6033 2.91019 21.9004 3.17778 22.1412C3.44537 22.3821 3.775 22.5017 4.16667 22.5H22.2222V2.5H25V25H4.16667Z" layoutX="15.0" layoutY="15.0" />
-                                       </children>
-                                    </AnchorPane>
-                                 </children>
-                              </AnchorPane>
                               <AnchorPane fx:id="docList" layoutX="93.0" prefHeight="520.0" prefWidth="753.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="93.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
                                  <children>
-                                    <TableView layoutX="20.0" layoutY="48.0" prefHeight="430.0" prefWidth="827.0" styleClass="column-header" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="7.199999999999932" AnchorPane.rightAnchor="10.399999999999977" AnchorPane.topAnchor="44.8">
+                                    <TableView layoutX="20.0" layoutY="55.0" prefHeight="423.0" prefWidth="827.0" styleClass="column-header" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="7.199999999999932" AnchorPane.rightAnchor="10.399999999999977" AnchorPane.topAnchor="50.0">
                                       <columns>
                                         <TableColumn prefWidth="73.60000419616699" text="ID" />
                                         <TableColumn prefWidth="187.9999771118164" text="Title" />
@@ -145,23 +139,23 @@
                                        </columnResizePolicy>
                                     </TableView>
                                     <Button fx:id="docSearchButton" layoutX="322.0" layoutY="442.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="90.0" text="Search" AnchorPane.bottomAnchor="8.400000000000034" />
-                                    <TextField fx:id="docSearchBox" layoutX="7.0" layoutY="445.0" minHeight="0.0" minWidth="0.0" prefHeight="26.0" prefWidth="308.0" promptText="Find by DID, title, author" AnchorPane.bottomAnchor="10.200000000000045" />
-                                    <Button fx:id="allButton" layoutX="385.0" layoutY="5.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="66.0" text="All" AnchorPane.rightAnchor="301.4000000000001" />
-                                    <HBox fx:id="hhBox" layoutX="455.0" layoutY="5.0" prefHeight="36.0" prefWidth="285.0" AnchorPane.rightAnchor="12.200000000000045">
+                                    <TextField fx:id="docSearchBox" layoutX="7.0" layoutY="445.0" minHeight="0.0" minWidth="0.0" prefHeight="26.0" prefWidth="308.0" promptText="Find by DID, title, author" AnchorPane.bottomAnchor="10.2" />
+                                    <Button fx:id="allButton" layoutX="385.0" layoutY="5.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="66.0" text="All" AnchorPane.rightAnchor="301.4000000000001" />
+                                    <HBox fx:id="hhBox" layoutX="455.0" layoutY="5.0" prefHeight="40.0" prefWidth="285.0" AnchorPane.rightAnchor="12.200000000000045">
                                        <children>
                                           <Button layoutY="3.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="90.0" text="Book">
                                              <HBox.margin>
-                                                <Insets left="5.0" top="2.0" />
+                                                <Insets left="5.0" top="5.0" />
                                              </HBox.margin>
                                           </Button>
                                           <Button minHeight="0.0" minWidth="0.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="90.0" text="Thesis">
                                              <HBox.margin>
-                                                <Insets left="5.0" top="2.0" />
+                                                <Insets left="5.0" top="5.0" />
                                              </HBox.margin>
                                           </Button>
                                           <Button fx:id="authorSearchBox" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="90.0" text="Journal">
                                              <HBox.margin>
-                                                <Insets left="5.0" right="5.0" top="2.0" />
+                                                <Insets left="5.0" right="5.0" top="5.0" />
                                              </HBox.margin>
                                           </Button>
                                        </children>
@@ -170,7 +164,7 @@
                               </AnchorPane>
                               <AnchorPane fx:id="authorList" layoutX="93.0" prefHeight="520.0" prefWidth="753.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="93.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
                                  <children>
-                                    <TableView layoutX="20.0" layoutY="45.0" prefHeight="430.0" prefWidth="827.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="7.199999999999932" AnchorPane.rightAnchor="10.399999999999977" AnchorPane.topAnchor="44.8">
+                                    <TableView layoutX="20.0" layoutY="55.0" prefHeight="423.0" prefWidth="827.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="7.199999999999932" AnchorPane.rightAnchor="10.399999999999977" AnchorPane.topAnchor="50.0">
                                       <columns>
                                         <TableColumn prefWidth="92.79999566078186" text="AID" />
                                         <TableColumn prefWidth="167.20001220703125" text="Full Name" />
@@ -182,13 +176,13 @@
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                        </columnResizePolicy>
                                     </TableView>
-                                    <TextField fx:id="authorSearchBox" layoutX="7.0" layoutY="445.0" minHeight="0.0" minWidth="0.0" prefHeight="26.0" prefWidth="308.0" promptText="Find by DID, title, author" AnchorPane.bottomAnchor="10.399999999999956" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="437.80000000000007" AnchorPane.topAnchor="480.80000000000007" />
-                                    <Button fx:id="authorSearchButton" layoutX="323.0" layoutY="478.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="90.0" text="Search" />
+                                    <TextField fx:id="authorSearchBox" layoutX="7.0" layoutY="445.0" minHeight="0.0" minWidth="0.0" prefHeight="26.0" prefWidth="308.0" promptText="Find by DID, title, author" AnchorPane.bottomAnchor="10.2" />
+                                    <Button fx:id="authorSearchButton" layoutX="322.0" layoutY="442.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="90.0" text="Search" AnchorPane.bottomAnchor="8.400000000000023" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="publisherList" layoutX="93.0" prefHeight="520.0" prefWidth="753.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="93.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
                                  <children>
-                                    <TableView layoutX="20.0" layoutY="45.0" prefHeight="430.0" prefWidth="827.0" AnchorPane.bottomAnchor="42.200000000000045" AnchorPane.leftAnchor="7.199999999999932" AnchorPane.rightAnchor="10.399999999999977" AnchorPane.topAnchor="44.8">
+                                    <TableView layoutX="20.0" layoutY="55.0" prefHeight="423.0" prefWidth="827.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="7.199999999999932" AnchorPane.rightAnchor="10.399999999999977" AnchorPane.topAnchor="50.0">
                                       <columns>
                                         <TableColumn prefWidth="67.99994683265686" text="PID" />
                                         <TableColumn prefWidth="178.40003967285156" text="Name" />
@@ -201,11 +195,40 @@
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                        </columnResizePolicy>
                                     </TableView>
-                                    <TextField fx:id="publisherSearchBox" layoutX="7.0" layoutY="445.0" minHeight="0.0" minWidth="0.0" prefHeight="26.0" prefWidth="308.0" promptText="Find by DID, title, author" AnchorPane.bottomAnchor="10.399999999999956" />
-                                    <Button fx:id="publishSearchButton" layoutX="323.0" layoutY="478.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="90.0" text="Search" AnchorPane.bottomAnchor="8.400000000000023" />
+                                    <TextField fx:id="publisherSearchBox" layoutX="7.0" layoutY="445.0" minHeight="0.0" minWidth="0.0" prefHeight="26.0" prefWidth="308.0" promptText="Find by DID, title, author" AnchorPane.bottomAnchor="10.2" />
+                                    <Button fx:id="publishSearchButton" layoutX="322.0" layoutY="442.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="90.0" text="Search" AnchorPane.bottomAnchor="8.400000000000023" />
                                  </children>
                               </AnchorPane>
-                              <Button fx:id="addDocButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="153.0" text="Add new document" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="13.0" />
+                              <Button fx:id="addDocButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="153.0" text="Add new" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="13.0" />
+                              <Polygon fx:id="shapee" fill="DODGERBLUE" layoutX="50.0" layoutY="298.0" points="-17.20001983642578, 40.0, -17.20001983642578, -52.0, 19.59996795654297, -52.0, 19.59996795654297, 40.0, 1.9999923706054688, 17.20001220703125" stroke="BLACK" strokeType="INSIDE" />
+                              <VBox fx:id="libBox" layoutX="19.0" layoutY="60.0" prefHeight="186.0" prefWidth="68.0" AnchorPane.leftAnchor="16.0">
+                                 <children>
+                                    <AnchorPane fx:id="docIcon" onMouseClicked="#enterDocManage" prefHeight="55.0" prefWidth="55.0">
+                                       <children>
+                                          <SVGPath fx:id="docSvg" content="M5.55556 17.5H8.33333V2.5H5.55556V17.5ZM4.16667 25C3.00926 25 2.02546 24.6354 1.21528 23.9062C0.405093 23.1771 0 22.2917 0 21.25V3.75C0 2.70833 0.405093 1.82292 1.21528 1.09375C2.02546 0.364583 3.00926 0 4.16667 0H19.4444V20H4.16667C3.77315 20 3.44352 20.12 3.17778 20.36C2.91204 20.6 2.7787 20.8967 2.77778 21.25C2.77685 21.6033 2.91019 21.9004 3.17778 22.1412C3.44537 22.3821 3.775 22.5017 4.16667 22.5H22.2222V2.5H25V25H4.16667Z" layoutX="17.0" layoutY="15.0" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </AnchorPane>
+                                    <AnchorPane fx:id="authorIcon" onMouseClicked="#enterAuthorManage" prefHeight="55.0" prefWidth="55.0">
+                                       <children>
+                                          <SVGPath fx:id="authorSvg" content="M14.8439 2.45443L12.0617 6.16514C12.1451 6.22824 12.2248 6.29728 12.301 6.37228L19.4438 13.5152C19.5189 13.5901 19.5879 13.6699 19.651 13.7545L23.3617 10.9723C23.5664 10.8188 23.7356 10.6231 23.858 10.3985C23.9804 10.1738 24.0532 9.92554 24.0713 9.67034C24.0894 9.41514 24.0525 9.1591 23.9631 8.91944C23.8736 8.67973 23.7337 8.4621 23.5528 8.28121L17.5349 2.26336C17.354 2.08247 17.1364 1.94256 16.8967 1.8531C16.6571 1.76364 16.401 1.72672 16.1458 1.74484C15.8906 1.76296 15.6423 1.83569 15.4177 1.95812C15.1931 2.08054 14.9974 2.24979 14.8439 2.45443ZM2.47421 10.1901L0.304565 23.933L5.57243 18.6652L5.02242 18.1151C4.81309 17.9058 4.69549 17.6219 4.69549 17.3259C4.69549 17.0298 4.81309 16.7459 5.02242 16.5366C5.23175 16.3272 5.51567 16.2097 5.81171 16.2097C6.10777 16.2097 6.39168 16.3272 6.60098 16.5366L9.27957 19.2151C9.48887 19.4245 9.60652 19.7084 9.60652 20.0045C9.60652 20.3004 9.48887 20.5844 9.27957 20.7937C9.07026 21.003 8.7863 21.1207 8.49031 21.1207C8.19426 21.1207 7.91035 21.003 7.70098 20.7937L7.15101 20.2437L1.88313 25.5116L15.626 23.3419C16.0126 23.281 16.3684 23.0947 16.6388 22.8117C16.9092 22.5287 17.0791 22.1648 17.1224 21.7758L17.8653 15.0937L10.7224 7.95086L4.04028 8.69369C3.65133 8.73709 3.2874 8.907 3.00444 9.17737C2.72149 9.44774 2.5352 9.80358 2.47421 10.1901Z" layoutX="17.0" layoutY="15.0" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </AnchorPane>
+                                    <AnchorPane fx:id="publishIcon" onMouseClicked="#enterPublishManage" prefHeight="55.0" prefWidth="55.0">
+                                       <children>
+                                          <SVGPath fx:id="publishSvg" content="M17.0499 0.179932C17.713 0.179932 18.3489 0.472589 18.8177 0.993524C19.2865 1.51446 19.5499 2.221 19.5499 2.95771V8.51326H22.0499C22.713 8.51326 23.3489 8.80592 23.8177 9.32686C24.2865 9.84779 24.5499 10.5543 24.5499 11.291V22.4022C24.8814 22.4022 25.1994 22.5485 25.4338 22.8089C25.6682 23.0694 25.7999 23.4227 25.7999 23.791C25.7999 24.1594 25.6682 24.5127 25.4338 24.7731C25.1994 25.0336 24.8814 25.1799 24.5499 25.1799H2.04993C1.71841 25.1799 1.40046 25.0336 1.16604 24.7731C0.931623 24.5127 0.799927 24.1594 0.799927 23.791C0.799927 23.4227 0.931623 23.0694 1.16604 22.8089C1.40046 22.5485 1.71841 22.4022 2.04993 22.4022V8.51326C2.04993 7.77655 2.31332 7.07001 2.78216 6.54908C3.251 6.02814 3.88689 5.73549 4.54993 5.73549H7.04993V2.95771C7.04993 2.221 7.31332 1.51446 7.78216 0.993524C8.251 0.472589 8.88689 0.179932 9.54993 0.179932H17.0499ZM7.04993 8.51326H4.54993V22.4022H7.04993V8.51326ZM22.0499 11.291H19.5499V22.4022H22.0499V11.291ZM14.5499 16.8466H12.0499V19.6244H14.5499V16.8466ZM14.5499 11.291H12.0499V14.0688H14.5499V11.291ZM14.5499 5.73549H12.0499V8.51326H14.5499V5.73549Z" layoutX="17.0" layoutY="15.0" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </AnchorPane>
+                                 </children>
+                              </VBox>
                            </children>
                         </AnchorPane>
                         <AnchorPane fx:id="brBg" layoutY="80.0" prefHeight="520.0" prefWidth="847.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
@@ -224,7 +247,7 @@
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                               </TableView>
-                              <Button layoutX="717.0" layoutY="482.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="153.0" text="Add a new record" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="13.0" />
+                              <Button layoutX="717.0" layoutY="482.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="153.0" text="Add new" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="13.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane fx:id="settingBg" layoutY="80.0" prefHeight="520.0" prefWidth="847.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">

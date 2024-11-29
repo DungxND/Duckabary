@@ -161,6 +161,9 @@
 #allButton {
     -fx-background-color: white;
     -fx-font-size: 12;
+    -fx-border-color: black;
+    -fx-border-width: 0.5;
+    -fx-border-radius: 3;
 }
 
 #hhBox .button{
@@ -237,6 +240,24 @@
     -fx-background-color: white;
 }
 
+#shapee {
+    -fx-fill: #E9E4D3;
+    -fx-stroke: none;
+}
+
+#leftBorIconPane,
+#leftLibIconPane,
+#leftUserIconPane {
+    -fx-border-width: 2;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+}
+
+#libBox {
+    -fx-background-color: #E9E4D3;
+    -fx-background-radius:8;
+    -fx-border-radius: 8;
+}
 
 
 
