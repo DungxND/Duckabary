@@ -32,5 +32,6 @@
     font-family: 'Montserrat', sans-serif;
     -fx-font-family: 'Montserrat', sans-serif;
     -fx-text-fill: #102741;
+    -fx-font-smoothing-type: gray;
 }
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="notificationPane" alignment="CENTER" maxHeight="100" maxWidth="300" styleClass="notification-pane" stylesheets="@../../css/component/notification.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.vn.dungxnd.duckabary.presentation.controller.NotificationController">
+    <Label fx:id="messageLabel" styleClass="notification-text" />
+</VBox>

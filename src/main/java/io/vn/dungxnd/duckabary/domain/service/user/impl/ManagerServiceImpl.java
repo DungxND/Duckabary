@@ -1,5 +1,7 @@
 package io.vn.dungxnd.duckabary.domain.service.user.impl;
 
+import static io.vn.dungxnd.duckabary.util.ValidationUtils.*;
+
 import io.vn.dungxnd.duckabary.domain.model.user.Manager;
 import io.vn.dungxnd.duckabary.domain.service.user.ManagerService;
 import io.vn.dungxnd.duckabary.exception.DatabaseException;
@@ -66,20 +68,13 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     private void validateManager(Manager manager) {
-        if (manager == null) {
-            throw new IllegalArgumentException("Manager cannot be null");
-        }
-        if (manager.username() == null || manager.username().trim().isEmpty()) {
-            throw new IllegalArgumentException("Username cannot be empty");
-        }
-        if (manager.email() == null || manager.email().trim().isEmpty()) {
-            throw new IllegalArgumentException("Email cannot be empty");
-        }
-        if (!manager.email().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-            throw new IllegalArgumentException("Invalid email format");
-        }
-        if (manager.hashedPassword() == null || manager.hashedPassword().isEmpty()) {
-            throw new IllegalArgumentException("Password cannot be empty");
+        try {
+            validateHashedPassword(manager.hashedPassword());
+            validateEmail(manager.email());
+            validateUsername(manager.username());
+            validateRawPassword(manager.hashedPassword());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getMessage());
         }
     }
 }

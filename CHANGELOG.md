@@ -4,6 +4,18 @@
 - [ ] Refactor the code
 - [ ] Test app
 
+## 29 Nov 2024 (DungxND)
+
+### Added
+
+- Register now works.
+- Show password in login/register UI
+
+### Changed
+
+- Better email validation
+- Reworked the login/register UI
+
 ## 28 Nov 2024 (DungxND)
 
 ### Added

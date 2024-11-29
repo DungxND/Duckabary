@@ -1,0 +1,29 @@
+.notification-pane {
+    -fx-background-color: #4CAF50;
+    -fx-background-radius: 5;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 3);
+}
+
+.notification-pane.success {
+    -fx-background-color: #4CAF50;
+}
+
+.notification-pane.error {
+    -fx-background-color: #F44336;
+}
+
+.notification-pane.warning {
+    -fx-background-color: #FFC107;
+}
+
+.notification-pane.info {
+    -fx-background-color: #2196F3;
+}
+
+.notification-text {
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+}

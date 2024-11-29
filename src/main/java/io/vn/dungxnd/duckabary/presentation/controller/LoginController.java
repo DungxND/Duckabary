@@ -3,21 +3,21 @@ package io.vn.dungxnd.duckabary.presentation.controller;
 import io.vn.dungxnd.duckabary.domain.service.ServiceManager;
 import io.vn.dungxnd.duckabary.domain.service.user.ManagerService;
 import io.vn.dungxnd.duckabary.presentation.ui.MainApplication;
+
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
+
+import static io.vn.dungxnd.duckabary.util.InputFieldUtils.maintainCaretPosition;
 
 public class LoginController {
     private final ManagerService managerService;
@@ -25,12 +25,16 @@ public class LoginController {
     @FXML private VBox title;
     @FXML private Label si;
     @FXML private TextField usernameField;
-    @FXML private PasswordField passwordField;
+    @FXML private PasswordField passwordInput;
+    @FXML private TextField passwordText;
+    @FXML private Button openEyePasswordBtn;
+    @FXML private Button closeEyePasswordBtn;
     @FXML private Button loginButton;
     @FXML private Label errorLabel;
     @FXML private Label registerRedirectBtn;
     @FXML private HBox down;
     @FXML private VBox main;
+    @FXML private CheckBox rememberLoginChkBox;
 
     public LoginController() {
         this.managerService = ServiceManager.getInstance().getManagerService();
@@ -40,11 +44,11 @@ public class LoginController {
     private void initialize() {
 
         loginButton.setOnAction(event -> handleLogin());
-        registerRedirectBtn.setOnMouseClicked(event -> handleRegister());
+        registerRedirectBtn.setOnMouseClicked(event -> openRegisterModal());
         registerRedirectBtn.setFont(Font.font("Montserrat", 700));
-
+        passwordText.textProperty().bindBidirectional(passwordInput.textProperty());
         errorLabel.setVisible(false);
-        passwordField.setOnKeyPressed(
+        passwordInput.setOnKeyPressed(
                 event -> {
                     if (event.getCode() == KeyCode.ENTER) {
                         handleLogin();
@@ -54,7 +58,7 @@ public class LoginController {
 
     private void handleLogin() {
         String username = usernameField.getText().trim();
-        String password = passwordField.getText();
+        String password = passwordInput.getText();
 
         if (username.isEmpty() || password.isEmpty()) {
             showError("Username and password are required");
@@ -66,14 +70,14 @@ public class LoginController {
                 MainApplication.getInstance().showMainView();
             } else {
                 showError("Invalid username or password");
-                passwordField.clear();
+                passwordInput.clear();
             }
         } catch (Exception e) {
             showError("System Error: " + e.getMessage());
         }
     }
 
-    private void handleRegister() {
+    private void openRegisterModal() {
         try {
             FXMLLoader loader =
                     new FXMLLoader(getClass().getResource("/fxml/auth/RegisterModal.fxml"));
@@ -85,6 +89,7 @@ public class LoginController {
             stage.setResizable(false);
             stage.show();
         } catch (Exception e) {
+            e.printStackTrace();
             showError("Cannot open registration form: " + e.getMessage());
         }
     }
@@ -98,7 +103,23 @@ public class LoginController {
         pause.play();
     }
 
-    private boolean validateCredentials(String username, String password) {
-        return username != null && !username.isEmpty() && password != null && !password.isEmpty();
+    @FXML
+    private void showPassword() {
+        passwordText.setVisible(true);
+        passwordInput.setVisible(false);
+        openEyePasswordBtn.setVisible(false);
+        closeEyePasswordBtn.setVisible(true);
+        passwordText.requestFocus();
+        maintainCaretPosition(passwordText);
+    }
+
+    @FXML
+    private void hidePassword() {
+        passwordText.setVisible(false);
+        passwordInput.setVisible(true);
+        openEyePasswordBtn.setVisible(true);
+        closeEyePasswordBtn.setVisible(false);
+        passwordInput.requestFocus();
+        maintainCaretPosition(passwordInput);
     }
 }

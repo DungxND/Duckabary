@@ -1,0 +1,155 @@
+/* Root styles */
+.root {
+    -fx-background-color: #F8F5E9;
+    -fx-font-size: 14px;
+}
+
+/* Typography */
+.title-text {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+.field-label {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.error-message {
+    -fx-text-fill: #FF3B30;
+    -fx-font-size: 13px;
+    -fx-font-weight: normal;
+}
+
+.footer-text {
+    -fx-font-size: 14px;
+}
+
+/* Input fields */
+.text-field,
+.password-field,
+.input-field {
+    -fx-padding: 12px 12px 12px 40px;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #DFE6E9;
+    -fx-border-width: 1;
+    -fx-font-size: 14px;
+    -fx-background-color: white;
+    -fx-pref-height: 40;
+}
+
+.text-field:focused,
+.password-field:focused,
+.input-field:focused {
+    -fx-border-color: #FAAA3A;
+    -fx-border-width: 2;
+}
+
+.check-box {
+    -fx-background-color: transparent;
+}
+
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 3;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #FAAA3A;
+    -fx-border-color: #FAAA3A;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+.check-box:hover .box {
+    -fx-border-color: #FAAA3A;
+}
+
+
+/* Buttons */
+.button,
+.login-button {
+    -fx-background-color: #FAAA3A;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-padding: 12px 24px;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.button:hover,
+.login-button:hover {
+    -fx-background-color: derive(#ffbc67, -10%);
+}
+
+.button:pressed,
+.login-button:pressed {
+    -fx-background-color: derive(#ffbc67, -20%);
+}
+
+.navigation-button {
+    -fx-padding: 7px;
+    -fx-background-color: #EAE0D5;
+    -fx-text-fill: #3D372D;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+}
+
+.password-eye-button {
+    -fx-padding: 5px;
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+}
+
+.password-eye-button:hover, .password-eye-button:pressed {
+    -fx-background-color: transparent;
+}
+
+
+.hyperlink {
+    -fx-text-fill: #FAAA3A;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: derive(#FAAA3A, -10%);
+}
+
+#titlePane,
+#mainPane {
+    -fx-background-color: #F8F5E9;
+}
+
+#titlePane {
+    -fx-border-color: #E8E5D9;
+    -fx-border-width: 0 0 1 0;
+}
+
+.fill-icon {
+    -fx-fill: #707070;
+}
+
+.stroke-icon {
+    -fx-stroke: #707070;
+}
+
+.eye-icon {
+    -fx-cursor: hand;
+    -fx-fill: #B2BEC3;
+}
+
+.eye-icon:hover {
+    -fx-fill: #636E72;
+}
+
