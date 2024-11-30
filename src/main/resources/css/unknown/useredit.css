@@ -3,8 +3,7 @@
 }
 
 #ttPane {
-    -fx-background-color: #62533D;
-
+    -fx-background-color: #503B3A;
 }
 
 #ttPane .label {
@@ -22,9 +21,19 @@
     -fx-font-weight: bold;
 }
 
-#cancelBut {
+#cancleBut {
     -fx-background-color: #D6D6D6;
     -fx-font-weight: bold;
+}
+
+#cancleBut:hover {
+    -fx-cursor: hand;
+    -fx-background-color: grey;
+}
+
+#saveBut:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #CC9966;
 }
 
 .label {
@@ -35,6 +44,10 @@
     -fx-font-weight: none;
 }
 
+#newNameField {
+    -fx-border-color: black;
+    -fx-border-radius: 5;
+}
 
 
 

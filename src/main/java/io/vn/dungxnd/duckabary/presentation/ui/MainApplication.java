@@ -48,6 +48,12 @@ public class MainApplication extends Application {
             primaryStage.setScene(scene);
             primaryStage.setTitle("Duckabary Library Management System");
             primaryStage.show();
+            primaryStage.setResizable(true);
+            primaryStage.centerOnScreen();
+            primaryStage.setWidth(1280);
+            primaryStage.setHeight(720);
+            primaryStage.setMinHeight(720);
+            primaryStage.setMinWidth(1280);
         } catch (IOException e) {
             e.printStackTrace();
         }

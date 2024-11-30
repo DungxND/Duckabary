@@ -38,9 +38,23 @@
     -fx-font-weight: bold;
 }
 
-#erMessage {
+#erMessage,
+#erMessage1 {
     -fx-text-fill: red;
     -fx-font-weight: none;
 }
+
+#cancelBut:hover{
+    -fx-cursor: hand;
+    -fx-background-color: grey;
+}
+
+#saveBut:hover{
+    -fx-cursor: hand;
+    -fx-background-color: grey;
+}
+
+
+
 
 

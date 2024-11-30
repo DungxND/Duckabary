@@ -6,15 +6,10 @@
 #titlePane .label {
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-font-size: 26;
+    -fx-font-size: 24;
 }
 
-#leftMain .label {
-    -fx-font-size: 15;
-}
-
-
-.text-area {
+#desContent {
     -fx-background-color: #FDFBF4;
     -fx-background-radius: 0;
     -fx-border-color: transparent;
@@ -27,6 +22,21 @@
     -fx-background-color: #FDFBF4;
 }
 
-#mainPane .label {
+#idLabel {
+    -fx-font-weight: bold;
+}
+
+#inStockPane {
+    -fx-background-color: #EDEDED;
+}
+
+#titleLabel,
+#authorLabel,
+#publisherLabel,
+#pubYearLabel,
+#genreLabel,
+#languageLabel,
+#isbnLabel,
+#desLabel {
     -fx-font-weight: bold;
 }

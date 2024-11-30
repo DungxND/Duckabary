@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.vn.dungxnd.duckabary.presentation.controller.MainMenuController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.vn.dungxnd.duckabary.presentation.controller.MainMenuController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -41,7 +41,7 @@
                               </Text>
                            </children>
                         </AnchorPane>
-                        <VBox fx:id="optionVbox" layoutY="164.0" prefHeight="396.0" prefWidth="251.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="3.200000000000017">
+                        <VBox fx:id="optionVbox" layoutY="164.0" prefHeight="396.0" prefWidth="251.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="3.200000000000017" AnchorPane.topAnchor="220.0">
                            <children>
                               <AnchorPane fx:id="usOption" onMouseClicked="#enterUserManage" prefHeight="132.0" prefWidth="251.0">
                                  <children>
@@ -100,9 +100,9 @@
                               <Label layoutX="51.0" layoutY="20.0" prefHeight="38.0" prefWidth="359.0" text="Library Management System" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="userBg" layoutY="80.0" prefHeight="520.0" prefWidth="847.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+                        <AnchorPane fx:id="userBg" layoutY="80.0" prefHeight="520.0" prefWidth="847.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
                            <children>
-                              <Button alignment="CENTER" layoutX="668.0" layoutY="480.0" maxWidth="159.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="153.0" text="Add new " AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="13.0" />
+                              <Button fx:id="addUserButton" alignment="CENTER" layoutX="668.0" layoutY="480.0" maxWidth="159.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="153.0" text="Add new " AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="13.0" />
                               <Label layoutX="30.0" layoutY="8.0" prefHeight="30.0" prefWidth="179.0" text="User Management" />
                               <TableView layoutX="20.0" layoutY="45.0" prefHeight="430.0" prefWidth="820.0" AnchorPane.bottomAnchor="44.60000000000002" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="10.399999999999977" AnchorPane.topAnchor="44.80000000000001">
                                 <columns>
@@ -117,10 +117,11 @@
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                               </TableView>
-                              <TextField fx:id="userSearchBox" layoutX="17.0" layoutY="482.0" maxHeight="32.0" minHeight="5.0" prefHeight="27.0" prefWidth="378.0" promptText="Search for id/name/address/phone" AnchorPane.bottomAnchor="10.8" AnchorPane.leftAnchor="17.0" />
+                              <TextField fx:id="userSearchBox" layoutX="17.0" layoutY="483.0" maxHeight="32.0" minHeight="5.0" prefHeight="26.0" prefWidth="391.0" promptText="Search for id/name/address/phone" AnchorPane.bottomAnchor="10.2" AnchorPane.leftAnchor="17.0" />
+                              <Button fx:id="userSearchButton" layoutX="415.0" layoutY="599.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="90.0" text="Search" AnchorPane.bottomAnchor="8.400000000000034" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="libBg" layoutY="80.0" prefHeight="520.0" prefWidth="846.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+                        <AnchorPane fx:id="libBg" layoutY="80.0" prefHeight="520.0" prefWidth="846.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
                            <children>
                               <Label fx:id="libTitle" layoutX="30.0" layoutY="8.0" text="Document List" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="8.0" />
                               <AnchorPane fx:id="docList" layoutX="93.0" prefHeight="520.0" prefWidth="753.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="93.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
