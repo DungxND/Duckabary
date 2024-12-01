@@ -23,7 +23,7 @@ public class MainApplication extends Application {
     public void start(Stage stage) {
         instance = this;
         this.primaryStage = stage;
-        showLoginView();
+        showMainView();
     }
 
     public void showLoginView() {
@@ -43,7 +43,7 @@ public class MainApplication extends Application {
 
     public void showMainView() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Main.fxml"));
             Scene scene = new Scene(loader.load());
             primaryStage.setScene(scene);
             primaryStage.setTitle("Duckabary Library Management System");
