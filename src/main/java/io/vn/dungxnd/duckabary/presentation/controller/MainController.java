@@ -1,253 +1,147 @@
 package io.vn.dungxnd.duckabary.presentation.controller;
 
+import static javafx.application.Platform.exit;
+
+import io.vn.dungxnd.duckabary.domain.service.PreferencesManager;
+import io.vn.dungxnd.duckabary.domain.session.SessionManager;
+import io.vn.dungxnd.duckabary.util.LoggerUtils;
+
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.image.Image;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
-import javafx.stage.FileChooser;
 
-import java.io.File;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.IOException;
+import java.util.Objects;
 
-public class MainController implements Initializable {
+public class MainController {
+    @FXML private ImageView avatarImg;
+    @FXML private VBox sideMenu;
+    @FXML private AnchorPane mainContainer;
+    @FXML private Label usernameLabel;
 
-    @FXML
-    private AnchorPane usOption;
+    @FXML private VBox settingMenuBtn;
+    @FXML private VBox userMgmtLabelBox;
+    @FXML private VBox libraryMgmtLabelBox;
+    @FXML private VBox borrowMgmtLabelBox;
+    @FXML private VBox userMgmtMenuBtn;
+    @FXML private VBox libraryMgmtMenuBtn;
+    @FXML private VBox borrowMgmtMenuBtn;
+    @FXML private SVGPath menuUserIcon;
+    @FXML private SVGPath menuBookIcon;
+    @FXML private SVGPath menuBorrowIcon;
+    @FXML private Button logoutBtn;
 
-    @FXML
-    private AnchorPane libOption;
-
-    @FXML
-    private AnchorPane borOption;
-
-    @FXML
-    private AnchorPane userPane;
-
-    @FXML
-    private AnchorPane libPane;
-
-    @FXML
-    private AnchorPane borrowPane;
-
-    @FXML
-    private AnchorPane settingPane;
-
-    @FXML
-    private SVGPath leftUserSvg;
-
-    @FXML
-    private SVGPath leftBorSvg;
-
-    @FXML
-    private SVGPath leftLibSvg;
-
-    @FXML
-    private ImageView avaButton;
-
-    @FXML
-    private ImageView setAvaButton;
-
-    @FXML
-    private AnchorPane docList;
-
-    @FXML
-    private AnchorPane authorList;
-
-    @FXML
-    private AnchorPane publishList;
-
-    @FXML
-    private AnchorPane docIcon;
-
-    @FXML
-    private AnchorPane authorIcon;
-
-    @FXML
-    private AnchorPane publishIcon;
-
-    @FXML
-    private SVGPath publishSvg;
-
-    @FXML
-    private SVGPath authorSvg;
-
-    @FXML
-    private SVGPath docSvg;
-
-
-
-
-    public void enterDocManage() {
-        docList.setVisible(true);
-        authorList.setVisible(false);
-        publishList.setVisible(false);
-
-        docIcon.setStyle("-fx-background-color: #3A3026");
-        authorIcon.setStyle("-fx-background-color: #FFFFFF");
-        publishIcon.setStyle("-fx-background-color: #FFFFFF");
-        docSvg.setFill(Color.WHITE);
-        authorSvg.setFill(Color.BLACK);
-        publishSvg.setFill(Color.BLACK);
-
+    public void initialize() {
+        usernameLabel.textProperty().bind(SessionManager.currentUsernameProperty());
+        setupEventHandlers();
     }
 
-    public void enterAuthorManage() {
-        authorList.setVisible(true);
-        publishList.setVisible(false);
-        docList.setVisible(false);
-
-        docIcon.setStyle("-fx-background-color: #FFFFFF");
-        authorIcon.setStyle("-fx-background-color: #3A3026");
-        publishIcon.setStyle("-fx-background-color: #FFFFFF");
-        docSvg.setFill(Color.BLACK);
-        authorSvg.setFill(Color.WHITE);
-        publishSvg.setFill(Color.BLACK);
+    @FXML
+    private void setupEventHandlers() {
+        settingMenuBtn.setOnMouseClicked(event -> handleSettingsClick());
+        userMgmtMenuBtn.setOnMouseClicked(event -> selectSection(userMgmtLabelBox, menuUserIcon));
+        libraryMgmtMenuBtn.setOnMouseClicked(
+                event -> selectSection(libraryMgmtLabelBox, menuBookIcon));
+        borrowMgmtMenuBtn.setOnMouseClicked(
+                event -> selectSection(borrowMgmtLabelBox, menuBorrowIcon));
+        logoutBtn.setOnMouseClicked(event -> handleLogout());
     }
 
-    public void enterPublishManage() {
-        publishList.setVisible(true);
-        authorList.setVisible(false);
-        docList.setVisible(false);
-
-        docIcon.setStyle("-fx-background-color: #FFFFFF");
-        authorIcon.setStyle("-fx-background-color: #FFFFFF");
-        publishIcon.setStyle("-fx-background-color: #3A3026");
-        docSvg.setFill(Color.BLACK);
-        authorSvg.setFill(Color.BLACK);
-        publishSvg.setFill(Color.WHITE);
+    private void handleSettingsClick() {
+        resetStyles();
+        loadSettingPage();
     }
 
-    public void enterLibManage() {
-        userPane.setVisible(false);
-        borrowPane.setVisible(false);
-        libPane.setVisible(true);
-        settingPane.setVisible(false);
+    private void selectSection(VBox labelBox, SVGPath icon) {
+        resetStyles();
 
-        leftLibSvg.setFill(Color.BLACK);
+        if (labelBox == null) {
+            loadSettingPage();
+            return;
+        }
 
-        leftBorSvg.setFill(null);
-        leftBorSvg.setStroke(Color.BLACK);
-        leftUserSvg.setFill(null);
-        leftUserSvg.setStroke(Color.BLACK);
-        leftUserSvg.setStrokeWidth(2);
-        leftBorSvg.setStrokeWidth(2);
-    }
-
-    public void enterUserManage() {
-        libPane.setVisible(false);
-        borrowPane.setVisible(false);
-        userPane.setVisible(true);
-        settingPane.setVisible(false);
-
-        leftLibSvg.setFill(null);
-        leftBorSvg.setFill(null);
-        leftLibSvg.setStroke(Color.BLACK);
-        leftBorSvg.setStroke(Color.BLACK);
-
-        leftUserSvg.setFill(Color.BLACK);
-        leftLibSvg.setStrokeWidth(2);
-        leftBorSvg.setStrokeWidth(2);
-    }
-
-    public void enterBorrowManage() {
-        libPane.setVisible(false);
-        userPane.setVisible(false);
-        borrowPane.setVisible(true);
-        settingPane.setVisible(false);
-
-
-        leftBorSvg.setFill(Color.BLACK);
-
-        leftLibSvg.setFill(null);
-        leftUserSvg.setFill(null);
-        leftLibSvg.setStroke(Color.BLACK);
-        leftUserSvg.setStroke(Color.BLACK);
-        leftLibSvg.setStrokeWidth(2);
-        leftUserSvg.setStrokeWidth(2);
-    }
-
-    public void enterSetting() {
-        settingPane.setVisible(true);
-        userPane.setVisible(false);
-        borrowPane.setVisible(false);
-        libPane.setVisible(false);
-
-        leftLibSvg.setFill(null);
-        leftUserSvg.setFill(null);
-        leftBorSvg.setFill(null);
-        leftLibSvg.setStroke(Color.BLACK);
-        leftUserSvg.setStroke(Color.BLACK);
-        leftBorSvg.setStroke(Color.BLACK);
-        leftLibSvg.setStrokeWidth(2);
-        leftUserSvg.setStrokeWidth(2);
-        leftBorSvg.setStrokeWidth(2);
-    }
-
-    public void handleAvatarChange() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Chọn ảnh đại diện");
-
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
-        );
-
-        File selectedFile = fileChooser.showOpenDialog(avaButton.getScene().getWindow());
-
-        if (selectedFile != null) {
-            try {
-                Circle clip = new Circle();
-                clip.setCenterX(avaButton.getFitWidth() / 2);
-                clip.setCenterY(avaButton.getFitHeight() / 2);
-                clip.setRadius(Math.min(avaButton.getFitWidth(), avaButton.getFitHeight()) * 17 / 40);
-                Image avatarImage = new Image(selectedFile.toURI().toString());
-                avaButton.setImage(avatarImage);
-                avaButton.setClip(clip);
-
-                Circle clip1 = new Circle();
-                clip1.setCenterX(setAvaButton.getFitWidth() / 2);
-                clip1.setCenterY(setAvaButton.getFitHeight() / 2);
-                clip1.setRadius(Math.min(setAvaButton.getFitWidth(), setAvaButton.getFitHeight()) * 17 / 40);
-                setAvaButton.setClip(clip1);
-                setAvaButton.setImage(avatarImage);
-
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Lỗi");
-                alert.setHeaderText("Không thể tải ảnh");
-                alert.setContentText("Định dạng ảnh không hợp lệ hoặc bị lỗi.");
-                alert.showAndWait();
+        for (Node node : labelBox.getChildren()) {
+            if (node instanceof Label) {
+                node.getStyleClass().add("bold-text");
             }
+        }
+
+        icon.getStyleClass().add("selected-icon");
+
+        if (labelBox == userMgmtLabelBox) {
+            loadUserMgmtPage();
+        } else if (labelBox == libraryMgmtLabelBox) {
+            loadLibraryMgmtPage();
+        } else if (labelBox == borrowMgmtLabelBox) {
+            loadBorrowMgmtPage();
         }
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        Circle clip = new Circle();
-        clip.setCenterX(avaButton.getFitWidth() / 2);
-        clip.setCenterY(avaButton.getFitHeight() / 2);
-        clip.setRadius(Math.min(avaButton.getFitWidth(), avaButton.getFitHeight()) * 17 / 40);
-        avaButton.setClip(clip);
+    private void resetStyles() {
+        for (Node node : userMgmtLabelBox.getChildren()) {
+            if (node instanceof Label) {
+                node.getStyleClass().remove("bold-text");
+            }
+        }
+        for (Node node : libraryMgmtLabelBox.getChildren()) {
+            if (node instanceof Label) {
+                node.getStyleClass().remove("bold-text");
+            }
+        }
+        for (Node node : borrowMgmtLabelBox.getChildren()) {
+            if (node instanceof Label) {
+                node.getStyleClass().remove("bold-text");
+            }
+        }
 
-        Circle clip1 = new Circle();
-        clip1.setCenterX(setAvaButton.getFitWidth() / 2);
-        clip1.setCenterY(setAvaButton.getFitHeight() / 2);
-        clip1.setRadius(Math.min(setAvaButton.getFitWidth(), setAvaButton.getFitHeight()) * 17 / 40);
-        setAvaButton.setClip(clip1);
-
-        docIcon.setStyle("-fx-background-color: #3A3026");
-        authorIcon.setStyle("-fx-background-color: #FFFFFF");
-        publishIcon.setStyle("-fx-background-color: #FFFFFF");
-        docSvg.setFill(Color.WHITE);
-        authorSvg.setFill(Color.BLACK);
-        publishSvg.setFill(Color.BLACK);
-
+        menuUserIcon.getStyleClass().remove("selected-icon");
+        menuBookIcon.getStyleClass().remove("selected-icon");
+        menuBorrowIcon.getStyleClass().remove("selected-icon");
     }
 
+    public void loadSettingPage() {
+        loadFXML("/fxml/page/SettingMgmt.fxml");
+    }
 
+    public void loadUserMgmtPage() {
+        loadFXML("/fxml/page/UserMgmt.fxml");
+    }
+
+    public void loadLibraryMgmtPage() {
+        loadFXML("/fxml/page/LibraryMgmt.fxml");
+    }
+
+    public void loadBorrowMgmtPage() {
+        loadFXML("/fxml/page/BorrowMgmt.fxml");
+    }
+
+    private void loadFXML(String fxmlFile) {
+        try {
+            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
+
+            mainContainer.getChildren().setAll(node);
+
+            AnchorPane.setTopAnchor(node, 3.0);
+            AnchorPane.setBottomAnchor(node, 3.0);
+            AnchorPane.setLeftAnchor(node, 3.0);
+            AnchorPane.setRightAnchor(node, 3.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+            LoggerUtils.error("Failed to load FXML file: " + fxmlFile, e);
+        }
+    }
+
+    @FXML
+    private void handleLogout() {
+        SessionManager.clearSession();
+        PreferencesManager.clearLoginCredentials();
+        exit();
+        LoggerUtils.info("User logged out successfully.");
+    }
 }

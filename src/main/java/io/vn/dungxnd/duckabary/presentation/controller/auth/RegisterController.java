@@ -1,4 +1,4 @@
-package io.vn.dungxnd.duckabary.presentation.controller;
+package io.vn.dungxnd.duckabary.presentation.controller.auth;
 
 import static io.vn.dungxnd.duckabary.util.InputFieldUtils.maintainCaretPosition;
 import static io.vn.dungxnd.duckabary.util.PasswordUtils.hashPassword;
@@ -7,6 +7,7 @@ import static io.vn.dungxnd.duckabary.util.ValidationUtils.validateRawPassword;
 import io.vn.dungxnd.duckabary.domain.model.user.Manager;
 import io.vn.dungxnd.duckabary.domain.service.ServiceManager;
 import io.vn.dungxnd.duckabary.domain.service.user.ManagerService;
+import io.vn.dungxnd.duckabary.presentation.controller.modal.NotificationController;
 
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
@@ -16,8 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -136,8 +135,7 @@ public class RegisterController {
             NotificationController.show(
                     "Registration Successful!",
                     NotificationController.NotificationType.SUCCESS,
-                    registerBtn
-            );
+                    registerBtn);
             PauseTransition delay = new PauseTransition(Duration.seconds(2));
             delay.setOnFinished(e -> closeRegisterAndShowLogin());
             delay.play();
@@ -154,7 +152,6 @@ public class RegisterController {
         pause.setOnFinished(e -> errMessage.setVisible(false));
         pause.play();
     }
-
 
     private void closeRegisterAndShowLogin() {
         Stage currentStage = (Stage) backToLoginBtn.getScene().getWindow();

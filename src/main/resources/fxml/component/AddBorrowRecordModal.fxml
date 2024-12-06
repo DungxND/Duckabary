@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="600.0"
+           styleClass="modalBg" xmlns="http://javafx.com/javafx/23.0.1"
+           fx:controller="io.vn.dungxnd.duckabary.presentation.controller.modal.AddBorrowRecordController">
+    <children>
+        <BorderPane minWidth="600.0">
+            <top>
+                <VBox styleClass="modalHeader" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label styleClass="text" text="Add borrow record">
+                            <font>
+                                <Font size="30.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="20.0" top="18.0"/>
+                    </padding>
+                </VBox>
+            </top>
+            <center>
+                <VBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <VBox spacing="10.0">
+                            <children>
+                                <Label styleClass="bold-text" text="User">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Label>
+                                <StackPane>
+                                    <children>
+                                        <TextField fx:id="userInput" promptText="ID or username"
+                                                   styleClass="input-field"/>
+                                        <SVGPath
+                                                content="M4.10421 4.18754C4.10421 3.65268 4.20498 3.12305 4.40076 2.6289C4.59654 2.13475 4.88351 1.68576 5.24527 1.30755C5.60703 0.929348 6.03651 0.629339 6.50917 0.424656C6.98183 0.219973 7.48843 0.114624 8.00004 0.114624C8.51165 0.114624 9.01825 0.219973 9.49091 0.424656C9.96358 0.629339 10.393 0.929348 10.7548 1.30755C11.1166 1.68576 11.4035 2.13475 11.5993 2.6289C11.7951 3.12305 11.8959 3.65268 11.8959 4.18754C11.8959 5.26775 11.4854 6.30371 10.7548 7.06753C10.0242 7.83135 9.03328 8.26046 8.00004 8.26046C6.9668 8.26046 5.97588 7.83135 5.24527 7.06753C4.51466 6.30371 4.10421 5.26775 4.10421 4.18754ZM8.00004 1.55212C7.33147 1.55212 6.69029 1.82978 6.21754 2.32402C5.74479 2.81826 5.47921 3.48858 5.47921 4.18754C5.47921 4.8865 5.74479 5.55683 6.21754 6.05106C6.69029 6.5453 7.33147 6.82296 8.00004 6.82296C8.66861 6.82296 9.30979 6.5453 9.78254 6.05106C10.2553 5.55683 10.5209 4.8865 10.5209 4.18754C10.5209 3.48858 10.2553 2.81826 9.78254 2.32402C9.30979 1.82978 8.66861 1.55212 8.00004 1.55212ZM4.33337 11.1355C3.78636 11.1355 3.26176 11.3626 2.87497 11.767C2.48817 12.1714 2.27087 12.7198 2.27087 13.2917V14.4302C2.27087 14.4475 2.28279 14.4628 2.29929 14.4657C6.07504 15.1097 9.92596 15.1097 13.7008 14.4657C13.7086 14.4638 13.7156 14.4593 13.7207 14.4529C13.7258 14.4465 13.7288 14.4385 13.7292 14.4302V13.2917C13.7292 12.7198 13.5119 12.1714 13.1251 11.767C12.7383 11.3626 12.2137 11.1355 11.6667 11.1355H11.355C11.3305 11.1359 11.3062 11.1398 11.2826 11.147L10.4897 11.4182C8.87196 11.9704 7.12812 11.9704 5.51037 11.4182L4.71654 11.147C4.69359 11.1399 4.66986 11.1361 4.64596 11.1355H4.33337ZM0.895874 13.2917C0.895874 12.3386 1.25804 11.4245 1.90269 10.7505C2.54735 10.0766 3.42169 9.69796 4.33337 9.69796H4.64504C4.81615 9.6986 4.98237 9.72607 5.14371 9.78037L5.93754 10.0516C7.27774 10.509 8.72235 10.509 10.0625 10.0516L10.8564 9.78037C11.0168 9.72575 11.1855 9.69796 11.3541 9.69796H11.6667C12.5784 9.69796 13.4527 10.0766 14.0974 10.7505C14.742 11.4245 15.1042 12.3386 15.1042 13.2917V14.4302C15.1042 15.1528 14.6037 15.768 13.9217 15.884C9.99988 16.5533 6.0002 16.5533 2.07837 15.884C1.74854 15.8273 1.44867 15.65 1.23213 15.3838C1.01559 15.1176 0.896432 14.7797 0.895874 14.4302V13.2917Z"
+                                                styleClass="fill-icon" StackPane.alignment="CENTER_LEFT">
+                                            <StackPane.margin>
+                                                <Insets left="12.0"/>
+                                            </StackPane.margin>
+                                        </SVGPath>
+                                    </children>
+                                </StackPane>
+                                <Label fx:id="foundUserLabel" text="Found user: dungng (ID: 13)"/>
+                            </children>
+                        </VBox>
+                        <VBox spacing="10.0">
+                            <children>
+                                <Label styleClass="bold-text" text="Document">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Label>
+                                <StackPane>
+                                    <children>
+                                        <TextField fx:id="documentInput" promptText="ID or title"
+                                                   styleClass="input-field"/>
+                                        <SVGPath
+                                                content="M3.5 11.937V13a.5.5 0 0 0 .5.5h7a1.5 1.5 0 0 0 1.5-1.5v-.401A3 3 0 0 1 11 12H4q-.26 0-.5-.063M2 10V3q0-.103.01-.204a2 2 0 0 1 .676-1.304A2 2 0 0 1 4 1h7a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H4a2 2 0 0 1-2-2zm1.5 0a.5.5 0 0 0 .5.5h7A1.5 1.5 0 0 0 12.5 9V4q0-.156-.03-.302A1.5 1.5 0 0 0 11 2.5H4a.5.5 0 0 0-.5.5zm2-4.75a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 0 1.5h-3.5a.75.75 0 0 1-.75-.75"
+                                                styleClass="fill-icon" StackPane.alignment="CENTER_LEFT">
+                                            <StackPane.margin>
+                                                <Insets left="12.0"/>
+                                            </StackPane.margin>
+                                        </SVGPath>
+                                    </children>
+                                </StackPane>
+                                <Label fx:id="foundDocumentLabel" text="Found user: dungng (ID: 13)"/>
+                            </children>
+                        </VBox>
+                        <VBox spacing="10.0">
+                            <children>
+                                <Label styleClass="bold-text" text="Quantity">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Label>
+                                <StackPane>
+                                    <children>
+                                        <TextField fx:id="quantityInput" promptText="10" styleClass="input-field"/>
+                                        <SVGPath
+                                                content="m20.083 15.2l1.202.721a.5.5 0 0 1 0 .858l-8.77 5.262a1 1 0 0 1-1.03 0l-8.77-5.262a.5.5 0 0 1 0-.858l1.202-.721L12 20.05zm0-4.7l1.202.721a.5.5 0 0 1 0 .858L12 17.649l-9.285-5.57a.5.5 0 0 1 0-.858l1.202-.721L12 15.35zm-7.569-9.191l8.771 5.262a.5.5 0 0 1 0 .858L12 12.999L2.715 7.43a.5.5 0 0 1 0-.858l8.77-5.262a1 1 0 0 1 1.03 0M12 3.332L5.887 7L12 10.668L18.113 7z"
+                                                styleClass="fill-icon" StackPane.alignment="CENTER_LEFT">
+                                            <StackPane.margin>
+                                                <Insets left="12.0"/>
+                                            </StackPane.margin>
+                                        </SVGPath>
+                                    </children>
+                                </StackPane>
+                            </children>
+                        </VBox>
+                        <VBox spacing="10.0">
+                            <children>
+                                <Label styleClass="bold-text" text="Due date">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Label>
+                                <StackPane>
+                                    <children>
+                                        <TextField fx:id="dueDateInput" promptText="2025-01-01 08:00"
+                                                   styleClass="input-field"/>
+                                        <SVGPath content="M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0  M12 7v5l3 3"
+                                                 fill="TRANSPARENT" stroke="BLACK" strokeWidth="1.6"
+                                                 styleClass="stroke-color" StackPane.alignment="CENTER_LEFT">
+                                            <StackPane.margin>
+                                                <Insets left="10.0"/>
+                                            </StackPane.margin>
+                                        </SVGPath>
+                                    </children>
+                                </StackPane>
+                            </children>
+                        </VBox>
+                        <HBox prefWidth="200.0">
+                            <children>
+                                <VBox alignment="TOP_CENTER">
+                                    <children>
+                                        <Label fx:id="errorLabel" maxWidth="-Infinity" styleClass="error" text="Error"
+                                               wrapText="true"/>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="15.0" left="35.0" right="35.0" top="35.0"/>
+                    </padding>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                    <BorderPane.margin>
+                        <Insets bottom="20.0"/>
+                    </BorderPane.margin>
+                </VBox>
+            </center>
+            <bottom>
+                <Button fx:id="saveBtn" alignment="CENTER" defaultButton="true" mnemonicParsing="false"
+                        onAction="#handleSave" styleClass="saveBtn" text="Add" BorderPane.alignment="CENTER_RIGHT">
+                    <BorderPane.margin>
+                        <Insets right="20.0"/>
+                    </BorderPane.margin>
+                </Button>
+            </bottom>
+        </BorderPane>
+    </children>
+    <stylesheets>
+        <URL value="@../../css/component/modal.css"/>
+        <URL value="@../../css/general.css"/>
+    </stylesheets>
+    <padding>
+        <Insets bottom="15.0"/>
+    </padding>
+</StackPane>

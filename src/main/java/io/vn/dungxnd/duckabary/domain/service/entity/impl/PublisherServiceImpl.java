@@ -25,25 +25,25 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Override
     public List<Publisher> getAllPublishers() {
-        return publisherRepository.findAll();
+        return publisherRepository.getAll();
     }
 
     @Override
     public Publisher getPublisherById(Long id) throws DatabaseException {
         return publisherRepository
-                .findById(id)
+                .searchById(id)
                 .orElseThrow(() -> new DatabaseException("Publisher not found with id: " + id));
     }
 
     @Override
     public Optional<Publisher> getPublisherByName(String name) {
         validateName(name);
-        return publisherRepository.findByName(name);
+        return publisherRepository.searchByName(name);
     }
 
     @Override
     public List<Publisher> getPublisherByNamePattern(String name) {
-        return publisherRepository.findByNamePattern(name);
+        return publisherRepository.searchByNamePattern(name);
     }
 
     @Override
@@ -60,11 +60,11 @@ public class PublisherServiceImpl implements PublisherService {
 
         Publisher publisher =
                 publisherRepository
-                        .findById(id)
+                        .searchById(id)
                         .orElseThrow(
                                 () -> new DatabaseException("Publisher not found with id: " + id));
 
-        List<Book> books = bookRepository.findByPublisherId(id);
+        List<Book> books = bookRepository.searchByPublisherId(id);
         if (!books.isEmpty()) {
             throw new DatabaseException(
                     String.format(
@@ -82,7 +82,7 @@ public class PublisherServiceImpl implements PublisherService {
         }
 
         Optional<Publisher> existingPublisher =
-                publisherRepository.findByName(publisherName.trim());
+                publisherRepository.searchByName(publisherName.trim());
         if (existingPublisher.isPresent()) {
             return existingPublisher.get();
         }

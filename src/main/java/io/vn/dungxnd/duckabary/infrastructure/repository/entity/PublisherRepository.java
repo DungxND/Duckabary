@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PublisherRepository {
-    List<Publisher> findAll();
+    List<Publisher> getAll();
 
-    Optional<Publisher> findById(Long id);
+    Optional<Publisher> searchById(Long id);
 
-    Optional<Publisher> findByName(String name);
+    Optional<Publisher> searchByName(String name);
 
-    List<Publisher> findByNamePattern(String namePattern);
+    List<Publisher> searchByNamePattern(String namePattern);
 
     Publisher save(Publisher publisher);
 

@@ -28,47 +28,47 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<Author> getAllAuthors() {
-        return authorRepository.findAll();
+        return authorRepository.getAll();
     }
 
     @Override
     public Author getAuthorById(Long id) throws DatabaseException {
         return authorRepository
-                .findById(id)
+                .searchById(id)
                 .orElseThrow(() -> new DatabaseException("Author not found with id: " + id));
     }
 
     @Override
     public List<Author> getAuthorByNamePattern(String name) {
-        return authorRepository.findByNamePattern(name);
+        return authorRepository.searchByNamePattern(name);
     }
 
     @Override
     public Optional<Author> getAuthorByName(String name) {
         validateName(name);
-        return authorRepository.findByName(name);
+        return authorRepository.searchByName(name);
     }
 
     @Override
     public Optional<Author> getAuthorByEmail(String email) {
         validateEmail(email);
-        return authorRepository.findByEmail(email);
+        return authorRepository.searchByEmail(email);
     }
 
     @Override
     public List<Author> getAuthorByEmailPattern(String email) {
-        return authorRepository.findByEmailPattern(email);
+        return authorRepository.searchByEmailPattern(email);
     }
 
     @Override
     public Optional<Author> getAuthorByPhone(String phone) {
         validatePhone(phone);
-        return authorRepository.findByPhone(phone);
+        return authorRepository.searchByPhone(phone);
     }
 
     @Override
     public List<Author> getAuthorByPhonePattern(String phone) {
-        return authorRepository.findByPhonePattern(phone);
+        return authorRepository.searchByPhonePattern(phone);
     }
 
     @Override
@@ -85,11 +85,11 @@ public class AuthorServiceImpl implements AuthorService {
 
         Author author =
                 authorRepository
-                        .findById(id)
+                        .searchById(id)
                         .orElseThrow(
                                 () -> new DatabaseException("Author not found with id: " + id));
 
-        List<Document> documents = documentRepository.findByAuthorId(id);
+        List<Document> documents = documentRepository.searchByAuthorId(id);
         if (!documents.isEmpty()) {
             throw new DatabaseException(
                     String.format(
@@ -101,17 +101,12 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Optional<Author> findByEmail(String email) {
-        return authorRepository.findByEmail(email);
-    }
-
-    @Override
     public Author findOrCreateAuthor(String authorName) throws DatabaseException {
         if (authorName == null || authorName.trim().isEmpty()) {
             throw new IllegalArgumentException("Author name cannot be empty");
         }
 
-        Optional<Author> existingAuthor = authorRepository.findByName(authorName.trim());
+        Optional<Author> existingAuthor = authorRepository.searchByName(authorName.trim());
         if (existingAuthor.isPresent()) {
             return existingAuthor.get();
         }

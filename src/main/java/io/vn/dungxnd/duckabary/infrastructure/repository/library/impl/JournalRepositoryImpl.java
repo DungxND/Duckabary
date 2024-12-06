@@ -21,7 +21,7 @@ public class JournalRepositoryImpl implements JournalRepository {
             """;
 
     @Override
-    public List<Journal> findAll() {
+    public List<Journal> getAll() {
         List<Journal> journals = new ArrayList<>();
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(SELECT_JOURNAL)) {
@@ -38,7 +38,7 @@ public class JournalRepositoryImpl implements JournalRepository {
     }
 
     @Override
-    public Optional<Journal> findById(Long id) {
+    public Optional<Journal> searchById(Long id) {
         String sql = SELECT_JOURNAL + " AND d.document_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -68,7 +68,7 @@ public class JournalRepositoryImpl implements JournalRepository {
                     updateJournal(conn, journal);
                 }
                 conn.commit();
-                return findById(documentId).orElseThrow();
+                return searchById(documentId).orElseThrow();
             } catch (SQLException e) {
                 conn.rollback();
                 throw e;
@@ -80,7 +80,7 @@ public class JournalRepositoryImpl implements JournalRepository {
     }
 
     @Override
-    public List<Journal> findByTitle(String title) {
+    public List<Journal> searchByTitle(String title) {
         String sql = SELECT_JOURNAL + " AND d.title LIKE ?";
         List<Journal> journals = new ArrayList<>();
         try (Connection conn = DatabaseManager.getConnection();
@@ -99,7 +99,7 @@ public class JournalRepositoryImpl implements JournalRepository {
     }
 
     @Override
-    public Optional<Journal> findByIssn(String issn) {
+    public Optional<Journal> searchByIssn(String issn) {
         String sql = SELECT_JOURNAL + " AND j.issn = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -116,7 +116,7 @@ public class JournalRepositoryImpl implements JournalRepository {
     }
 
     @Override
-    public List<Journal> findByAuthorId(Long authorId) {
+    public List<Journal> searchByAuthorId(Long authorId) {
         String sql = SELECT_JOURNAL + " AND d.author_id = ?";
         List<Journal> journals = new ArrayList<>();
         try (Connection conn = DatabaseManager.getConnection();

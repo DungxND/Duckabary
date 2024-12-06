@@ -38,7 +38,7 @@ public class ThesisRepositoryImpl implements ThesisRepository {
     }
 
     @Override
-    public Optional<Thesis> findById(Long id) {
+    public Optional<Thesis> searchById(Long id) {
         String sql = SELECT_THESIS + " AND d.document_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -68,7 +68,7 @@ public class ThesisRepositoryImpl implements ThesisRepository {
                     updateThesis(conn, thesis);
                 }
                 conn.commit();
-                return findById(documentId).orElseThrow();
+                return searchById(documentId).orElseThrow();
             } catch (SQLException e) {
                 conn.rollback();
                 throw e;
@@ -80,7 +80,7 @@ public class ThesisRepositoryImpl implements ThesisRepository {
     }
 
     @Override
-    public List<Thesis> findByTitle(String title) {
+    public List<Thesis> searchByTitle(String title) {
         String sql = SELECT_THESIS + " AND d.title LIKE ?";
         List<Thesis> theses = new ArrayList<>();
         try (Connection conn = DatabaseManager.getConnection();
@@ -99,7 +99,7 @@ public class ThesisRepositoryImpl implements ThesisRepository {
     }
 
     @Override
-    public List<Thesis> findByAuthorId(Long authorId) {
+    public List<Thesis> searchByAuthorId(Long authorId) {
         String sql = SELECT_THESIS + " AND d.author_id = ?";
         List<Thesis> theses = new ArrayList<>();
         try (Connection conn = DatabaseManager.getConnection();
@@ -118,7 +118,7 @@ public class ThesisRepositoryImpl implements ThesisRepository {
     }
 
     @Override
-    public List<Thesis> findByUniversity(String university) {
+    public List<Thesis> searchByUniversity(String university) {
         String sql = SELECT_THESIS + " AND t.university LIKE ?";
         List<Thesis> theses = new ArrayList<>();
         try (Connection conn = DatabaseManager.getConnection();
@@ -137,7 +137,7 @@ public class ThesisRepositoryImpl implements ThesisRepository {
     }
 
     @Override
-    public List<Thesis> findBySupervisor(String supervisor) {
+    public List<Thesis> searchBySupervisor(String supervisor) {
         String sql = SELECT_THESIS + " AND t.supervisor LIKE ?";
         List<Thesis> theses = new ArrayList<>();
         try (Connection conn = DatabaseManager.getConnection();

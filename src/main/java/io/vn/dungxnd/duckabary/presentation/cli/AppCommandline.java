@@ -125,8 +125,8 @@ public class AppCommandline {
         String password = readString(scanner, "Enter password: ", true);
 
         try {
-            if (managerService.validateCredentials(username, password)) {
-                currentManager = managerService.findByUsername(username).orElseThrow();
+            if (managerService.isValidCredentials(username, password)) {
+                currentManager = managerService.searchByUsername(username).orElseThrow();
                 System.out.println("Login successfully. Welcome, " + currentManager.username());
             } else {
                 System.out.println("Invalid credentials");
@@ -188,6 +188,8 @@ public class AppCommandline {
         System.out.println("8. Show user Info");
         System.out.println("9. Show user borrowed document(s)");
         System.out.println("10. Show document info");
+        System.out.println("11. Show overdue borrows");
+        System.out.println("12. Change due date of borrow record");
 
         try {
             int choice = readInteger(scanner, "Choose: ");
@@ -208,12 +210,75 @@ public class AppCommandline {
                 case 8 -> displayUserInfo(scanner);
                 case 9 -> showUserBorrowedDocuments(scanner);
                 case 10 -> showDocumentInfo(scanner);
+                case 11 -> showOverdueBorrows();
+                case 12 -> changeDueDate(scanner);
                 default -> System.out.println("Action not found");
             }
         } catch (NumberFormatException e) {
             System.out.println("Invalid input!");
         } catch (DatabaseException e) {
             System.out.println("Database error: " + e.getMessage());
+        }
+    }
+
+    private void changeDueDate(Scanner scanner) {
+        System.out.println("====Change due date of borrow record====");
+        long recordId = readLong(scanner, "Enter record ID: ");
+        scanner.nextLine();
+        String newDueDateStr = readString(scanner, "Enter new due date (yyyy-MM-dd HH:mm): ", true);
+        if (!isValidDateTime(newDueDateStr)) {
+            System.out.println("Invalid date format");
+            return;
+        }
+        try {
+            BorrowRecord record = borrowService.getBorrowById((int) recordId);
+            if (record.returnDate().isPresent()) {
+                System.out.println("Record already returned");
+                return;
+            }
+            if (record.dueDate().isBefore(LocalDateTime.now())) {
+                System.out.println("Record already overdue");
+                return;
+            }
+            record =
+                    BorrowRecord.createBorrowRecord(
+                            record.recordId(),
+                            record.userId(),
+                            record.documentId(),
+                            record.quantity(),
+                            record.borrowDate(),
+                            getDateTimeFromString(newDueDateStr));
+            System.out.println("Due date changed successfully");
+        } catch (DatabaseException e) {
+            System.out.println("Error changing due date: " + e.getMessage());
+        }
+    }
+
+    private void showOverdueBorrows() {
+        List<BorrowRecord> overdueBorrows = borrowService.getOverdueBorrows();
+        if (overdueBorrows.isEmpty()) {
+            System.out.println("No overdue borrows found");
+            return;
+        }
+
+        System.out.println("====Overdue Borrows====");
+        for (BorrowRecord record : overdueBorrows) {
+            System.out.println("Record ID: " + record.recordId());
+            System.out.println(
+                    "User: "
+                            + userService.getUserById(record.userId()).username()
+                            + " (ID: "
+                            + record.userId()
+                            + ")");
+            System.out.println(
+                    "Document: "
+                            + documentService.getDocumentById(record.documentId()).title()
+                            + " (ID: "
+                            + record.documentId()
+                            + ")");
+            System.out.println("Due date: " + getFormattedTime(record.dueDate()));
+            System.out.println("Overdue by: " + getDurationFromNow(record.dueDate()));
+            System.out.println();
         }
     }
 
@@ -505,38 +570,63 @@ public class AppCommandline {
             Document existingDoc = documentService.getDocumentById(docId);
             printDocumentInfo(existingDoc);
 
-            System.out.println("\nEnter new information for the document");
-            String title = readString(scanner, "Enter title: ", true);
-            String authorName = readString(scanner, "Enter author full name: ", true);
-            String description = readString(scanner, "Enter description: ", false);
+            System.out.println("\nEnter new information (press Enter to keep existing value)");
+            String title = readString(scanner, "Enter title: ", false);
+            title = title.isEmpty() ? existingDoc.title() : title;
 
-            int publishYear;
+            String authorName = readString(scanner, "Enter author full name: ", true);
+
+            String description = readString(scanner, "Enter description: ", false);
+            description = description.isEmpty() ? existingDoc.description() : description;
+
             String publishYearStr = readString(scanner, "Enter publish year: ", false);
-            if (publishYearStr.isEmpty() || Integer.parseInt(publishYearStr) <= 0) {
-                System.out.println("Invalid publish year, set to 0");
-                publishYear = 0;
+            int publishYear;
+            if (publishYearStr.isEmpty()) {
+                publishYear = existingDoc.publishYear();
             } else {
                 publishYear = Integer.parseInt(publishYearStr);
+                if (publishYear <= 0) {
+                    System.out.println("Invalid publish year, using existing value");
+                    publishYear = existingDoc.publishYear();
+                }
             }
 
-            int quantity = readInteger(scanner, "Enter quantity: ");
-            scanner.nextLine();
-            if (quantity < 0) {
-                System.out.println("Quantity must not be negative");
-                return;
+            String quantityStr = readString(scanner, "Enter quantity: ", false);
+            int quantity;
+            if (quantityStr.isEmpty()) {
+                quantity = existingDoc.quantity();
+            } else {
+                quantity = Integer.parseInt(quantityStr);
+                if (quantity < 0) {
+                    System.out.println("Quantity must not be negative, using existing value");
+                    quantity = existingDoc.quantity();
+                }
             }
 
             Document updatedDoc =
                     switch (existingDoc) {
                         case Book book -> {
                             String isbn = readString(scanner, "Enter ISBN: ", false);
+                            isbn = isbn.isEmpty() ? book.isbn() : isbn;
+
                             String publisher = readString(scanner, "Enter publisher: ", false);
                             Publisher changedPublisher =
-                                    handlePublisherSelection(scanner, publisher);
+                                    publisher.isEmpty()
+                                            ? new Publisher(
+                                                    book.publisher_id(),
+                                                    "",
+                                                    Optional.empty(),
+                                                    Optional.empty(),
+                                                    Optional.empty())
+                                            : handlePublisherSelection(scanner, publisher);
 
                             String language =
                                     readString(scanner, "Enter language (ISO-639): ", false);
+                            language = language.isEmpty() ? book.language() : language;
+
                             String genre = readString(scanner, "Enter genre: ", false);
+                            genre = genre.isEmpty() ? book.genre() : genre;
+
                             yield new Book(
                                     docId,
                                     title,
@@ -552,8 +642,14 @@ public class AppCommandline {
                         }
                         case Journal journal -> {
                             String issn = readString(scanner, "Enter ISSN: ", false);
+                            issn = issn.isEmpty() ? journal.issn() : issn;
+
                             String volume = readString(scanner, "Enter volume: ", false);
+                            volume = volume.isEmpty() ? journal.volume() : volume;
+
                             String issue = readString(scanner, "Enter issue: ", false);
+                            issue = issue.isEmpty() ? journal.issue() : issue;
+
                             yield new Journal(
                                     docId,
                                     title,
@@ -568,9 +664,17 @@ public class AppCommandline {
                         }
                         case Thesis thesis -> {
                             String university = readString(scanner, "Enter university: ", false);
+                            university = university.isEmpty() ? thesis.university() : university;
+
                             String department = readString(scanner, "Enter department: ", false);
+                            department = department.isEmpty() ? thesis.department() : department;
+
                             String supervisor = readString(scanner, "Enter supervisor: ", false);
+                            supervisor = supervisor.isEmpty() ? thesis.supervisor() : supervisor;
+
                             String degree = readString(scanner, "Enter degree: ", false);
+                            degree = degree.isEmpty() ? thesis.degree() : degree;
+
                             String defenseDateStr =
                                     readString(
                                             scanner,
@@ -578,8 +682,9 @@ public class AppCommandline {
                                             false);
                             Optional<LocalDateTime> defenseDate =
                                     defenseDateStr.isEmpty()
-                                            ? Optional.empty()
+                                            ? thesis.defenseDate()
                                             : Optional.of(getDateTimeFromString(defenseDateStr));
+
                             yield new Thesis(
                                     docId,
                                     title,
@@ -609,7 +714,8 @@ public class AppCommandline {
         System.out.println("1. Search by title");
         System.out.println("2. Search by author");
         System.out.println("3. Search by type");
-        System.out.println("4. Get document count by type");
+        System.out.println("4. Search by genre");
+        System.out.println("5. Get document count by type");
 
         int choice = readInteger(scanner, "Choose search option: ");
         scanner.nextLine();
@@ -630,6 +736,11 @@ public class AppCommandline {
                 printDocumentListInfo(documents);
             }
             case 4 -> {
+                String genre = readString(scanner, "Enter genre: ", true);
+                List<Document> documents = documentService.searchByGenre(genre);
+                printDocumentListInfo(documents);
+            }
+            case 5 -> {
                 String type = readString(scanner, "Enter type: ", true);
                 int count = documentService.getDocumentCountByType(type);
                 System.out.println("Total documents of type " + type + ": " + count);
@@ -648,8 +759,8 @@ public class AppCommandline {
         String address = readString(scanner, "Enter address: ", true);
         try {
             User newUser = User.createUser(0, username, firstName, lastName, email, phone, address);
-            userService.saveUser(newUser);
-            System.out.println("User added successfully");
+            User savedUser = userService.saveUser(newUser);
+            System.out.printf("User %s added successfully with ID: %d%n", username, savedUser.id());
         } catch (IllegalArgumentException e) {
             System.out.println("Error input: " + e.getMessage());
         } catch (DatabaseException e) {
@@ -666,11 +777,15 @@ public class AppCommandline {
         int quantity = readInteger(scanner, "Enter quantity: ");
         scanner.nextLine();
         String dueDateStr = readString(scanner, "Enter due date (yyyy-MM-dd HH:mm): ", true);
-        if (isValidDateTime(dueDateStr)) {
+        if (!isValidDateTime(dueDateStr)) {
             System.out.println("Invalid date format");
             return;
         }
-        if (borrowService.isDocumentAvailableForBorrow(docId, quantity)) {
+        if (getDateTimeFromString(dueDateStr).isBefore(LocalDateTime.now())) {
+            System.out.println("Due date must be in the future");
+            return;
+        }
+        if (!borrowService.isDocumentAvailableForBorrow(docId, quantity)) {
             System.out.println("Document not available in requested quantity");
             return;
         }
@@ -775,7 +890,7 @@ public class AppCommandline {
         System.out.println("Title: " + document.title());
         Author author = authorService.getAuthorById(document.author_id());
         System.out.printf(
-                "Author: %s (%s) (ID: %d)",
+                "Author: %s (%s) (ID: %d)%n",
                 author.fullName(), author.penName().orElse("N/A"), author.id());
         System.out.println("Description: " + document.description());
         System.out.println("Publish year: " + document.publishYear());
@@ -845,5 +960,10 @@ public class AppCommandline {
                 System.out.println("Error retrieving document information");
             }
         }
+    }
+
+    private int parsePublishYear(String dateStr) {
+        if (dateStr == null || dateStr.isEmpty()) return 0;
+        return Integer.parseInt(dateStr.substring(0, 4));
     }
 }

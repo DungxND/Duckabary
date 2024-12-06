@@ -8,7 +8,7 @@ public class PasswordUtils {
 
     /* Hash a password for storing. */
     private static final Argon2Function argon2 =
-            Argon2Function.getInstance(131072, 5, 4, 64, Argon2.ID, 19);
+            Argon2Function.getInstance(65536, 4, 4, 64, Argon2.ID, 19);
 
     private PasswordUtils() {}
 

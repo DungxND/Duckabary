@@ -1,0 +1,336 @@
+#allBg {
+    -fx-background-color: #E0DFDC;
+}
+
+#logOutButton {
+    -fx-background-color: #CECEC9;
+}
+
+#userName {
+    -fx-font-weight: bold;
+}
+
+#function .label {
+    -fx-font-weight: bold;
+}
+
+#userPane {
+    -fx-background-color: #F8F5EC;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+#userTitle {
+    -fx-font-weight: bold;
+}
+
+.table-view {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: transparent;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-background-insets: 0, 1;
+    -fx-padding: -3;
+}
+
+
+.table-view .column-header-background {
+    -fx-background-color: #D9D9D9;
+    -fx-background-radius: 10px 10px 0 0;
+    -fx-padding: 0;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: black;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+.table-view .column-header, .filter {
+    -fx-background-color: transparent;
+    -fx-size: 40px;
+}
+
+#userSearchBox {
+    -fx-border-width: 0.3;
+    -fx-border-color: black;
+    -fx-border-radius: 3;
+    -fx-background-color: white;
+}
+
+#userSearchBut {
+    -fx-background-color: #F6A737;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: black;
+    -fx-border-width: 0.3;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+
+}
+
+#addUserBut {
+    -fx-background-color: #E0DFDC;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent;
+    -fx-border-width: 0.3;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+
+#borSearchBox {
+    -fx-border-width: 0.3;
+    -fx-border-color: black;
+    -fx-border-radius: 3;
+    -fx-background-color: white;
+}
+
+#borSearchBut {
+    -fx-background-color: #F6A737;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: black;
+    -fx-border-width: 0.3;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+#addBorrowBut {
+    -fx-background-color: #E0DFDC;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent;
+    -fx-border-width: 0.3;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+#borrowPane {
+    -fx-background-color: #F8F5EC;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+#borTitle {
+    -fx-font-weight: bold;
+}
+
+
+#libPane {
+    -fx-background-color: #F8F5EC;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+#libTitle {
+    -fx-font-weight: bold;
+}
+
+#libBox {
+    -fx-background-color: #E9E4D3;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
+
+#publishIcon,
+#authorIcon,
+#docIcon {
+    -fx-background-color: #F9F9F9;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
+
+#publishIcon,
+#authorIcon,
+#docIcon:hover {
+    -fx-cursor: hand;
+}
+
+#publishIcon,
+#authorIcon,
+#docIcon:pressed {
+    -fx-cursor: hand;
+}
+
+#shapee {
+    -fx-fill: #E9E4D3;
+    -fx-stroke: none;
+}
+
+#hhBox {
+    -fx-border-color: black;
+    -fx-border-width: 0.7;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+#hhBox .button {
+    -fx-background-color: #D9D9D9;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+#allButton {
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-border-width: 0.7;
+}
+
+#docListTitle {
+    -fx-font-weight: bold;
+}
+
+#docSearchBox {
+    -fx-border-width: 0.3;
+    -fx-border-color: black;
+    -fx-border-radius: 3;
+    -fx-background-color: white;
+}
+
+#docSearchBut {
+    -fx-background-color: #F6A737;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: black;
+    -fx-border-width: 0.3;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+#addDocBut {
+    -fx-background-color: #E0DFDC;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent;
+    -fx-border-width: 0.3;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+
+#authorTitle {
+    -fx-font-weight: bold;
+}
+
+#authorSearchBox {
+    -fx-border-width: 0.3;
+    -fx-border-color: black;
+    -fx-border-radius: 3;
+    -fx-background-color: white;
+}
+
+#authorSearchBut {
+    -fx-background-color: #F6A737;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: black;
+    -fx-border-width: 0.3;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+#addAuthorBut {
+    -fx-background-color: #E0DFDC;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent;
+    -fx-border-width: 0.3;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+
+#publishTitle {
+    -fx-font-weight: bold;
+}
+
+#publishSearchBox {
+    -fx-border-width: 0.3;
+    -fx-border-color: black;
+    -fx-border-radius: 3;
+    -fx-background-color: white;
+}
+
+#publishSearchBut {
+    -fx-background-color: #F6A737;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: black;
+    -fx-border-width: 0.3;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+#addPublishBut {
+    -fx-background-color: #E0DFDC;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent;
+    -fx-border-width: 0.3;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+
+#settingPane {
+    -fx-background-color: #F8F5EC;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+
+.separator {
+    -fx-background-color: #AFAFAF;
+}
+
+#chgPassBut {
+    -fx-background-color: #E2D5B4;
+    -fx-font-weight: bold;
+}
+
+#usName,
+#usEmail {
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-cursor: hand;
+}
+
+#usOption:hover {
+    -fx-cursor: hand;
+}
+
+#libOption:hover {
+    -fx-cursor: hand;
+}
+
+#borOption:hover {
+    -fx-cursor: hand;
+}
+
+#avaButton:hover {
+    -fx-cursor: hand;
+}
+
+#logOutButton:hover {
+    -fx-background-color: red;
+}
+
+#logOutButton:pressed {
+    -fx-background-color: #4a4a4a;
+}
+
+#setAvaButton:hover {
+    -fx-cursor: hand;
+}
+
+#settingTitle {
+    -fx-font-weight: bold;
+}

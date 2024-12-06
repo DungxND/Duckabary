@@ -8,15 +8,15 @@ import java.util.Optional;
 public interface ThesisRepository {
     List<Thesis> findAll();
 
-    Optional<Thesis> findById(Long id);
+    Optional<Thesis> searchById(Long id);
 
     Thesis save(Thesis thesis);
 
-    List<Thesis> findByTitle(String title);
+    List<Thesis> searchByTitle(String title);
 
-    List<Thesis> findByAuthorId(Long authorId);
+    List<Thesis> searchByAuthorId(Long authorId);
 
-    List<Thesis> findByUniversity(String university);
+    List<Thesis> searchByUniversity(String university);
 
-    List<Thesis> findBySupervisor(String supervisor);
+    List<Thesis> searchBySupervisor(String supervisor);
 }

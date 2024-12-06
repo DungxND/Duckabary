@@ -1,0 +1,23 @@
+#changePasswordBtn {
+    -fx-background-color: #E2D5B4;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-padding: 5 30 5 30;
+}
+
+#changePasswordBtn:hover {
+    -fx-background-color: #D1C4A8;
+}
+
+#changePasswordBtn:pressed {
+    -fx-background-color: #C0B392;
+}
+
+#setAvatarBtn {
+    -fx-background-radius: 100;
+    -fx-cursor: hand;
+}
+

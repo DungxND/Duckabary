@@ -32,7 +32,7 @@ public class BorrowServiceImpl implements BorrowService {
     @Override
     public BorrowRecord getBorrowById(int id) throws DatabaseException {
         return borrowRepository
-                .findById(id)
+                .searchById(id)
                 .orElseThrow(() -> new DatabaseException("Borrow record not found with id: " + id));
     }
 
@@ -77,12 +77,12 @@ public class BorrowServiceImpl implements BorrowService {
 
     @Override
     public List<BorrowRecord> getBorrowsByUser(int userId) {
-        return borrowRepository.findByUserId(userId);
+        return borrowRepository.searchByUserId(userId);
     }
 
     @Override
     public List<BorrowRecord> getBorrowsByDocument(Long documentId) {
-        return borrowRepository.findByDocumentId(documentId);
+        return borrowRepository.searchByDocumentId(documentId);
     }
 
     @Override
@@ -97,6 +97,6 @@ public class BorrowServiceImpl implements BorrowService {
 
     @Override
     public boolean isDocumentAvailableForBorrow(Long documentId, int quantity) {
-        return documentService.canBeBorrowed(documentId, quantity);
+        return documentService.isStockEnough(documentId, quantity);
     }
 }

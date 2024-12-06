@@ -44,12 +44,12 @@
     -fx-font-weight: none;
 }
 
-#cancelBut:hover{
+#cancelBut:hover {
     -fx-cursor: hand;
     -fx-background-color: grey;
 }
 
-#saveBut:hover{
+#saveBut:hover {
     -fx-cursor: hand;
     -fx-background-color: grey;
 }

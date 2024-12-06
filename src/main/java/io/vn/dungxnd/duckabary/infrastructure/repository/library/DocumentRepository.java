@@ -8,17 +8,19 @@ import java.util.Optional;
 public interface DocumentRepository {
     List<Document> findAll();
 
-    Optional<Document> findById(Long id);
+    Optional<Document> searchById(Long id);
 
     void delete(Long id);
 
-    List<Document> findByTitle(String title);
+    List<Document> searchByTitle(String title);
 
-    List<Document> findByAuthorId(Long authorId);
+    List<Document> searchByGenre(String genre);
 
-    List<Document> findByAuthorName(String nameOrPenName);
+    List<Document> searchByAuthorId(Long authorId);
 
-    List<Document> findByType(String type);
+    List<Document> searchByAuthorName(String nameOrPenName);
+
+    List<Document> searchByType(String type);
 
     int countByType(String type);
 }

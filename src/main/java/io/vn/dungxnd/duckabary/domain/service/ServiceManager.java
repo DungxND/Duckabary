@@ -82,15 +82,15 @@ public class ServiceManager {
         return authorService;
     }
 
-    private static final class InstanceHolder {
-        private static final ServiceManager instance = new ServiceManager();
-    }
-
     public PublisherService getPublisherService() {
         return publisherService;
     }
 
     public BorrowService getBorrowService() {
         return borrowService;
+    }
+
+    private static final class InstanceHolder {
+        private static final ServiceManager instance = new ServiceManager();
     }
 }

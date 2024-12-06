@@ -6,21 +6,21 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AuthorRepository {
-    List<Author> findAll();
+    List<Author> getAll();
 
-    Optional<Author> findById(Long id);
+    Optional<Author> searchById(Long id);
 
-    Optional<Author> findByName(String name);
+    Optional<Author> searchByName(String name);
 
-    List<Author> findByNamePattern(String name);
+    List<Author> searchByNamePattern(String name);
 
-    Optional<Author> findByEmail(String email);
+    Optional<Author> searchByEmail(String email);
 
-    List<Author> findByEmailPattern(String email);
+    List<Author> searchByEmailPattern(String email);
 
-    Optional<Author> findByPhone(String phone);
+    Optional<Author> searchByPhone(String phone);
 
-    List<Author> findByPhonePattern(String phone);
+    List<Author> searchByPhonePattern(String phone);
 
     Author save(Author author);
 

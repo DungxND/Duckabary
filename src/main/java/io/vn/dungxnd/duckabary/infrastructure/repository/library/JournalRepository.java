@@ -6,15 +6,15 @@ import java.util.List;
 import java.util.Optional;
 
 public interface JournalRepository {
-    List<Journal> findAll();
+    List<Journal> getAll();
 
-    Optional<Journal> findById(Long id);
+    Optional<Journal> searchById(Long id);
 
     Journal save(Journal journal);
 
-    List<Journal> findByTitle(String title);
+    List<Journal> searchByTitle(String title);
 
-    Optional<Journal> findByIssn(String issn);
+    Optional<Journal> searchByIssn(String issn);
 
-    List<Journal> findByAuthorId(Long authorId);
+    List<Journal> searchByAuthorId(Long authorId);
 }

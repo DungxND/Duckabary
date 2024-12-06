@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+<?import java.net.URL?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="600.0"
+           styleClass="modalBg" xmlns="http://javafx.com/javafx/23.0.1"
+           fx:controller="io.vn.dungxnd.duckabary.presentation.controller.modal.AddUserController">
+    <children>
+        <BorderPane minWidth="600.0">
+            <top>
+                <VBox styleClass="modalHeader" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox spacing="10.0">
+                            <children>
+                                <Label styleClass="text" text="Edit">
+                                    <font>
+                                        <Font size="30.0"/>
+                                    </font>
+                                </Label>
+                                <Label fx:id="editLabel" styleClass="text" text="Element">
+                                    <font>
+                                        <Font size="30.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="20.0" top="18.0"/>
+                    </padding>
+                </VBox>
+            </top>
+            <center>
+                <VBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <VBox spacing="10.0">
+                            <children>
+                                <Label styleClass="bold-text" text="Old value">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Label>
+                                <StackPane>
+                                    <children>
+                                        <TextField fx:id="emailInput" promptText="johndoe@gmail.com"
+                                                   styleClass="input-field"/>
+                                        <SVGPath
+                                                content="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12z"
+                                                styleClass="fill-icon" StackPane.alignment="CENTER_LEFT">
+                                            <StackPane.margin>
+                                                <Insets left="12.0"/>
+                                            </StackPane.margin>
+                                        </SVGPath>
+                                    </children>
+                                </StackPane>
+                            </children>
+                        </VBox>
+                        <VBox spacing="10.0">
+                            <children>
+                                <Label styleClass="bold-text" text="New value">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Label>
+                                <StackPane>
+                                    <children>
+                                        <TextField fx:id="usernameInput" promptText="johndoe" styleClass="input-field"/>
+                                        <SVGPath
+                                                content="M1 20V4h22v16zm2.5-5h1.25v-3.5L7.3 15h1.2V9H7.25v3.5L4.75 9H3.5zm6 0h4v-1.25H11v-1.1h2.5V11.4H11v-1.15h2.5V9h-4zm5 0h6V9h-1.25v4.5h-1.1V10H16.9v3.5h-1.15V9H14.5z"
+                                                styleClass="fill-icon" StackPane.alignment="CENTER_LEFT">
+                                            <StackPane.margin>
+                                                <Insets left="12.0"/>
+                                            </StackPane.margin>
+                                        </SVGPath>
+                                    </children>
+                                </StackPane>
+                            </children>
+                        </VBox>
+                        <Label fx:id="errLabel" styleClass="error" text="Error"/>
+                    </children>
+                    <padding>
+                        <Insets bottom="15.0" left="35.0" right="35.0" top="35.0"/>
+                    </padding>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                    <BorderPane.margin>
+                        <Insets bottom="20.0"/>
+                    </BorderPane.margin>
+                </VBox>
+            </center>
+            <bottom>
+                <Button fx:id="saveBtn" alignment="CENTER" defaultButton="true" mnemonicParsing="false"
+                        onAction="#handleSave" styleClass="saveBtn" text="Save" BorderPane.alignment="CENTER_RIGHT">
+                    <BorderPane.margin>
+                        <Insets right="20.0"/>
+                    </BorderPane.margin>
+                </Button>
+            </bottom>
+        </BorderPane>
+    </children>
+    <stylesheets>
+        <URL value="@../../css/component/modal.css"/>
+        <URL value="@../../css/general.css"/>
+    </stylesheets>
+    <padding>
+        <Insets bottom="15.0"/>
+    </padding>
+</StackPane>

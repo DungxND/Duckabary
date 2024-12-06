@@ -99,21 +99,7 @@ public class DatabaseManager {
         "CREATE INDEX IF NOT EXISTS idx_document_title ON document(title);",
         "CREATE INDEX IF NOT EXISTS idx_borrow_user ON borrow(user_id);"
     };
-    private static final String[] SQL_ALTER_TABLES = {
-        "ALTER TABLE borrows RENAME TO _borrow_old;",
-        "CREATE TABLE borrows ("
-                + "    borrow_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + "    user_id INTEGER NOT NULL,"
-                + "    document_id INTEGER NOT NULL,"
-                + "    borrow_date datetime DEFAULT CURRENT_TIMESTAMP,"
-                + "    due_date datetime,"
-                + "    return_date datetime,"
-                + "    FOREIGN key (user_id) REFERENCES user (user_id),"
-                + "    FOREIGN key (document_id) REFERENCES document (document_id)"
-                + ");",
-        "INSERT INTO borrow (borrow_id, user_id, document_id, borrow_date, due_date, return_date)"
-                + "SELECT borrow_id, user_id, document_id, borrow_date, due_date, return_date FROM _borrow_old;",
-    };
+    private static final String[] SQL_ALTER_TABLES = {};
     private static volatile HikariDataSource dataSource;
 
     // https://gpcoder.com/6257-gioi-thieu-jdbc-connection-pool/

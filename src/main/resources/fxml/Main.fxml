@@ -1,398 +1,189 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.SVGPath?>
-<?import javafx.scene.text.Font?>
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.vn.dungxnd.duckabary.presentation.controller.MainController">
-   <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <BorderPane fx:id="allBg" layoutX="63.0" layoutY="114.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/Ma1n.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <left>
-                  <AnchorPane fx:id="leftPane" prefHeight="720.0" prefWidth="185.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Button fx:id="logOutButton" alignment="CENTER" layoutX="10.0" layoutY="685.0" minHeight="24.6" minWidth="97.3" mnemonicParsing="false" prefHeight="24.6" prefWidth="97.3" text="Log out" AnchorPane.bottomAnchor="12.599999999999977" AnchorPane.leftAnchor="10.0" />
-                        <AnchorPane fx:id="avaPane" layoutX="15.3" layoutY="21.2" prefHeight="164.0" prefWidth="153.3">
-                           <children>
-                              <ImageView fx:id="avaButton" fitHeight="106.6" fitWidth="106.6" layoutX="27.0" onMouseClicked="#enterSetting" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../image/avt.png" />
-                                 </image>
-                              </ImageView>
-                              <VBox layoutX="-2.0" layoutY="107.0" prefHeight="56.0" prefWidth="157.0">
-                                 <children>
-                                    <Label text="Welcome," textAlignment="JUSTIFY">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets left="40.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label fx:id="userName" text="Username here">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets left="15.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </AnchorPane>
-                        <VBox fx:id="function" layoutX="39.0" layoutY="258.6" prefHeight="345.0" prefWidth="122.0">
-                           <children>
-                              <AnchorPane fx:id="usOption" onMouseClicked="#enterUserManage" prefHeight="95.0" prefWidth="122.0">
-                                 <children>
-                                    <SVGPath fx:id="leftUserSvg" content="M15.5 15.6C19.2279 15.6 22.25 12.5555 22.25 8.8C22.25 5.04446 19.2279 2 15.5 2C11.7721 2 8.75 5.04446 8.75 8.8C8.75 12.5555 11.7721 15.6 15.5 15.6Z M29 28.35C29 32.5745 29 36 15.5 36C2 36 2 32.5745 2 28.35C2 24.1255 8.04462 20.7 15.5 20.7C22.9554 20.7 29 24.1255 29 28.35Z" layoutX="46.0" />
-                                    <VBox layoutX="11.0" layoutY="45.0" prefHeight="38.0" prefWidth="99.0">
-                                       <children>
-                                          <Label text="User">
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets left="35.0" />
-                                             </VBox.margin>
-                                          </Label>
-                                          <Label prefHeight="26.0" prefWidth="103.0" text="Management">
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets left="5.0" top="-5.0" />
-                                             </VBox.margin>
-                                          </Label>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane fx:id="libOption" minHeight="0.0" minWidth="0.0" onMouseClicked="#enterLibManage" prefHeight="95.0" prefWidth="122.0" VBox.vgrow="ALWAYS">
-                                 <VBox.margin>
-                                    <Insets top="20.0" />
-                                 </VBox.margin>
-                                 <children>
-                                    <SVGPath fx:id="leftLibSvg" content="M2.00168 34.5833C2.00168 35.3653 2.64964 36 3.44802 36H23.9899C26.2327 36 27.0715 35.3106 27.0715 32.9778V30.2483M2.00168 34.5833C2.00168 33.4562 2.45883 32.3752 3.27255 31.5781C4.08627 30.7811 5.18992 30.3333 6.3407 30.3333H25.9183C26.3542 30.3333 26.7386 30.305 27.0715 30.2483M2.00168 34.5833V8.04444C2.00168 5.89867 1.86283 3.53189 4.10755 2.41178C4.93293 2 6.01286 2 8.17273 2H25.9145C28.298 2 29 2.82544 29 5.02222V27.3111C29 29.1906 28.4562 30.0028 27.0715 30.2483" layoutX="47.0" layoutY="12.0" />
-                                    <VBox layoutX="11.0" layoutY="58.0" prefHeight="46.0" prefWidth="101.0">
-                                       <children>
-                                          <Label text="Library">
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets left="27.0" />
-                                             </VBox.margin>
-                                          </Label>
-                                          <Label text="Management">
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets left="5.0" top="-5.0" />
-                                             </VBox.margin>
-                                          </Label>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane fx:id="borOption" onMouseClicked="#enterBorrowManage" prefHeight="95.0" prefWidth="122.0">
-                                 <VBox.margin>
-                                    <Insets top="20.0" />
-                                 </VBox.margin>
-                                 <children>
-                                    <SVGPath fx:id="leftBorSvg" content="M7.68017 24.1504L10.8553 27.2475C11.1895 27.5736 11.3499 27.9539 11.3365 28.3886C11.3232 28.8233 11.1488 29.2036 10.8135 29.5297C10.4793 29.8285 10.0893 29.985 9.64371 29.9991C9.19808 30.0133 8.80816 29.8568 8.47394 29.5297L2.45798 23.6614C2.29087 23.4984 2.17223 23.3218 2.10204 23.1316C2.03185 22.9414 1.99787 22.7377 2.0001 22.5203C2.00233 22.303 2.03742 22.0992 2.10538 21.909C2.17334 21.7189 2.29143 21.5423 2.45965 21.3793L8.47561 15.511C8.78198 15.2121 9.16522 15.0627 9.62533 15.0627C10.0854 15.0627 10.482 15.2121 10.8151 15.511C11.1494 15.837 11.3165 16.2244 11.3165 16.6732C11.3165 17.122 11.1494 17.5089 10.8151 17.8338L7.68017 20.8902H31.368C31.8415 20.8902 32.2386 21.0467 32.5595 21.3597C32.8803 21.6727 33.0402 22.0595 33.0391 22.5203C33.038 22.9811 32.8776 23.3685 32.5578 23.6826C32.2381 23.9966 31.8415 24.1526 31.368 24.1504H7.68017ZM28.3182 11.1098H4.63041C4.15693 11.1098 3.76033 10.9533 3.44059 10.6403C3.12085 10.3273 2.96043 9.94045 2.95931 9.47968C2.9582 9.01891 3.11862 8.63204 3.44059 8.31907C3.76255 8.00609 4.15916 7.8496 4.63041 7.8496H28.3182L25.1431 4.75245C24.8089 4.42644 24.6491 4.04608 24.6635 3.6114C24.678 3.17671 24.8518 2.79636 25.1849 2.47034C25.5191 2.17149 25.9091 2.015 26.3547 2.00088C26.8003 1.98675 27.1902 2.14324 27.5245 2.47034L33.5404 8.33863C33.7075 8.50163 33.8262 8.67823 33.8964 8.8684C33.9666 9.05858 34.0011 9.26234 34 9.47968C33.9989 9.69703 33.9643 9.90079 33.8964 10.091C33.8284 10.2811 33.7098 10.4577 33.5404 10.6207L27.5245 16.489C27.2181 16.7879 26.8354 16.9373 26.3764 16.9373C25.9174 16.9373 25.5203 16.7879 25.1849 16.489C24.8507 16.163 24.6836 15.7761 24.6836 15.3284C24.6836 14.8807 24.8507 14.4933 25.1849 14.1662L28.3182 11.1098Z" layoutX="44.0" />
-                                    <VBox layoutX="11.0" layoutY="40.0" prefHeight="38.0" prefWidth="101.0">
-                                       <children>
-                                          <Label text="Borrow">
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets left="27.0" />
-                                             </VBox.margin>
-                                          </Label>
-                                          <Label text="Management">
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets left="5.0" top="-5.0" />
-                                             </VBox.margin>
-                                          </Label>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </AnchorPane>
-                           </children>
+<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0"
+           minWidth="1280.0"
+           prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1"
+           fx:controller="io.vn.dungxnd.duckabary.presentation.controller.MainController">
+    <children>
+        <BorderPane fx:id="allBg">
+            <left>
+                <VBox fx:id="sideMenu" minWidth="185.0" prefWidth="190.0" spacing="20.0" styleClass="alt-bg-color"
+                      BorderPane.alignment="CENTER">
+                    <children>
+                        <VBox fx:id="settingMenuBtn" alignment="CENTER" spacing="15.0" styleClass="selection-button">
+                            <children>
+                                <ImageView fx:id="avatarImg" fitHeight="100.0" fitWidth="100.0"
+                                           nodeOrientation="INHERIT" pickOnBounds="true">
+                                    <image>
+                                        <Image url="@../image/avt.png"/>
+                                    </image>
+                                </ImageView>
+                                <VBox alignment="CENTER">
+                                    <children>
+                                        <Label text="Welcome," textAlignment="JUSTIFY">
+                                            <font>
+                                                <Font size="18.0"/>
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets/>
+                                            </VBox.margin>
+                                        </Label>
+                                        <Label fx:id="usernameLabel" styleClass="bold-text" text="Username here">
+                                            <font>
+                                                <Font size="18.0"/>
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets/>
+                                            </VBox.margin>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                            </children>
+                            <padding>
+                                <Insets bottom="10.0" top="10.0"/>
+                            </padding>
                         </VBox>
-                        <Separator layoutX="-7.0" layoutY="210.0" prefWidth="200.0" />
-                     </children>
-                  </AnchorPane>
-               </left>
-               <center>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <AnchorPane fx:id="userPane" layoutX="5.0" layoutY="7.0" prefHeight="705.0" prefWidth="1083.0" visible="false" AnchorPane.bottomAnchor="7.199999999999932" AnchorPane.leftAnchor="4.8" AnchorPane.rightAnchor="7.2" AnchorPane.topAnchor="7.2">
-                           <children>
-                              <Label fx:id="userTitle" layoutX="54.0" layoutY="24.0" text="User Management">
-                                 <font>
-                                    <Font size="25.0" />
-                                 </font>
-                              </Label>
-                              <TableView layoutX="32.0" layoutY="98.0" prefHeight="545.0" prefWidth="1020.0" AnchorPane.bottomAnchor="61.59999999999991" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="98.0">
-                                <columns>
-                                  <TableColumn prefWidth="101.5999984741211" text="UID" />
-                                  <TableColumn prefWidth="226.4000244140625" text="Full name" />
-                                    <TableColumn prefWidth="216.00003051757812" text="Address" />
-                                    <TableColumn prefWidth="184.7999267578125" text="Phone" />
-                                    <TableColumn prefWidth="152.79998779296875" text="Borrows" />
-                                    <TableColumn prefWidth="138.39990234375" text="Details/Modify" />
-                                </columns>
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                              </TableView>
-                              <TextField fx:id="userSearchBox" layoutX="32.0" layoutY="653.0" prefHeight="33.3" prefWidth="333.0" promptText="Find by UID/Name/Phone" AnchorPane.bottomAnchor="19.200000000000067" AnchorPane.leftAnchor="32.0">
-                                 <padding>
-                                    <Insets left="7.0" />
-                                 </padding></TextField>
-                              <Button fx:id="userSearchBut" alignment="CENTER" layoutX="376.0" layoutY="653.0" mnemonicParsing="false" prefHeight="33.3" prefWidth="93.3" text="Search" textAlignment="JUSTIFY" AnchorPane.bottomAnchor="19.200000000000067" />
-                              <Button fx:id="addUserBut" alignment="CENTER" contentDisplay="CENTER" layoutX="912.0" layoutY="653.0" mnemonicParsing="false" prefHeight="33.3" prefWidth="140.0" text="Add new" AnchorPane.bottomAnchor="19.200000000000067" AnchorPane.rightAnchor="24.0" />
-                              <Separator layoutX="41.0" layoutY="67.0" prefHeight="0.5" prefWidth="998.0" AnchorPane.leftAnchor="40.80000000000007" AnchorPane.rightAnchor="43.80000000000007" />
-                           </children>
+                        <VBox alignment="CENTER" spacing="10.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <VBox fx:id="userMgmtMenuBtn" alignment="CENTER" onMouseClicked="#loadSettingPage"
+                                      spacing="10.0" styleClass="selection-button">
+                                    <children>
+                                        <SVGPath fx:id="menuUserIcon"
+                                                 content="M28.3001 23.7166C33.3627 23.7166 37.4668 19.6126 37.4668 14.55C37.4668 9.48736 33.3627 5.3833 28.3001 5.3833C23.2375 5.3833 19.1335 9.48736 19.1335 14.55C19.1335 19.6126 23.2375 23.7166 28.3001 23.7166Z M46.6335 40.9041C46.6335 46.5989 46.6335 51.2166 28.3001 51.2166C9.9668 51.2166 9.9668 46.5989 9.9668 40.9041C9.9668 35.2093 18.1755 30.5916 28.3001 30.5916C38.4247 30.5916 46.6335 35.2093 46.6335 40.9041Z"
+                                                 fill="TRANSPARENT" stroke="BLACK" strokeMiterLimit="20.0"
+                                                 strokeWidth="3.0"/>
+                                        <VBox fx:id="userMgmtLabelBox" alignment="CENTER" styleClass="selection-text">
+                                            <children>
+                                                <Label alignment="CENTER" text="User" textAlignment="CENTER">
+                                                    <font>
+                                                        <Font size="15.0"/>
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets/>
+                                                    </VBox.margin>
+                                                </Label>
+                                                <Label alignment="CENTER" text="Management" textAlignment="CENTER">
+                                                    <font>
+                                                        <Font size="15.0"/>
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets/>
+                                                    </VBox.margin>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="10.0" top="10.0"/>
+                                    </padding>
+                                </VBox>
+                                <VBox fx:id="libraryMgmtMenuBtn" alignment="CENTER"
+                                      onMouseClicked="#loadLibraryMgmtPage" spacing="10.0"
+                                      styleClass="selection-button">
+                                    <children>
+                                        <SVGPath fx:id="menuBookIcon"
+                                                 content="M18.7227 5.15625H39.8747C41.4033 5.15625 42.9364 5.40604 44.0066 6.51521C45.0608 7.61062 45.2602 9.12771 45.2602 10.5417V37.5833C45.2602 38.8277 45.0952 40.0515 44.4581 41.0415C44.0905 41.6125 43.576 42.074 42.9685 42.3775V44.4583C42.9685 45.9846 42.721 47.5177 41.6141 48.5879C40.5187 49.6467 39.0016 49.8438 37.5877 49.8438H13.1768C12.2651 49.8438 11.3908 49.4816 10.7461 48.8369C10.1015 48.1923 9.73932 47.3179 9.73932 46.4063V13.789C9.73245 12.6477 9.72557 11.2223 10.0372 9.92292C10.4199 8.33708 11.3022 6.79937 13.1791 5.84375C13.9537 5.44958 14.7695 5.29375 15.6404 5.225C16.4768 5.15625 17.4966 5.15625 18.7227 5.15625ZM13.1768 46.4063H37.5877C38.8412 46.4063 39.1529 46.1863 39.2239 46.1175C39.2812 46.0625 39.531 45.7623 39.531 44.4583V42.9688H16.6143C15.7026 42.9688 14.8283 43.3309 14.1836 43.9756C13.539 44.6202 13.1768 45.4946 13.1768 46.4063Z"
+                                                 fill="TRANSPARENT" stroke="BLACK" strokeType="INSIDE"
+                                                 strokeWidth="3.0"/>
+                                        <VBox fx:id="libraryMgmtLabelBox" alignment="CENTER"
+                                              styleClass="selection-text">
+                                            <children>
+                                                <Label text="Library">
+                                                    <font>
+                                                        <Font size="15.0"/>
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets/>
+                                                    </VBox.margin>
+                                                </Label>
+                                                <Label text="Management">
+                                                    <font>
+                                                        <Font size="15.0"/>
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets/>
+                                                    </VBox.margin>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="10.0" top="10.0"/>
+                                    </padding>
+                                </VBox>
+                                <VBox fx:id="borrowMgmtMenuBtn" alignment="CENTER" onMouseClicked="#loadBorrowMgmtPage"
+                                      spacing="10.0" styleClass="selection-button">
+                                    <children>
+                                        <SVGPath fx:id="menuBorrowIcon"
+                                                 content="M12.3725 38.0154L16.7267 42.3696C17.185 42.8279 17.405 43.3626 17.3867 43.9737C17.3684 44.5848 17.1293 45.1196 16.6694 45.5779C16.2111 45.998 15.6763 46.218 15.0652 46.2379C14.4541 46.2578 13.9194 46.0378 13.4611 45.5779L5.21107 37.3279C4.9819 37.0987 4.81919 36.8505 4.72294 36.5831C4.62669 36.3157 4.58009 36.0293 4.58315 35.7237C4.5862 35.4182 4.63433 35.1317 4.72752 34.8644C4.82072 34.597 4.98266 34.3487 5.21336 34.1196L13.4634 25.8696C13.8835 25.4494 14.4091 25.2394 15.04 25.2394C15.671 25.2394 16.2149 25.4494 16.6717 25.8696C17.13 26.3279 17.3592 26.8726 17.3592 27.5035C17.3592 28.1345 17.13 28.6784 16.6717 29.1352L12.3725 33.4321H44.8569C45.5062 33.4321 46.0509 33.6521 46.4909 34.0921C46.9309 34.5321 47.1501 35.076 47.1486 35.7237C47.147 36.3715 46.927 36.9162 46.4886 37.3577C46.0501 37.7992 45.5062 38.0185 44.8569 38.0154H12.3725ZM40.6746 19.6821H8.19023C7.54093 19.6821 6.99704 19.4621 6.55857 19.0221C6.12009 18.5821 5.90009 18.0382 5.89857 17.3904C5.89704 16.7426 6.11704 16.1987 6.55857 15.7587C7.00009 15.3187 7.54398 15.0987 8.19023 15.0987H40.6746L36.3204 10.7446C35.8621 10.2862 35.6429 9.75151 35.6627 9.1404C35.6826 8.52929 35.9209 7.99457 36.3777 7.53623C36.8361 7.11609 37.3708 6.89609 37.9819 6.87623C38.593 6.85637 39.1277 7.07637 39.5861 7.53623L47.8361 15.7862C48.0652 16.0154 48.2279 16.2637 48.3242 16.531C48.4204 16.7984 48.4678 17.0848 48.4663 17.3904C48.4648 17.696 48.4174 17.9824 48.3242 18.2498C48.231 18.5171 48.0683 18.7654 47.8361 18.9946L39.5861 27.2446C39.1659 27.6647 38.6411 27.8748 38.0117 27.8748C37.3822 27.8748 36.8376 27.6647 36.3777 27.2446C35.9194 26.7862 35.6902 26.2423 35.6902 25.6129C35.6902 24.9835 35.9194 24.4388 36.3777 23.9789L40.6746 19.6821Z"
+                                                 fill="TRANSPARENT" stroke="BLACK" strokeWidth="3.0"/>
+                                        <VBox fx:id="borrowMgmtLabelBox" alignment="CENTER" styleClass="selection-text">
+                                            <children>
+                                                <Label text="Borrow">
+                                                    <font>
+                                                        <Font size="15.0"/>
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets/>
+                                                    </VBox.margin>
+                                                </Label>
+                                                <Label text="Management">
+                                                    <font>
+                                                        <Font size="15.0"/>
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets/>
+                                                    </VBox.margin>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="10.0" top="10.0"/>
+                                    </padding>
+                                </VBox>
+                            </children>
+                            <VBox.margin>
+                                <Insets/>
+                            </VBox.margin>
+                        </VBox>
+                        <VBox alignment="BOTTOM_LEFT">
+                            <children>
+                                <Button fx:id="logoutBtn" alignment="CENTER" mnemonicParsing="false" text="Log out"
+                                        VBox.vgrow="ALWAYS"/>
+                            </children>
+                        </VBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="20.0"/>
+                    </padding>
+                </VBox>
+            </left>
+            <center>
+                <AnchorPane styleClass="alt-bg-color" BorderPane.alignment="CENTER">
+                    <children>
+                        <AnchorPane fx:id="mainContainer" layoutX="200.0" prefWidth="883.0"
+                                    styleClass="primary-bg-color" AnchorPane.bottomAnchor="7.0"
+                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="7.0">
+                            <opaqueInsets>
+                                <Insets/>
+                            </opaqueInsets>
                         </AnchorPane>
-                        <AnchorPane fx:id="borrowPane" layoutX="5.0" layoutY="7.0" prefHeight="705.0" prefWidth="1083.0" visible="false" AnchorPane.bottomAnchor="7.2000000000000455" AnchorPane.leftAnchor="4.8" AnchorPane.rightAnchor="7.2" AnchorPane.topAnchor="7.2">
-                           <children>
-                              <Separator layoutX="41.0" layoutY="67.0" prefHeight="0.5" prefWidth="998.0" AnchorPane.leftAnchor="40.80000000000007" AnchorPane.rightAnchor="43.80000000000007" />
-                              <Label fx:id="borTitle" layoutX="54.0" layoutY="24.0" text="Borrow Management">
-                                 <font>
-                                    <Font size="25.0" />
-                                 </font>
-                              </Label>
-                              <TableView layoutX="32.0" layoutY="98.0" prefHeight="545.0" prefWidth="1020.0" AnchorPane.bottomAnchor="61.59999999999991" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="98.0">
-                                 <columns>
-                                    <TableColumn prefWidth="101.5999984741211" text="RID" />
-                                    <TableColumn prefWidth="226.4000244140625" text="User &amp; Document" />
-                                    <TableColumn prefWidth="212.80007934570312" text="Quantity" />
-                                    <TableColumn prefWidth="188.0" text="Returned" />
-                                    <TableColumn prefWidth="138.39990234375" text="Details/Modify" />
-                                 </columns>
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                              </TableView>
-                              <TextField fx:id="borSearchBox" layoutX="32.0" layoutY="653.0" prefHeight="33.3" prefWidth="333.0" promptText="Find by UID/Name/Phone" AnchorPane.bottomAnchor="19.200000000000067" AnchorPane.leftAnchor="32.0">
-                                 <padding>
-                                    <Insets left="7.0" />
-                                 </padding></TextField>
-                              <Button fx:id="borSearchBut" alignment="CENTER" contentDisplay="CENTER" layoutX="376.0" layoutY="653.0" mnemonicParsing="false" prefHeight="33.3" prefWidth="93.3" text="Search" AnchorPane.bottomAnchor="19.200000000000067" />
-                              <Button fx:id="addBorrowBut" alignment="CENTER" layoutX="912.0" layoutY="653.0" mnemonicParsing="false" prefHeight="33.3" prefWidth="140.0" text="Add new" AnchorPane.bottomAnchor="19.200000000000067" AnchorPane.rightAnchor="24.0" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane fx:id="libPane" layoutX="5.0" layoutY="7.0" prefHeight="705.0" prefWidth="1083.0" visible="false" AnchorPane.bottomAnchor="7.2000000000000455" AnchorPane.leftAnchor="4.8" AnchorPane.rightAnchor="7.2" AnchorPane.topAnchor="7.2">
-                           <children>
-                              <Separator layoutX="41.0" layoutY="67.0" prefHeight="0.5" prefWidth="998.0" AnchorPane.leftAnchor="40.80000000000007" AnchorPane.rightAnchor="43.80000000000007" />
-                              <Label fx:id="libTitle" layoutX="54.0" layoutY="24.0" text="Library Management">
-                                 <font>
-                                    <Font size="25.0" />
-                                 </font>
-                              </Label>
-                              <VBox fx:id="libBox" layoutX="20.0" layoutY="157.0" prefHeight="186.0" prefWidth="68.0" AnchorPane.leftAnchor="20.0">
-                                 <children>
-                                    <AnchorPane fx:id="docIcon" onMouseClicked="#enterDocManage" prefHeight="55.0" prefWidth="55.0">
-                                       <children>
-                                          <SVGPath fx:id="docSvg" content="M5.55556 17.5H8.33333V2.5H5.55556V17.5ZM4.16667 25C3.00926 25 2.02546 24.6354 1.21528 23.9062C0.405093 23.1771 0 22.2917 0 21.25V3.75C0 2.70833 0.405093 1.82292 1.21528 1.09375C2.02546 0.364583 3.00926 0 4.16667 0H19.4444V20H4.16667C3.77315 20 3.44352 20.12 3.17778 20.36C2.91204 20.6 2.7787 20.8967 2.77778 21.25C2.77685 21.6033 2.91019 21.9004 3.17778 22.1412C3.44537 22.3821 3.775 22.5017 4.16667 22.5H22.2222V2.5H25V25H4.16667Z" layoutX="17.0" layoutY="15.0" />
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets left="5.0" right="5.0" top="5.0" />
-                                       </VBox.margin>
-                                    </AnchorPane>
-                                    <AnchorPane fx:id="authorIcon" onMouseClicked="#enterAuthorManage" prefHeight="55.0" prefWidth="55.0">
-                                       <children>
-                                          <SVGPath fx:id="authorSvg" content="M14.8439 2.45443L12.0617 6.16514C12.1451 6.22824 12.2248 6.29728 12.301 6.37228L19.4438 13.5152C19.5189 13.5901 19.5879 13.6699 19.651 13.7545L23.3617 10.9723C23.5664 10.8188 23.7356 10.6231 23.858 10.3985C23.9804 10.1738 24.0532 9.92554 24.0713 9.67034C24.0894 9.41514 24.0525 9.1591 23.9631 8.91944C23.8736 8.67973 23.7337 8.4621 23.5528 8.28121L17.5349 2.26336C17.354 2.08247 17.1364 1.94256 16.8967 1.8531C16.6571 1.76364 16.401 1.72672 16.1458 1.74484C15.8906 1.76296 15.6423 1.83569 15.4177 1.95812C15.1931 2.08054 14.9974 2.24979 14.8439 2.45443ZM2.47421 10.1901L0.304565 23.933L5.57243 18.6652L5.02242 18.1151C4.81309 17.9058 4.69549 17.6219 4.69549 17.3259C4.69549 17.0298 4.81309 16.7459 5.02242 16.5366C5.23175 16.3272 5.51567 16.2097 5.81171 16.2097C6.10777 16.2097 6.39168 16.3272 6.60098 16.5366L9.27957 19.2151C9.48887 19.4245 9.60652 19.7084 9.60652 20.0045C9.60652 20.3004 9.48887 20.5844 9.27957 20.7937C9.07026 21.003 8.7863 21.1207 8.49031 21.1207C8.19426 21.1207 7.91035 21.003 7.70098 20.7937L7.15101 20.2437L1.88313 25.5116L15.626 23.3419C16.0126 23.281 16.3684 23.0947 16.6388 22.8117C16.9092 22.5287 17.0791 22.1648 17.1224 21.7758L17.8653 15.0937L10.7224 7.95086L4.04028 8.69369C3.65133 8.73709 3.2874 8.907 3.00444 9.17737C2.72149 9.44774 2.5352 9.80358 2.47421 10.1901Z" layoutX="17.0" layoutY="15.0" />
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets left="5.0" right="5.0" top="5.0" />
-                                       </VBox.margin>
-                                    </AnchorPane>
-                                    <AnchorPane fx:id="publishIcon" onMouseClicked="#enterPublishManage" prefHeight="55.0" prefWidth="55.0">
-                                       <children>
-                                          <SVGPath fx:id="publishSvg" content="M17.0499 0.179932C17.713 0.179932 18.3489 0.472589 18.8177 0.993524C19.2865 1.51446 19.5499 2.221 19.5499 2.95771V8.51326H22.0499C22.713 8.51326 23.3489 8.80592 23.8177 9.32686C24.2865 9.84779 24.5499 10.5543 24.5499 11.291V22.4022C24.8814 22.4022 25.1994 22.5485 25.4338 22.8089C25.6682 23.0694 25.7999 23.4227 25.7999 23.791C25.7999 24.1594 25.6682 24.5127 25.4338 24.7731C25.1994 25.0336 24.8814 25.1799 24.5499 25.1799H2.04993C1.71841 25.1799 1.40046 25.0336 1.16604 24.7731C0.931623 24.5127 0.799927 24.1594 0.799927 23.791C0.799927 23.4227 0.931623 23.0694 1.16604 22.8089C1.40046 22.5485 1.71841 22.4022 2.04993 22.4022V8.51326C2.04993 7.77655 2.31332 7.07001 2.78216 6.54908C3.251 6.02814 3.88689 5.73549 4.54993 5.73549H7.04993V2.95771C7.04993 2.221 7.31332 1.51446 7.78216 0.993524C8.251 0.472589 8.88689 0.179932 9.54993 0.179932H17.0499ZM7.04993 8.51326H4.54993V22.4022H7.04993V8.51326ZM22.0499 11.291H19.5499V22.4022H22.0499V11.291ZM14.5499 16.8466H12.0499V19.6244H14.5499V16.8466ZM14.5499 11.291H12.0499V14.0688H14.5499V11.291ZM14.5499 5.73549H12.0499V8.51326H14.5499V5.73549Z" layoutX="17.0" layoutY="15.0" />
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </VBox.margin>
-                                    </AnchorPane>
-                                 </children>
-                              </VBox>
-                              <Polygon fx:id="shapee" fill="DODGERBLUE" layoutX="54.0" layoutY="395.0" points="-17.20001983642578, 40.0, -17.20001983642578, -52.0, 19.59996795654297, -52.0, 19.59996795654297, 40.0, 1.9999923706054688, 17.20001220703125" stroke="BLACK" strokeType="INSIDE" />
-                              <AnchorPane fx:id="docList" layoutX="105.0" layoutY="77.0" prefHeight="630.0" prefWidth="977.0" AnchorPane.bottomAnchor="0.599999999999909" AnchorPane.leftAnchor="104.80000000000007" AnchorPane.rightAnchor="0.6000000000000227" AnchorPane.topAnchor="76.79999999999995">
-                                 <children>
-                                    <TableView layoutX="29.0" layoutY="59.0" prefHeight="508.0" prefWidth="918.0" AnchorPane.bottomAnchor="63.19999999999999" AnchorPane.leftAnchor="28.8" AnchorPane.rightAnchor="22.8" AnchorPane.topAnchor="59.2">
-                                      <columns>
-                                        <TableColumn prefWidth="94.39996337890625" text="DID" />
-                                        <TableColumn prefWidth="219.99993896484375" text="Title" />
-                                          <TableColumn prefWidth="204.80001831054688" text="Author" />
-                                          <TableColumn prefWidth="147.199951171875" text="Publish year" />
-                                          <TableColumn prefWidth="105.60009765625" text="Quantity" />
-                                          <TableColumn prefWidth="146.39990234375" text="Details/Modify" />
-                                      </columns>
-                                       <columnResizePolicy>
-                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                       </columnResizePolicy>
-                                    </TableView>
-                                    <Label fx:id="docListTitle" layoutX="41.0" layoutY="14.0" text="Document List" AnchorPane.leftAnchor="41.0">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <HBox fx:id="hhBox" layoutX="630.0" layoutY="5.0" prefHeight="42.0" prefWidth="315.0" AnchorPane.rightAnchor="23.600000000000193" AnchorPane.topAnchor="5.0">
-                                       <children>
-                                          <Button alignment="CENTER" layoutY="3.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="95.0" text="Book">
-                                             <HBox.margin>
-                                                <Insets left="5.0" top="5.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                          <Button alignment="CENTER" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="95.0" text="Thesis">
-                                             <HBox.margin>
-                                                <Insets left="9.0" top="5.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                          <Button alignment="CENTER" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="95.0" text="Journal">
-                                             <HBox.margin>
-                                                <Insets left="9.0" top="5.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                       </children>
-                                    </HBox>
-                                    <Button fx:id="allButton" alignment="CENTER" layoutX="558.0" layoutY="5.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="64.0" text="All" AnchorPane.rightAnchor="346.8000000000002" AnchorPane.topAnchor="5.0" />
-                                    <TextField fx:id="docSearchBox" layoutX="29.0" layoutY="577.0" prefHeight="33.3" prefWidth="333.0" promptText="Find by UID/Name/Phone" AnchorPane.bottomAnchor="18.2" AnchorPane.leftAnchor="29.0">
-                                       <padding>
-                                          <Insets left="7.0" />
-                                       </padding>
-                                    </TextField>
-                                    <Button fx:id="docSearchBut" alignment="CENTER" contentDisplay="CENTER" layoutX="373.0" layoutY="577.0" mnemonicParsing="false" prefHeight="33.3" prefWidth="93.3" text="Search" AnchorPane.bottomAnchor="18.2" />
-                                    <Button fx:id="addDocBut" alignment="CENTER" layoutX="807.0" layoutY="576.0" mnemonicParsing="false" prefHeight="33.3" prefWidth="140.0" text="Add new" AnchorPane.bottomAnchor="18.2" AnchorPane.rightAnchor="22.8" />
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane fx:id="authorList" layoutX="105.0" layoutY="77.0" prefHeight="630.0" prefWidth="977.0" visible="false" AnchorPane.bottomAnchor="0.599999999999909" AnchorPane.leftAnchor="104.80000000000007" AnchorPane.rightAnchor="0.6000000000000227" AnchorPane.topAnchor="76.79999999999995">
-                                 <children>
-                                    <TableView layoutX="29.0" layoutY="59.0" prefHeight="508.0" prefWidth="918.0" AnchorPane.bottomAnchor="63.19999999999993" AnchorPane.leftAnchor="28.8" AnchorPane.rightAnchor="22.8" AnchorPane.topAnchor="59.2">
-                                       <columns>
-                                          <TableColumn prefWidth="94.39996337890625" text="AID" />
-                                          <TableColumn prefWidth="219.99993896484375" text="Full name" />
-                                          <TableColumn prefWidth="204.80001831054688" text="Pen name" />
-                                          <TableColumn prefWidth="184.80010986328125" text="Email" />
-                                          <TableColumn prefWidth="147.199951171875" text="Details/Modify" />
-                                       </columns>
-                                       <columnResizePolicy>
-                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                       </columnResizePolicy>
-                                    </TableView>
-                                    <Label fx:id="authorTitle" layoutX="41.0" layoutY="14.0" text="Author List" AnchorPane.leftAnchor="41.0">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField fx:id="authorSearchBox" layoutX="29.0" layoutY="577.0" prefHeight="33.3" prefWidth="333.0" promptText="Find by UID/Name/Phone" AnchorPane.bottomAnchor="18.2" AnchorPane.leftAnchor="29.0">
-                                       <padding>
-                                          <Insets left="7.0" />
-                                       </padding>
-                                    </TextField>
-                                    <Button fx:id="authorSearchBut" alignment="CENTER" contentDisplay="CENTER" layoutX="373.0" layoutY="577.0" mnemonicParsing="false" prefHeight="33.3" prefWidth="93.3" text="Search" AnchorPane.bottomAnchor="18.2" />
-                                    <Button fx:id="addAuthorBut" alignment="CENTER" layoutX="807.0" layoutY="576.0" mnemonicParsing="false" prefHeight="33.3" prefWidth="140.0" text="Add new" AnchorPane.bottomAnchor="18.2" AnchorPane.rightAnchor="22.8" />
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane fx:id="publishList" layoutX="105.0" layoutY="77.0" prefHeight="630.0" prefWidth="977.0" visible="false" AnchorPane.bottomAnchor="0.599999999999909" AnchorPane.leftAnchor="104.80000000000007" AnchorPane.rightAnchor="0.6000000000000227" AnchorPane.topAnchor="76.79999999999995">
-                                 <children>
-                                    <TableView layoutX="29.0" layoutY="59.0" prefHeight="508.0" prefWidth="918.0" AnchorPane.bottomAnchor="63.39999999999998" AnchorPane.leftAnchor="28.8" AnchorPane.rightAnchor="22.8" AnchorPane.topAnchor="59.19999999999993">
-                                       <columns>
-                                          <TableColumn prefWidth="94.39996337890625" text="PID" />
-                                          <TableColumn prefWidth="219.99993896484375" text="Name" />
-                                          <TableColumn prefWidth="204.80001831054688" text="Email" />
-                                          <TableColumn prefWidth="184.80010986328125" text="Publish year" />
-                                          <TableColumn prefWidth="147.199951171875" text="Quantity" />
-                                          <TableColumn prefWidth="184.80010986328125" text="Details/Modify" />
-                                       </columns>
-                                       <columnResizePolicy>
-                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                       </columnResizePolicy>
-                                    </TableView>
-                                    <Label fx:id="publishTitle" layoutX="41.0" layoutY="14.0" text="Publisher List" AnchorPane.leftAnchor="41.0">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField fx:id="publishSearchBox" layoutX="29.0" layoutY="577.0" prefHeight="33.3" prefWidth="333.0" promptText="Find by UID/Name/Phone" AnchorPane.bottomAnchor="18.2" AnchorPane.leftAnchor="29.0">
-                                       <padding>
-                                          <Insets left="7.0" />
-                                       </padding>
-                                    </TextField>
-                                    <Button fx:id="publishSearchBut" alignment="CENTER" contentDisplay="CENTER" layoutX="373.0" layoutY="577.0" mnemonicParsing="false" prefHeight="33.3" prefWidth="93.3" text="Search" AnchorPane.bottomAnchor="18.2" />
-                                    <Button fx:id="addPublishBut" alignment="CENTER" layoutX="807.0" layoutY="576.0" mnemonicParsing="false" prefHeight="33.3" prefWidth="140.0" text="Add new" AnchorPane.bottomAnchor="18.2" AnchorPane.rightAnchor="22.8" />
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane fx:id="settingPane" layoutX="5.0" layoutY="7.0" prefHeight="705.0" prefWidth="1083.0" AnchorPane.bottomAnchor="7.2000000000000455" AnchorPane.leftAnchor="4.8" AnchorPane.rightAnchor="7.2" AnchorPane.topAnchor="7.2">
-                           <children>
-                              <Label fx:id="settingTitle" layoutX="54.0" layoutY="24.0" text="Settings">
-                                 <font>
-                                    <Font size="25.0" />
-                                 </font>
-                              </Label>
-                              <Separator layoutX="41.0" layoutY="67.0" prefHeight="0.5" prefWidth="998.0" />
-                              <ImageView fx:id="setAvaButton" fitHeight="150.0" fitWidth="150.0" layoutX="891.0" layoutY="102.0" onMouseClicked="#handleAvatarChange" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../image/avt.png" />
-                                 </image>
-                              </ImageView>
-                              <Label fx:id="usName" layoutX="73.0" layoutY="100.0" text="Username:">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="usEmail" layoutX="73.0" layoutY="130.0" text="Email:">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <SVGPath content="M8 3.97732L11 6.96372M12.385 5.55514C12.7788 5.16308 13.0001 4.63133 13.0001 4.07687C13.0001 3.52241 12.7788 2.99067 12.385 2.59861C11.9912 2.20655 11.457 1.98629 10.9 1.98629C10.343 1.98629 9.80885 2.20655 9.415 2.59861L1 10.9456V13.932H4L12.385 5.55514Z" layoutX="53.0" layoutY="102.0" />
-                              <SVGPath content="M8 3.97732L11 6.96372M12.385 5.55514C12.7788 5.16308 13.0001 4.63133 13.0001 4.07687C13.0001 3.52241 12.7788 2.99067 12.385 2.59861C11.9912 2.20655 11.457 1.98629 10.9 1.98629C10.343 1.98629 9.80885 2.20655 9.415 2.59861L1 10.9456V13.932H4L12.385 5.55514Z" layoutX="54.0" layoutY="133.0" />
-                              <Label fx:id="usNameContent" layoutX="165.0" layoutY="102.0" text="This is username">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="usEmailContent" layoutX="127.0" layoutY="130.0" text="This is user email">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Button fx:id="chgPassBut" layoutX="67.0" layoutY="176.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="230.0" text="Change Password" />
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </AnchorPane>
-               </center>
-            </BorderPane>
-         </children>
-      </AnchorPane>
-   </children>
+                    </children>
+                </AnchorPane>
+            </center>
+        </BorderPane>
+    </children>
+    <stylesheets>
+        <URL value="@../css/general.css"/>
+        <URL value="@../css/NewMain.css"/>
+    </stylesheets>
 </StackPane>

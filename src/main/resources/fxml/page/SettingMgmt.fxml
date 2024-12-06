@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="settingPane" prefHeight="706.0" prefWidth="1083.0"
+            styleClass="bg-color" xmlns="http://javafx.com/javafx/23.0.1"
+            fx:controller="io.vn.dungxnd.duckabary.presentation.controller.page.SettingMgmtController">
+    <children>
+        <VBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox alignment="BOTTOM_LEFT" spacing="5.0">
+                    <children>
+                        <Label styleClass="title" text="Settings">
+                            <font>
+                                <Font size="25.0"/>
+                            </font>
+                            <VBox.margin>
+                                <Insets left="5.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <HBox VBox.vgrow="ALWAYS">
+                            <children>
+                                <Separator prefWidth="5.0" HBox.hgrow="ALWAYS"/>
+                            </children>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets left="10.0" right="10.0"/>
+                    </padding>
+                    <VBox.margin>
+                        <Insets bottom="10.0"/>
+                    </VBox.margin>
+                </VBox>
+                <StackPane>
+                    <children>
+                        <ImageView fx:id="setAvatarBtn" fitHeight="150.0" fitWidth="150.0"
+                                   onMouseClicked="#handleAvatarChange" pickOnBounds="true"
+                                   StackPane.alignment="TOP_RIGHT">
+                            <image>
+                                <Image url="@../../image/avt.png"/>
+                            </image>
+                            <StackPane.margin>
+                                <Insets right="20.0" top="20.0"/>
+                            </StackPane.margin>
+                        </ImageView>
+                        <VBox spacing="12.0">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" spacing="3.0">
+                                    <children>
+                                        <SVGPath
+                                                content="M7 7H6C5.46957 7 4.96086 7.21071 4.58579 7.58579C4.21071 7.96086 4 8.46957 4 9V18C4 18.5304 4.21071 19.0391 4.58579 19.4142C4.96086 19.7893 5.46957 20 6 20H15C15.5304 20 16.0391 19.7893 16.4142 19.4142C16.7893 19.0391 17 18.5304 17 18V17 M16 4.99998L19 7.99998M20.385 6.58499C20.7788 6.19114 21.0001 5.65697 21.0001 5.09998C21.0001 4.543 20.7788 4.00883 20.385 3.61498C19.9912 3.22114 19.457 2.99988 18.9 2.99988C18.343 2.99988 17.8088 3.22114 17.415 3.61498L9 12V15H12L20.385 6.58499Z"
+                                                fill="TRANSPARENT" stroke="BLACK" strokeWidth="2.0"/>
+                                        <Label styleClass="bold-text" text="Username:">
+                                            <font>
+                                                <Font size="18.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="usernameLabel" text="This is username">
+                                            <font>
+                                                <Font size="18.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                                <VBox>
+                                    <children>
+                                        <HBox spacing="3.0">
+                                            <children>
+                                                <SVGPath
+                                                        content="M7 7H6C5.46957 7 4.96086 7.21071 4.58579 7.58579C4.21071 7.96086 4 8.46957 4 9V18C4 18.5304 4.21071 19.0391 4.58579 19.4142C4.96086 19.7893 5.46957 20 6 20H15C15.5304 20 16.0391 19.7893 16.4142 19.4142C16.7893 19.0391 17 18.5304 17 18V17 M16 4.99998L19 7.99998M20.385 6.58499C20.7788 6.19114 21.0001 5.65697 21.0001 5.09998C21.0001 4.543 20.7788 4.00883 20.385 3.61498C19.9912 3.22114 19.457 2.99988 18.9 2.99988C18.343 2.99988 17.8088 3.22114 17.415 3.61498L9 12V15H12L20.385 6.58499Z"
+                                                        fill="TRANSPARENT" stroke="BLACK" strokeWidth="2.0"/>
+                                                <Label styleClass="bold-text" text="Email:">
+                                                    <font>
+                                                        <Font size="18.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="emailLabel" text="This is user email">
+                                                    <font>
+                                                        <Font size="18.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                                <Button fx:id="changePasswordBtn" mnemonicParsing="false" text="Change Password"/>
+                            </children>
+                        </VBox>
+                    </children>
+                    <padding>
+                        <Insets left="10.0" right="10.0"/>
+                    </padding>
+                </StackPane>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="30.0" right="30.0" top="25.0"/>
+            </padding>
+        </VBox>
+    </children>
+    <stylesheets>
+        <URL value="@../../css/general.css"/>
+        <URL value="@../../css/page/page.css"/>
+        <URL value="@../../css/page/setting.css"/>
+    </stylesheets>
+</AnchorPane>

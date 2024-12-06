@@ -25,7 +25,7 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public Manager getManagerById(int id) throws DatabaseException {
         return managerRepository
-                .findById(id)
+                .searchById(id)
                 .orElseThrow(() -> new DatabaseException("Manager not found with id: " + id));
     }
 
@@ -48,30 +48,38 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public Optional<Manager> findByUsername(String username) {
-        return managerRepository.findByUsername(username);
+    public Optional<Manager> searchByUsername(String username) {
+        return managerRepository.searchByUsername(username);
     }
 
     @Override
-    public Optional<Manager> findByEmail(String email) {
-        return managerRepository.findByEmail(email);
+    public Optional<Manager> searchByEmail(String email) {
+        return managerRepository.searchByEmail(email);
     }
 
     @Override
-    public boolean validateCredentials(String username, String password) {
+    public boolean isValidCredentials(String username, String password) {
         return managerRepository.validateCredentials(username, password);
     }
 
     @Override
+    public Optional<Manager> authenticate(String username, String password) {
+        if (isValidCredentials(username, password)) {
+            return searchByUsername(username);
+        }
+        return Optional.empty();
+    }
+
+    @Override
     public boolean isUsernameAvailable(String username) {
-        return managerRepository.findByUsername(username).isEmpty();
+        return managerRepository.searchByUsername(username).isEmpty();
     }
 
     private void validateManager(Manager manager) {
         try {
             validateHashedPassword(manager.hashedPassword());
-            validateEmail(manager.email());
-            validateUsername(manager.username());
+            validateRequiredEmail(manager.email());
+            validateRequiredUsername(manager.username());
             validateRawPassword(manager.hashedPassword());
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(e.getMessage());

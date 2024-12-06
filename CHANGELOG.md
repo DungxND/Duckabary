@@ -4,7 +4,29 @@
 - [ ] Refactor the code
 - [ ] Test app
 
-## 29 Nov 2024 (DungxND)
+## 04 Dec 2024 (DungxND)
+
+### Added
+
+- Added services functions description.
+- Added remember username when login.
+
+### Changed
+
+- Reworked all UIs
+- Reduced Argon2id RAM usage to 64MB (from 128MB)
+
+### Fixed
+
+- Fixed unable to add new user
+
+## 29 Nov 2024 #2 (DucLH)
+
+### Changed
+
+- Improved main menu UI (still need a lot more improvement)
+
+## 29 Nov 2024 #1 (DungxND)
 
 ### Added
 
@@ -163,6 +185,6 @@
 ## 14 Oct 2024 (DungxND):
 
 
-- Separated UserSerivce for UI/CMD for future works.
+- Separated UserService for UI/CMD for future works.
 - Now check if DB exist/ DB's table exist when running app.
 - UID was wrong because array index start from 0, fixed.

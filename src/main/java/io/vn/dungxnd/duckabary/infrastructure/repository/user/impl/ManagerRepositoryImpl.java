@@ -38,7 +38,7 @@ public class ManagerRepositoryImpl implements ManagerRepository {
     }
 
     @Override
-    public Optional<Manager> findById(int id) {
+    public Optional<Manager> searchById(int id) {
         String sql = SELECT_MANAGER + " WHERE manager_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -56,7 +56,7 @@ public class ManagerRepositoryImpl implements ManagerRepository {
     }
 
     @Override
-    public Optional<Manager> findByUsername(String username) {
+    public Optional<Manager> searchByUsername(String username) {
         String sql = SELECT_MANAGER + " WHERE username = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -74,7 +74,7 @@ public class ManagerRepositoryImpl implements ManagerRepository {
     }
 
     @Override
-    public Optional<Manager> findByEmail(String email) {
+    public Optional<Manager> searchByEmail(String email) {
         String sql = SELECT_MANAGER + " WHERE email = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -98,8 +98,8 @@ public class ManagerRepositoryImpl implements ManagerRepository {
             try {
                 Manager savedManager =
                         manager.managerId() == 0
-                                ? insertAdmin(conn, manager)
-                                : updateAdmin(conn, manager);
+                                ? insertManager(conn, manager)
+                                : updateManager(conn, manager);
                 conn.commit();
                 return savedManager;
             } catch (SQLException e) {
@@ -132,7 +132,7 @@ public class ManagerRepositoryImpl implements ManagerRepository {
 
     @Override
     public boolean validateCredentials(String username, String password) {
-        return findByUsername(username)
+        return searchByUsername(username)
                 .map(manager -> PasswordUtils.verifyPassword(password, manager.hashedPassword()))
                 .orElse(false);
     }
@@ -145,7 +145,7 @@ public class ManagerRepositoryImpl implements ManagerRepository {
                 rs.getString("hashedPassword"));
     }
 
-    private Manager insertAdmin(Connection conn, Manager manager) throws SQLException {
+    private Manager insertManager(Connection conn, Manager manager) throws SQLException {
         String sql = "INSERT INTO manager (username, email, hashedPassword) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, manager.username());
@@ -160,7 +160,7 @@ public class ManagerRepositoryImpl implements ManagerRepository {
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     int id = generatedKeys.getInt(1);
-                    return findById(conn, id)
+                    return searchById(conn, id)
                             .orElseThrow(
                                     () -> new SQLException("Manager not found with ID: " + id));
                 }
@@ -170,7 +170,7 @@ public class ManagerRepositoryImpl implements ManagerRepository {
     }
 
     @Override
-    public Optional<Manager> findById(Connection conn, int id) {
+    public Optional<Manager> searchById(Connection conn, int id) {
         String sql = SELECT_MANAGER + " WHERE manager_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, String.valueOf(id));
@@ -185,7 +185,7 @@ public class ManagerRepositoryImpl implements ManagerRepository {
         }
     }
 
-    private Manager updateAdmin(Connection conn, Manager manager) throws SQLException {
+    private Manager updateManager(Connection conn, Manager manager) throws SQLException {
         String sql =
                 "UPDATE manager SET username = ?, email = ?, hashedPassword = ? WHERE manager_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -199,7 +199,7 @@ public class ManagerRepositoryImpl implements ManagerRepository {
                 throw new SQLException("Updating manager failed, no rows affected.");
             }
 
-            return findById(manager.managerId()).orElseThrow();
+            return searchById(manager.managerId()).orElseThrow();
         }
     }
 }

@@ -1,7 +1,12 @@
-package io.vn.dungxnd.duckabary.presentation.controller;
+package io.vn.dungxnd.duckabary.presentation.controller.auth;
 
+import static io.vn.dungxnd.duckabary.util.InputFieldUtils.maintainCaretPosition;
+
+import io.vn.dungxnd.duckabary.domain.model.user.Manager;
+import io.vn.dungxnd.duckabary.domain.service.PreferencesManager;
 import io.vn.dungxnd.duckabary.domain.service.ServiceManager;
 import io.vn.dungxnd.duckabary.domain.service.user.ManagerService;
+import io.vn.dungxnd.duckabary.domain.session.SessionManager;
 import io.vn.dungxnd.duckabary.presentation.ui.MainApplication;
 
 import javafx.animation.PauseTransition;
@@ -12,12 +17,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import static io.vn.dungxnd.duckabary.util.InputFieldUtils.maintainCaretPosition;
 
 public class LoginController {
     private final ManagerService managerService;
@@ -43,9 +45,8 @@ public class LoginController {
     @FXML
     private void initialize() {
 
-        loginButton.setOnAction(event -> handleLogin());
+        loginButton.setOnMouseClicked(event -> handleLogin());
         registerRedirectBtn.setOnMouseClicked(event -> openRegisterModal());
-        registerRedirectBtn.setFont(Font.font("Montserrat", 700));
         passwordText.textProperty().bindBidirectional(passwordInput.textProperty());
         errorLabel.setVisible(false);
         passwordInput.setOnKeyPressed(
@@ -54,6 +55,19 @@ public class LoginController {
                         handleLogin();
                     }
                 });
+        passwordText.setOnKeyPressed(
+                event -> {
+                    if (event.getCode() == KeyCode.ENTER) {
+                        handleLogin();
+                    }
+                });
+
+        String savedUsername = PreferencesManager.getRememberedUsername();
+        if (savedUsername != null) {
+            usernameField.setText(savedUsername);
+            passwordInput.requestFocus();
+            rememberLoginChkBox.setSelected(true);
+        }
     }
 
     private void handleLogin() {
@@ -66,7 +80,16 @@ public class LoginController {
         }
 
         try {
-            if (managerService.validateCredentials(username, password)) {
+            Manager manager = managerService.authenticate(username, password).orElse(null);
+
+            if (manager != null) {
+                if (rememberLoginChkBox.isSelected()) {
+                    PreferencesManager.saveLoginCredentials(username);
+                } else {
+                    PreferencesManager.clearLoginCredentials();
+                }
+
+                SessionManager.setCurrentManager(manager);
                 MainApplication.getInstance().showMainView();
             } else {
                 showError("Invalid username or password");

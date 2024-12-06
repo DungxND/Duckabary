@@ -51,7 +51,7 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public Document getDocumentById(Long id) throws DatabaseException {
         return documentRepository
-                .findById(id)
+                .searchById(id)
                 .orElseThrow(() -> new DatabaseException("Document not found with id: " + id));
     }
 
@@ -192,7 +192,7 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public void deleteDocument(Long id) throws DatabaseException {
         documentRepository
-                .findById(id)
+                .searchById(id)
                 .orElseThrow(() -> new DatabaseException("Document not found with id: " + id));
         documentRepository.delete(id);
     }
@@ -202,7 +202,15 @@ public class DocumentServiceImpl implements DocumentService {
         if (title == null || title.trim().isEmpty()) {
             throw new IllegalArgumentException("Title cannot be empty");
         }
-        return documentRepository.findByTitle(title.trim());
+        return documentRepository.searchByTitle(title.trim());
+    }
+
+    @Override
+    public List<Document> searchByGenre(String genre) {
+        if (genre == null || genre.trim().isEmpty()) {
+            throw new IllegalArgumentException("Genre cannot be empty");
+        }
+        return documentRepository.searchByGenre(genre.trim());
     }
 
     @Override
@@ -211,7 +219,7 @@ public class DocumentServiceImpl implements DocumentService {
             throw new IllegalArgumentException("Author ID cannot be null");
         }
         authorService.getAuthorById(authorId);
-        return documentRepository.findByAuthorId(authorId);
+        return documentRepository.searchByAuthorId(authorId);
     }
 
     @Override
@@ -219,7 +227,7 @@ public class DocumentServiceImpl implements DocumentService {
         if (authorName == null || authorName.trim().isEmpty()) {
             throw new IllegalArgumentException("Author name cannot be empty");
         }
-        return documentRepository.findByAuthorName(authorName.trim());
+        return documentRepository.searchByAuthorName(authorName.trim());
     }
 
     @Override
@@ -253,7 +261,7 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public List<Document> getDocumentsByType(String type) {
         validateDocumentType(type);
-        return documentRepository.findByType(type);
+        return documentRepository.searchByType(type);
     }
 
     @Override
@@ -269,7 +277,7 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public boolean canBeBorrowed(Long id, int quantity) {
+    public boolean isStockEnough(Long id, int quantity) {
         Document document = getDocumentById(id);
         return document.quantity() >= quantity;
     }

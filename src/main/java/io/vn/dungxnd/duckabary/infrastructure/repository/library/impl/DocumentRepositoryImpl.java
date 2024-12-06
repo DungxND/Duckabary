@@ -19,8 +19,10 @@ public class DocumentRepositoryImpl implements DocumentRepository {
             """
             SELECT d.*, b.isbn, b.publisher_id, b.language, b.genre,
                    j.issn, j.volume, j.issue,
-                   t.university, t.department, t.supervisor, t.degree, t.defense_date
+                   t.university, t.department, t.supervisor, t.degree, t.defense_date,
+                   a.fullName, a.penName
             FROM document d
+            INNER JOIN author a ON d.author_id = a.author_id
             LEFT JOIN book b ON d.document_id = b.document_id
             LEFT JOIN journal j ON d.document_id = j.document_id
             LEFT JOIN thesis t ON d.document_id = t.document_id
@@ -44,7 +46,7 @@ public class DocumentRepositoryImpl implements DocumentRepository {
     }
 
     @Override
-    public Optional<Document> findById(Long id) {
+    public Optional<Document> searchById(Long id) {
         String sql = SELECT_DOCUMENT + " WHERE d.document_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -61,8 +63,8 @@ public class DocumentRepositoryImpl implements DocumentRepository {
     }
 
     @Override
-    public List<Document> findByTitle(String title) {
-        String sql = SELECT_DOCUMENT + " WHERE d.title LIKE ?";
+    public List<Document> searchByTitle(String title) {
+        String sql = SELECT_DOCUMENT + " WHERE LOWER(d.title) LIKE LOWER(?)";
         List<Document> documents = new ArrayList<>();
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -79,8 +81,26 @@ public class DocumentRepositoryImpl implements DocumentRepository {
         }
     }
 
+    public List<Document> searchByGenre(String genre) {
+        String sql = SELECT_DOCUMENT + " WHERE LOWER(b.genre) = LOWER(?)";
+        List<Document> documents = new ArrayList<>();
+        try (Connection conn = DatabaseManager.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, genre);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                documents.add(mapToDocument(rs));
+            }
+            LoggerUtils.info("Found " + documents.size() + " documents of genre: " + genre);
+            return documents;
+        } catch (SQLException e) {
+            LoggerUtils.error("Error finding documents by genre: " + genre, e);
+            throw new DatabaseException("Failed to find documents by genre");
+        }
+    }
+
     @Override
-    public List<Document> findByAuthorId(Long authorId) {
+    public List<Document> searchByAuthorId(Long authorId) {
         String sql = SELECT_DOCUMENT + " WHERE d.author_id = ?";
         List<Document> documents = new ArrayList<>();
         try (Connection conn = DatabaseManager.getConnection();
@@ -99,21 +119,25 @@ public class DocumentRepositoryImpl implements DocumentRepository {
     }
 
     @Override
-    public List<Document> findByAuthorName(String nameOrPenName) {
+    public List<Document> searchByAuthorName(String nameOrPenName) {
         String sql =
                 SELECT_DOCUMENT
-                        + " WHERE d.author_id IN (SELECT author.author_id FROM author WHERE fullName LIKE ? OR penName LIKE ?)";
+                        + " WHERE LOWER(TRIM(CAST(a.fullName AS TEXT))) LIKE LOWER(?) OR "
+                        + "(a.penName IS NOT NULL AND LOWER(TRIM(CAST(a.penName AS TEXT))) LIKE LOWER(?))";
+
         List<Document> documents = new ArrayList<>();
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, "%" + nameOrPenName + "%");
-            stmt.setString(2, "%" + nameOrPenName + "%");
+            String searchTerm = "%" + nameOrPenName.toLowerCase().trim() + "%";
+            stmt.setString(1, searchTerm);
+            stmt.setString(2, searchTerm);
+
+            LoggerUtils.info("Executing search with term: " + searchTerm);
+
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 documents.add(mapToDocument(rs));
             }
-            LoggerUtils.info(
-                    "Found " + documents.size() + " documents by author name: " + nameOrPenName);
             return documents;
         } catch (SQLException e) {
             LoggerUtils.error("Error finding documents by author name: " + nameOrPenName, e);
@@ -121,8 +145,30 @@ public class DocumentRepositoryImpl implements DocumentRepository {
         }
     }
 
+    private void debugPrintTableContents(Connection conn, String tableName) {
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName);
+                ResultSet rs = stmt.executeQuery()) {
+            LoggerUtils.info("Contents of " + tableName + " table:");
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            while (rs.next()) {
+                StringBuilder row = new StringBuilder();
+                for (int i = 1; i <= columnCount; i++) {
+                    row.append(metaData.getColumnName(i))
+                            .append(": ")
+                            .append(rs.getString(i))
+                            .append(" | ");
+                }
+                LoggerUtils.info(row.toString());
+            }
+        } catch (SQLException e) {
+            LoggerUtils.error("Error printing table " + tableName + ": ", e);
+        }
+    }
+
     @Override
-    public List<Document> findByType(String type) {
+    public List<Document> searchByType(String type) {
         String sql = SELECT_DOCUMENT + " WHERE d.type = ?";
         List<Document> documents = new ArrayList<>();
         try (Connection conn = DatabaseManager.getConnection();

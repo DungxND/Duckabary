@@ -20,7 +20,7 @@ public class UserRepositoryImpl implements UserRepository {
             """;
 
     @Override
-    public List<User> findAll() {
+    public List<User> getAll() {
         List<User> users = new ArrayList<>();
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(SELECT_USER)) {
@@ -38,10 +38,26 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> findById(int id) {
+    public Optional<User> searchById(int id) {
         String sql = SELECT_USER + " WHERE user_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return Optional.of(mapToUser(rs));
+            }
+            return Optional.empty();
+        } catch (SQLException e) {
+            LoggerUtils.error("Error finding user with id: " + id, e);
+            throw new DatabaseException("Failed to fetch user by id");
+        }
+    }
+
+    @Override
+    public Optional<User> searchById(Connection conn, int id) {
+        String sql = SELECT_USER + " WHERE user_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -56,7 +72,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> findByUsername(String username) {
+    public Optional<User> searchByUsername(String username) {
         String sql = SELECT_USER + " WHERE username = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -74,7 +90,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> findByEmail(String email) {
+    public Optional<User> searchByEmail(String email) {
         String sql = SELECT_USER + " WHERE email = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -96,11 +112,9 @@ public class UserRepositoryImpl implements UserRepository {
         try (Connection conn = DatabaseManager.getConnection()) {
             conn.setAutoCommit(false);
             try {
-                if (user.id() == 0) {
-                    return insertUser(conn, user);
-                } else {
-                    return updateUser(conn, user);
-                }
+                User savedUser = user.id() == 0 ? insertUser(conn, user) : updateUser(conn, user);
+                conn.commit();
+                return savedUser;
             } catch (SQLException e) {
                 conn.rollback();
                 throw e;
@@ -137,7 +151,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<User> findByName(String name) {
+    public List<User> searchByName(String name) {
         String sql = SELECT_USER + " WHERE firstname LIKE ? OR lastname LIKE ?";
         List<User> users = new ArrayList<>();
 
@@ -166,6 +180,7 @@ public class UserRepositoryImpl implements UserRepository {
         INSERT INTO user (username, firstname, lastname, email, phone, address)
         VALUES (?, ?, ?, ?, ?, ?)
         """;
+
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, user.username());
             stmt.setString(2, user.firstName());
@@ -181,7 +196,9 @@ public class UserRepositoryImpl implements UserRepository {
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
-                return findById(generatedKeys.getInt(1)).orElseThrow();
+                int id = generatedKeys.getInt(1);
+                return searchById(conn, id)
+                        .orElseThrow(() -> new SQLException("User not found with ID: " + id));
             }
             throw new SQLException("Creating user failed, no ID obtained.");
         }
@@ -209,7 +226,7 @@ public class UserRepositoryImpl implements UserRepository {
                 throw new SQLException("Updating user failed, no rows affected.");
             }
 
-            return findById(user.id()).orElseThrow();
+            return searchById(conn, user.id()).orElseThrow();
         }
     }
 

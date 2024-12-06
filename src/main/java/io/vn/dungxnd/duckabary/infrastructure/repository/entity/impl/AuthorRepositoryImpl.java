@@ -16,7 +16,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
             "SELECT author_id, fullName, penName, email, phone, address, birthDate, deathDate FROM author";
 
     @Override
-    public List<Author> findAll() {
+    public List<Author> getAll() {
         List<Author> authors = new ArrayList<>();
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(SELECT_AUTHOR)) {
@@ -33,7 +33,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     }
 
     @Override
-    public Optional<Author> findById(Long author_id) {
+    public Optional<Author> searchById(Long author_id) {
         String sql = SELECT_AUTHOR + " WHERE author_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -51,7 +51,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     }
 
     @Override
-    public Optional<Author> findByName(String name) {
+    public Optional<Author> searchByName(String name) {
         String sql = SELECT_AUTHOR + " WHERE fullName = ? OR penName = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -69,7 +69,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     }
 
     @Override
-    public List<Author> findByNamePattern(String name) {
+    public List<Author> searchByNamePattern(String name) {
         String sql = SELECT_AUTHOR + " WHERE fullName LIKE ? OR penName LIKE ?";
         List<Author> authors = new ArrayList<>();
 
@@ -90,7 +90,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     }
 
     @Override
-    public Optional<Author> findByEmail(String email) {
+    public Optional<Author> searchByEmail(String email) {
         String sql = SELECT_AUTHOR + " WHERE email = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -107,7 +107,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         }
     }
 
-    public List<Author> findByEmailPattern(String emailPattern) {
+    public List<Author> searchByEmailPattern(String emailPattern) {
         String sql = SELECT_AUTHOR + " WHERE email LIKE ?";
         List<Author> authors = new ArrayList<>();
 
@@ -127,7 +127,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     }
 
     @Override
-    public Optional<Author> findByPhone(String phone) {
+    public Optional<Author> searchByPhone(String phone) {
         String sql = SELECT_AUTHOR + " WHERE phone = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -144,7 +144,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         }
     }
 
-    public List<Author> findByPhonePattern(String phonePattern) {
+    public List<Author> searchByPhonePattern(String phonePattern) {
         String sql = SELECT_AUTHOR + " WHERE phone LIKE ?";
         List<Author> authors = new ArrayList<>();
 

@@ -23,7 +23,7 @@ public class MainApplication extends Application {
     public void start(Stage stage) {
         instance = this;
         this.primaryStage = stage;
-        showMainView();
+        showLoginView();
     }
 
     public void showLoginView() {
@@ -50,8 +50,6 @@ public class MainApplication extends Application {
             primaryStage.show();
             primaryStage.setResizable(true);
             primaryStage.centerOnScreen();
-            primaryStage.setWidth(1280);
-            primaryStage.setHeight(720);
             primaryStage.setMinHeight(720);
             primaryStage.setMinWidth(1280);
         } catch (IOException e) {

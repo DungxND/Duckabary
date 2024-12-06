@@ -40,7 +40,7 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public Optional<Book> findById(Long id) {
+    public Optional<Book> searchById(Long id) {
         String sql = SELECT_BOOK + " AND d.document_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -70,7 +70,7 @@ public class BookRepositoryImpl implements BookRepository {
                     updateBook(conn, book);
                 }
                 conn.commit();
-                return findById(documentId).orElseThrow();
+                return searchById(documentId).orElseThrow();
             } catch (SQLException e) {
                 conn.rollback();
                 throw e;
@@ -121,12 +121,12 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public List<Book> findByTitle(String title) {
+    public List<Book> searchByTitle(String title) {
         return List.of();
     }
 
     @Override
-    public Optional<Book> findByIsbn(String isbn) {
+    public Optional<Book> searchByIsbn(String isbn) {
         return Optional.empty();
     }
 
@@ -188,7 +188,7 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public List<Book> findByAuthorId(Long authorId) {
+    public List<Book> searchByAuthorId(Long authorId) {
         String sql = SELECT_BOOK + " AND d.author_id = ?";
         List<Book> books = new ArrayList<>();
         try (Connection conn = DatabaseManager.getConnection();
@@ -207,7 +207,7 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public List<Book> findByPublisherId(Long publisherId) {
+    public List<Book> searchByPublisherId(Long publisherId) {
         String sql = SELECT_BOOK + " AND b.publisher_id = ?";
         List<Book> books = new ArrayList<>();
         try (Connection conn = DatabaseManager.getConnection();

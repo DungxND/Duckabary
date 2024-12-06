@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="706.0" prefWidth="1083.0" styleClass="bg-color"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            fx:controller="io.vn.dungxnd.duckabary.presentation.controller.page.BorrowMgmtController">
+    <children>
+        <VBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox alignment="BOTTOM_LEFT" spacing="5.0">
+                    <children>
+                        <Label styleClass="title" text="Borrow Management">
+                            <font>
+                                <Font size="25.0"/>
+                            </font>
+                            <VBox.margin>
+                                <Insets left="5.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <HBox VBox.vgrow="ALWAYS">
+                            <children>
+                                <Separator prefWidth="5.0" HBox.hgrow="ALWAYS"/>
+                            </children>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets left="10.0" right="10.0"/>
+                    </padding>
+                    <VBox.margin>
+                        <Insets bottom="10.0"/>
+                    </VBox.margin>
+                </VBox>
+                <TableView fx:id="borrowTable" prefHeight="545.0" prefWidth="1020.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="ridColumn" minWidth="30.0" prefWidth="101.5999984741211" text="RID"/>
+                        <TableColumn fx:id="UDColumn" minWidth="200.0" prefWidth="488.0" text="User &amp; Document"/>
+                        <TableColumn fx:id="quantityColumn" minWidth="70.0" prefWidth="141.0" text="Quantity"/>
+                        <TableColumn fx:id="returnedColumn" minWidth="70.0" prefWidth="144.0" text="Returned"/>
+                        <TableColumn fx:id="detailColumn" minWidth="60.0" prefWidth="138.39990234375" text="Details"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                    <styleClass>
+                        <String fx:value="table-container"/>
+                        <String fx:value="table-view"/>
+                    </styleClass>
+                </TableView>
+                <HBox maxHeight="49.0" prefWidth="1023.0">
+                    <children>
+                        <HBox minHeight="30.0" spacing="10.0">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <TextField fx:id="searchInput" maxHeight="1.7976931348623157E308"
+                                                   prefWidth="300.0" promptText="Find by UID/Name"
+                                                   styleClass="search-box" VBox.vgrow="ALWAYS"/>
+                                    </children>
+                                </VBox>
+                                <VBox>
+                                    <children>
+                                        <Button fx:id="searchBtn" alignment="CENTER" maxHeight="1.7976931348623157E308"
+                                                mnemonicParsing="false" text="Search" textAlignment="CENTER"
+                                                VBox.vgrow="ALWAYS"/>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <VBox>
+                            <children>
+                                <Button fx:id="addBorrowRecordBtn" alignment="CENTER" contentDisplay="CENTER"
+                                        maxHeight="1.7976931348623157E308" mnemonicParsing="false"
+                                        styleClass="addNewBtn" text="Add new" textAlignment="CENTER"
+                                        VBox.vgrow="ALWAYS"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="30.0" right="30.0" top="25.0"/>
+            </padding>
+        </VBox>
+    </children>
+    <stylesheets>
+        <URL value="@../../css/general.css"/>
+        <URL value="@../../css/page/page.css"/>
+    </stylesheets>
+</AnchorPane>

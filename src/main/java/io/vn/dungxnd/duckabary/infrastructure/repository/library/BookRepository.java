@@ -8,15 +8,15 @@ import java.util.Optional;
 public interface BookRepository {
     List<Book> findAll();
 
-    Optional<Book> findById(Long id);
+    Optional<Book> searchById(Long id);
 
     Book save(Book book);
 
-    List<Book> findByTitle(String title);
+    List<Book> searchByTitle(String title);
 
-    Optional<Book> findByIsbn(String isbn);
+    Optional<Book> searchByIsbn(String isbn);
 
-    List<Book> findByAuthorId(Long authorId);
+    List<Book> searchByAuthorId(Long authorId);
 
-    List<Book> findByPublisherId(Long publisherId);
+    List<Book> searchByPublisherId(Long publisherId);
 }

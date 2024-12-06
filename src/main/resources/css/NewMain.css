@@ -1,0 +1,45 @@
+/* BG colors */
+
+.alt-bg-color {
+    -fx-background-color: #E0DFDC;
+}
+
+.primary-bg-color {
+    -fx-background-color: #F8F5EC;
+}
+
+/* Component CSS */
+
+#mainContainer {
+    -fx-background-radius: 5;
+}
+
+#sideMenu .selection-text {
+    -fx-font-size: 18;
+}
+
+#sideMenu .selection-button {
+    -fx-font-size: 18;
+    -fx-cursor: hand;
+    -fx-background-radius: 5;
+}
+
+#sideMenu .selection-button:hover {
+    -fx-background-color: #d1d0ca;
+}
+
+#sideMenu .selected-icon {
+    -fx-fill: #102741;
+}
+
+#logoutBtn {
+    -fx-background-color: #CECEC9;
+    -fx-font-size: 13;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+#logoutBtn:hover {
+    -fx-background-color: #BEBEB9;
+}

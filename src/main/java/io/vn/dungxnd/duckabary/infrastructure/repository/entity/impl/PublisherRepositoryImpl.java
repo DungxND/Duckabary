@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public class PublisherRepositoryImpl implements PublisherRepository {
     @Override
-    public List<Publisher> findAll() {
+    public List<Publisher> getAll() {
         String sql = "SELECT * FROM publisher";
         List<Publisher> publishers = new ArrayList<>();
 
@@ -30,7 +30,7 @@ public class PublisherRepositoryImpl implements PublisherRepository {
     }
 
     @Override
-    public Optional<Publisher> findById(Long id) {
+    public Optional<Publisher> searchById(Long id) {
         String sql = "SELECT * FROM publisher WHERE publisher_id = ?";
 
         try (Connection conn = DatabaseManager.getConnection();
@@ -49,7 +49,7 @@ public class PublisherRepositoryImpl implements PublisherRepository {
     }
 
     @Override
-    public Optional<Publisher> findByName(String name) {
+    public Optional<Publisher> searchByName(String name) {
         String sql = "SELECT * FROM publisher WHERE name = ?";
 
         try (Connection conn = DatabaseManager.getConnection();
@@ -68,7 +68,7 @@ public class PublisherRepositoryImpl implements PublisherRepository {
     }
 
     @Override
-    public List<Publisher> findByNamePattern(String namePattern) {
+    public List<Publisher> searchByNamePattern(String namePattern) {
         String sql = "SELECT * FROM publisher WHERE name LIKE ?";
         List<Publisher> publishers = new ArrayList<>();
 

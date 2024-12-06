@@ -35,3 +35,12 @@
     -fx-font-smoothing-type: gray;
 }
 
+.stroke-color {
+    -fx-stroke: #102741;
+}
+
+.bold-text {
+    -fx-font-weight: bold;
+}
+
+

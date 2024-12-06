@@ -9,13 +9,13 @@ import java.util.Optional;
 public interface ManagerRepository {
     List<Manager> findAll();
 
-    Optional<Manager> findById(Connection conn, int id);
+    Optional<Manager> searchById(Connection conn, int id);
 
-    Optional<Manager> findById(int id);
+    Optional<Manager> searchById(int id);
 
-    Optional<Manager> findByUsername(String username);
+    Optional<Manager> searchByUsername(String username);
 
-    Optional<Manager> findByEmail(String email);
+    Optional<Manager> searchByEmail(String email);
 
     Manager save(Manager admin);
 

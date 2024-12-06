@@ -5,9 +5,13 @@ module io.vn.dungxnd.duckabary {
     requires org.jetbrains.annotations;
     requires io.github.cdimascio.dotenv.java;
     requires com.zaxxer.hikari;
-    requires java.sql;
     requires org.slf4j;
     requires org.checkerframework.checker.qual;
+    requires java.prefs;
+    requires commons.logging;
+    requires com.fasterxml.jackson.databind;
+    requires java.sql;
+    requires opencensus.api;
 
     exports io.vn.dungxnd.duckabary.domain.service.user;
     exports io.vn.dungxnd.duckabary.domain.model.user;
@@ -31,4 +35,13 @@ module io.vn.dungxnd.duckabary {
     exports io.vn.dungxnd.duckabary.domain.service.library;
     exports io.vn.dungxnd.duckabary.exception;
     exports io.vn.dungxnd.duckabary.domain.service.borrow;
+    exports io.vn.dungxnd.duckabary.presentation.controller.auth;
+
+    opens io.vn.dungxnd.duckabary.presentation.controller.auth to
+            javafx.fxml;
+
+    exports io.vn.dungxnd.duckabary.presentation.controller.modal;
+
+    opens io.vn.dungxnd.duckabary.presentation.controller.modal to
+            javafx.fxml;
 }

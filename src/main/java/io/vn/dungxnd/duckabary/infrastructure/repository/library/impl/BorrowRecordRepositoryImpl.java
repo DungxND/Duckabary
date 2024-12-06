@@ -39,7 +39,7 @@ public class BorrowRecordRepositoryImpl implements BorrowRecordRepository {
     }
 
     @Override
-    public Optional<BorrowRecord> findById(int id) {
+    public Optional<BorrowRecord> searchById(int id) {
         String sql = SELECT_BORROW + " WHERE borrow_id = ?";
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -57,15 +57,35 @@ public class BorrowRecordRepositoryImpl implements BorrowRecordRepository {
     }
 
     @Override
+    public Optional<BorrowRecord> searchById(Connection conn, int id) {
+        String sql = SELECT_BORROW + " WHERE borrow_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return Optional.of(mapToBorrowRecord(rs));
+            }
+            return Optional.empty();
+        } catch (SQLException e) {
+            LoggerUtils.error("Error finding borrow record with id: " + id, e);
+            throw new DatabaseException("Failed to fetch borrow record by id");
+        }
+    }
+
+    @Override
     public BorrowRecord save(BorrowRecord record) {
         try (Connection conn = DatabaseManager.getConnection()) {
             conn.setAutoCommit(false);
+            BorrowRecord savedRecord;
             try {
                 if (record.recordId() == 0) {
-                    return insertBorrowRecord(conn, record);
+                    savedRecord = insertBorrowRecord(conn, record);
                 } else {
-                    return updateBorrowRecord(conn, record);
+                    savedRecord = updateBorrowRecord(conn, record);
                 }
+                conn.commit();
+                return savedRecord;
             } catch (SQLException e) {
                 conn.rollback();
                 throw e;
@@ -101,7 +121,7 @@ public class BorrowRecordRepositoryImpl implements BorrowRecordRepository {
                 throw new SQLException("Updating borrow record failed, no rows affected.");
             }
 
-            return findById(record.recordId()).orElseThrow();
+            return searchById(conn, record.recordId()).orElseThrow();
         }
     }
 
@@ -109,7 +129,7 @@ public class BorrowRecordRepositoryImpl implements BorrowRecordRepository {
     public void delete(int id) {}
 
     @Override
-    public List<BorrowRecord> findByUserId(int userId) {
+    public List<BorrowRecord> searchByUserId(int userId) {
         String sql = SELECT_BORROW + " WHERE user_id = ?";
         List<BorrowRecord> records = new ArrayList<>();
 
@@ -129,7 +149,7 @@ public class BorrowRecordRepositoryImpl implements BorrowRecordRepository {
     }
 
     @Override
-    public List<BorrowRecord> findByDocumentId(Long documentId) {
+    public List<BorrowRecord> searchByDocumentId(Long documentId) {
         String sql = SELECT_BORROW + " WHERE document_id = ?";
         List<BorrowRecord> records = new ArrayList<>();
 
@@ -232,7 +252,7 @@ public class BorrowRecordRepositoryImpl implements BorrowRecordRepository {
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
-                return findById(generatedKeys.getInt(1)).orElseThrow();
+                return searchById(conn, generatedKeys.getInt(1)).orElseThrow();
             }
             throw new SQLException("Creating borrow record failed, no ID obtained.");
         }

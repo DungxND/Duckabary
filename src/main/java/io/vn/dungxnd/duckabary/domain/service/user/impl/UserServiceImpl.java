@@ -6,6 +6,7 @@ import io.vn.dungxnd.duckabary.domain.service.user.UserService;
 import io.vn.dungxnd.duckabary.exception.DatabaseException;
 import io.vn.dungxnd.duckabary.infrastructure.repository.library.BorrowRecordRepository;
 import io.vn.dungxnd.duckabary.infrastructure.repository.user.UserRepository;
+import io.vn.dungxnd.duckabary.util.ValidationUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,14 +22,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return userRepository.getAll();
     }
 
     @Override
     public User getUserById(int id) throws DatabaseException {
-        return userRepository
-                .findById(id)
-                .orElseThrow(() -> new DatabaseException("User not found with id: " + id));
+
+        try {
+            return userRepository
+                    .searchById(id)
+                    .orElseThrow(() -> new DatabaseException("User not found with id: " + id));
+        } catch (Exception e) {
+            throw new DatabaseException("User not found with id: " + id);
+        }
     }
 
     @Override
@@ -49,7 +55,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(int id) throws DatabaseException {
         List<BorrowRecord> activeBorrows =
-                borrowRepository.findByUserId(id).stream()
+                borrowRepository.searchByUserId(id).stream()
                         .filter(record -> !record.isReturned())
                         .toList();
 
@@ -65,44 +71,44 @@ public class UserServiceImpl implements UserService {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Search name cannot be empty");
         }
-        return userRepository.findByName(name.trim());
+        return userRepository.searchByName(name.trim());
     }
 
     @Override
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public Optional<User> searchByUsername(String username) {
+        return userRepository.searchByUsername(username);
     }
 
     @Override
-    public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public Optional<User> searchByEmail(String email) {
+        return userRepository.searchByEmail(email);
     }
 
     @Override
     public boolean isUsernameAvailable(String username) {
-        return userRepository.findByUsername(username).isEmpty();
+        return userRepository.searchByUsername(username).isEmpty();
     }
 
     @Override
     public boolean isEmailAvailable(String email) {
-        return userRepository.findByEmail(email).isEmpty();
+        return userRepository.searchByEmail(email).isEmpty();
     }
 
     private void validateUser(User user) {
         if (user == null) {
             throw new IllegalArgumentException("User cannot be null");
         }
-        if (user.username() == null || user.username().trim().isEmpty()) {
-            throw new IllegalArgumentException("Username cannot be empty");
-        }
-        if (user.email() == null || user.email().trim().isEmpty()) {
-            throw new IllegalArgumentException("Email cannot be empty");
-        }
+
         if (user.lastName() == null || user.lastName().trim().isEmpty()) {
             throw new IllegalArgumentException("Last name cannot be empty");
         }
-        if (!user.email().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-            throw new IllegalArgumentException("Invalid email format");
+
+        try {
+            ValidationUtils.validateRequiredUsername(user.username());
+            ValidationUtils.validateEmail(user.email());
+            ValidationUtils.validatePhone(user.phone());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getMessage());
         }
     }
 }
