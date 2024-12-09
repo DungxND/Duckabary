@@ -4,6 +4,9 @@
 - [ ] Refactor the code
 - [ ] Test app
 
+- [ ] User borrows list (UI)
+- [ ] Library's document, author, publisher list
+
 ## 04 Dec 2024 (DungxND)
 
 ### Added

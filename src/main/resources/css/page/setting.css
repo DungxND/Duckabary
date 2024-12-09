@@ -8,6 +8,16 @@
     -fx-padding: 5 30 5 30;
 }
 
+#changeAvatarBtn {
+    -fx-background-color: #E2D5B4;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-padding: 3 10 3 10;
+}
+
 #changePasswordBtn:hover {
     -fx-background-color: #D1C4A8;
 }
@@ -16,7 +26,7 @@
     -fx-background-color: #C0B392;
 }
 
-#setAvatarBtn {
+#avatarImg {
     -fx-background-radius: 100;
     -fx-cursor: hand;
 }

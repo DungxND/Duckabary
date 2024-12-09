@@ -7,7 +7,7 @@ import static io.vn.dungxnd.duckabary.util.ValidationUtils.validateRawPassword;
 import io.vn.dungxnd.duckabary.domain.model.user.Manager;
 import io.vn.dungxnd.duckabary.domain.service.ServiceManager;
 import io.vn.dungxnd.duckabary.domain.service.user.ManagerService;
-import io.vn.dungxnd.duckabary.presentation.controller.modal.NotificationController;
+import io.vn.dungxnd.duckabary.presentation.controller.component.NotificationController;
 
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;

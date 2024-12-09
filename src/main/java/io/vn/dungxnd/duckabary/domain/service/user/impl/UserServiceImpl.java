@@ -6,6 +6,7 @@ import io.vn.dungxnd.duckabary.domain.service.user.UserService;
 import io.vn.dungxnd.duckabary.exception.DatabaseException;
 import io.vn.dungxnd.duckabary.infrastructure.repository.library.BorrowRecordRepository;
 import io.vn.dungxnd.duckabary.infrastructure.repository.user.UserRepository;
+import io.vn.dungxnd.duckabary.util.LoggerUtils;
 import io.vn.dungxnd.duckabary.util.ValidationUtils;
 
 import java.util.List;
@@ -108,7 +109,7 @@ public class UserServiceImpl implements UserService {
             ValidationUtils.validateEmail(user.email());
             ValidationUtils.validatePhone(user.phone());
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            LoggerUtils.error("Error validating user: " + user.username(), e);
         }
     }
 }

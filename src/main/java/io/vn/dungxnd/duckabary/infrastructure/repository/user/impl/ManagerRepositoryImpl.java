@@ -15,12 +15,12 @@ import java.util.Optional;
 public class ManagerRepositoryImpl implements ManagerRepository {
     private static final String SELECT_MANAGER =
             """
-            SELECT manager_id, username, email, hashedPassword
+            SELECT manager_id, username, email, hashedPassword, avatarPath
             FROM manager
             """;
 
     @Override
-    public List<Manager> findAll() {
+    public List<Manager> getAll() {
         List<Manager> managers = new ArrayList<>();
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(SELECT_MANAGER)) {
@@ -142,15 +142,18 @@ public class ManagerRepositoryImpl implements ManagerRepository {
                 rs.getInt("manager_id"),
                 rs.getString("username"),
                 rs.getString("email"),
-                rs.getString("hashedPassword"));
+                rs.getString("hashedPassword"),
+                rs.getString("avatarPath"));
     }
 
     private Manager insertManager(Connection conn, Manager manager) throws SQLException {
-        String sql = "INSERT INTO manager (username, email, hashedPassword) VALUES (?, ?, ?)";
+        String sql =
+                "INSERT INTO manager (username, email, hashedPassword, avatarPath) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, manager.username());
             stmt.setString(2, manager.email());
             stmt.setString(3, manager.hashedPassword());
+            stmt.setString(4, manager.avatarPath());
 
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
@@ -187,12 +190,13 @@ public class ManagerRepositoryImpl implements ManagerRepository {
 
     private Manager updateManager(Connection conn, Manager manager) throws SQLException {
         String sql =
-                "UPDATE manager SET username = ?, email = ?, hashedPassword = ? WHERE manager_id = ?";
+                "UPDATE manager SET username = ?, email = ?, hashedPassword = ?, avatarPath = ?  WHERE manager_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, manager.username());
             stmt.setString(2, manager.email());
             stmt.setString(3, manager.hashedPassword());
-            stmt.setInt(4, manager.managerId());
+            stmt.setString(4, manager.avatarPath());
+            stmt.setInt(5, manager.managerId());
 
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {

@@ -27,7 +27,8 @@ public class DatabaseManager {
                 + "    manager_id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "    username TEXT UNIQUE NOT NULL,"
                 + "    email TEXT NOT NULL,"
-                + "    hashedPassword TEXT NOT NULL"
+                + "    hashedPassword TEXT NOT NULL,"
+                + "    avatarPath TEXT"
                 + ");",
         "CREATE TABLE IF NOT EXISTS author ("
                 + "    author_id INTEGER PRIMARY KEY AUTOINCREMENT,"

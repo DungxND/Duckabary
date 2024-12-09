@@ -80,4 +80,8 @@ public class TimeUtils {
             return false;
         }
     }
+
+    public static int getCurrentYear() {
+        return LocalDate.now().getYear();
+    }
 }

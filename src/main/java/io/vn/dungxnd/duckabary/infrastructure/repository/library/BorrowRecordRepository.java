@@ -24,4 +24,6 @@ public interface BorrowRecordRepository {
     List<BorrowRecord> findOverdueRecords();
 
     List<BorrowRecord> findActiveRecords();
+
+    void deleteRecordWithUserId(int userId);
 }

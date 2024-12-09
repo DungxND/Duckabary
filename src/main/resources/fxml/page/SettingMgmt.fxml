@@ -40,23 +40,17 @@
                 </VBox>
                 <StackPane>
                     <children>
-                        <ImageView fx:id="setAvatarBtn" fitHeight="150.0" fitWidth="150.0"
-                                   onMouseClicked="#handleAvatarChange" pickOnBounds="true"
-                                   StackPane.alignment="TOP_RIGHT">
-                            <image>
-                                <Image url="@../../image/avt.png"/>
-                            </image>
-                            <StackPane.margin>
-                                <Insets right="20.0" top="20.0"/>
-                            </StackPane.margin>
-                        </ImageView>
                         <VBox spacing="12.0">
                             <children>
                                 <HBox alignment="CENTER_LEFT" spacing="3.0">
                                     <children>
-                                        <SVGPath
-                                                content="M7 7H6C5.46957 7 4.96086 7.21071 4.58579 7.58579C4.21071 7.96086 4 8.46957 4 9V18C4 18.5304 4.21071 19.0391 4.58579 19.4142C4.96086 19.7893 5.46957 20 6 20H15C15.5304 20 16.0391 19.7893 16.4142 19.4142C16.7893 19.0391 17 18.5304 17 18V17 M16 4.99998L19 7.99998M20.385 6.58499C20.7788 6.19114 21.0001 5.65697 21.0001 5.09998C21.0001 4.543 20.7788 4.00883 20.385 3.61498C19.9912 3.22114 19.457 2.99988 18.9 2.99988C18.343 2.99988 17.8088 3.22114 17.415 3.61498L9 12V15H12L20.385 6.58499Z"
-                                                fill="TRANSPARENT" stroke="BLACK" strokeWidth="2.0"/>
+                                        <Button fx:id="editUsernameBtn" mnemonicParsing="false" styleClass="icon-btn">
+                                            <graphic>
+                                                <SVGPath
+                                                        content="M7 7H6C5.46957 7 4.96086 7.21071 4.58579 7.58579C4.21071 7.96086 4 8.46957 4 9V18C4 18.5304 4.21071 19.0391 4.58579 19.4142C4.96086 19.7893 5.46957 20 6 20H15C15.5304 20 16.0391 19.7893 16.4142 19.4142C16.7893 19.0391 17 18.5304 17 18V17 M16 4.99998L19 7.99998M20.385 6.58499C20.7788 6.19114 21.0001 5.65697 21.0001 5.09998C21.0001 4.543 20.7788 4.00883 20.385 3.61498C19.9912 3.22114 19.457 2.99988 18.9 2.99988C18.343 2.99988 17.8088 3.22114 17.415 3.61498L9 12V15H12L20.385 6.58499Z"
+                                                        fill="TRANSPARENT" stroke="BLACK" strokeWidth="2.0"/>
+                                            </graphic>
+                                        </Button>
                                         <Label styleClass="bold-text" text="Username:">
                                             <font>
                                                 <Font size="18.0"/>
@@ -73,9 +67,14 @@
                                     <children>
                                         <HBox spacing="3.0">
                                             <children>
-                                                <SVGPath
-                                                        content="M7 7H6C5.46957 7 4.96086 7.21071 4.58579 7.58579C4.21071 7.96086 4 8.46957 4 9V18C4 18.5304 4.21071 19.0391 4.58579 19.4142C4.96086 19.7893 5.46957 20 6 20H15C15.5304 20 16.0391 19.7893 16.4142 19.4142C16.7893 19.0391 17 18.5304 17 18V17 M16 4.99998L19 7.99998M20.385 6.58499C20.7788 6.19114 21.0001 5.65697 21.0001 5.09998C21.0001 4.543 20.7788 4.00883 20.385 3.61498C19.9912 3.22114 19.457 2.99988 18.9 2.99988C18.343 2.99988 17.8088 3.22114 17.415 3.61498L9 12V15H12L20.385 6.58499Z"
-                                                        fill="TRANSPARENT" stroke="BLACK" strokeWidth="2.0"/>
+                                                <Button fx:id="editEmailBtn" mnemonicParsing="false"
+                                                        styleClass="icon-btn">
+                                                    <graphic>
+                                                        <SVGPath
+                                                                content="M7 7H6C5.46957 7 4.96086 7.21071 4.58579 7.58579C4.21071 7.96086 4 8.46957 4 9V18C4 18.5304 4.21071 19.0391 4.58579 19.4142C4.96086 19.7893 5.46957 20 6 20H15C15.5304 20 16.0391 19.7893 16.4142 19.4142C16.7893 19.0391 17 18.5304 17 18V17 M16 4.99998L19 7.99998M20.385 6.58499C20.7788 6.19114 21.0001 5.65697 21.0001 5.09998C21.0001 4.543 20.7788 4.00883 20.385 3.61498C19.9912 3.22114 19.457 2.99988 18.9 2.99988C18.343 2.99988 17.8088 3.22114 17.415 3.61498L9 12V15H12L20.385 6.58499Z"
+                                                                fill="TRANSPARENT" stroke="BLACK" strokeWidth="2.0"/>
+                                                    </graphic>
+                                                </Button>
                                                 <Label styleClass="bold-text" text="Email:">
                                                     <font>
                                                         <Font size="18.0"/>
@@ -91,6 +90,19 @@
                                     </children>
                                 </VBox>
                                 <Button fx:id="changePasswordBtn" mnemonicParsing="false" text="Change Password"/>
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0"
+                              StackPane.alignment="TOP_RIGHT">
+                            <children>
+                                <ImageView fx:id="avatarImg" disable="true" fitHeight="150.0" fitWidth="150.0"
+                                           onMouseClicked="#handleAvatarChange" pickOnBounds="true" VBox.vgrow="NEVER">
+                                    <image>
+                                        <Image url="@../../image/avt.png"/>
+                                    </image>
+                                </ImageView>
+                                <Button fx:id="changeAvatarBtn" alignment="TOP_RIGHT" contentDisplay="CENTER"
+                                        mnemonicParsing="false" text="Change avatar" textAlignment="CENTER"/>
                             </children>
                         </VBox>
                     </children>

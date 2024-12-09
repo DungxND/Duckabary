@@ -7,7 +7,7 @@ import io.vn.dungxnd.duckabary.domain.service.ServiceManager;
 import io.vn.dungxnd.duckabary.domain.service.borrow.BorrowService;
 import io.vn.dungxnd.duckabary.domain.service.library.DocumentService;
 import io.vn.dungxnd.duckabary.domain.service.user.UserService;
-import io.vn.dungxnd.duckabary.presentation.controller.modal.AddBorrowRecordController;
+import io.vn.dungxnd.duckabary.presentation.controller.component.AddBorrowRecordController;
 import io.vn.dungxnd.duckabary.util.LoggerUtils;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -34,7 +34,6 @@ public class BorrowMgmtController {
 
     @FXML private Button addBorrowRecordBtn;
 
-
     public BorrowMgmtController() {
         this.borrowService = ServiceManager.getInstance().getBorrowService();
         this.userService = ServiceManager.getInstance().getUserService();
@@ -49,7 +48,9 @@ public class BorrowMgmtController {
 
     private void showAddBorrowRecordModal() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/component/AddBorrowRecordModal.fxml"));
+            FXMLLoader loader =
+                    new FXMLLoader(
+                            getClass().getResource("/fxml/component/AddBorrowRecordModal.fxml"));
             Parent root = loader.load();
             AddBorrowRecordController controller = loader.getController();
             controller.setOnBorrowRecordAdded(this::loadBorrows);

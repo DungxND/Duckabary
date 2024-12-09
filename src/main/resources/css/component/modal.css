@@ -56,11 +56,11 @@
 }
 
 #saveBtn:hover {
-    -fx-background-color: derive(#ffbc67, -10%);
+    -fx-background-color: derive(#FAAA3A, -10%);
 }
 
 #saveBtn:pressed {
-    -fx-background-color: derive(#ffbc67, -20%);
+    -fx-background-color: derive(#FAAA3A, -20%);
 }
 
 #deleteBtn {
@@ -81,9 +81,58 @@
     -fx-background-color: derive(#BA3416, -20%);
 }
 
+#lookupBtn {
+    -fx-background-color: #FAAA3A;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
 
 /* Error */
 
 .error {
     -fx-text-fill: red;
+}
+
+/* Input fields */
+.text-field,
+.password-field,
+.input-field {
+    -fx-padding: 12px 12px 12px 40px;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #DFE6E9;
+    -fx-border-width: 1;
+    -fx-font-size: 14px;
+    -fx-background-color: white;
+    -fx-pref-height: 40;
+}
+
+.text-field:focused,
+.password-field:focused,
+.input-field:focused {
+    -fx-border-color: #FAAA3A;
+    -fx-border-width: 2;
+}
+
+.text-area {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #DFE6E9;
+    -fx-border-width: 1;
+    -fx-font-size: 14px;
+    -fx-background-color: white;
+}
+
+.choice-box {
+    -fx-background-color: white;
+    -fx-border-color: #DFE6E9;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 14px;
+    -fx-padding: 3px 3px 3px 3px;
 }

@@ -5,6 +5,6 @@
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="notificationPane" alignment="CENTER" maxHeight="100" maxWidth="300"
       styleClass="notification-pane" stylesheets="@../../css/component/notification.css"
       xmlns="http://javafx.com/javafx/23.0.1"
-      fx:controller="io.vn.dungxnd.duckabary.presentation.controller.modal.NotificationController">
+      fx:controller="io.vn.dungxnd.duckabary.presentation.controller.component.NotificationController">
     <Label fx:id="messageLabel" styleClass="notification-text"/>
 </VBox>

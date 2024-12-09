@@ -1,4 +1,4 @@
-package io.vn.dungxnd.duckabary.presentation.controller.modal;
+package io.vn.dungxnd.duckabary.presentation.controller.component;
 
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;

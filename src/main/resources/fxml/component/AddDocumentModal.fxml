@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+           minWidth="600.0"
+           prefWidth="800.0" styleClass="modalBg" xmlns="http://javafx.com/javafx/23.0.1"
+           fx:controller="io.vn.dungxnd.duckabary.presentation.controller.component.AddDocumentController">
+    <children>
+        <BorderPane minWidth="600.0">
+            <top>
+                <VBox styleClass="modalHeader" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label styleClass="text" text="Add New Document">
+                            <font>
+                                <Font size="30.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="20.0" top="18.0"/>
+                    </padding>
+                </VBox>
+            </top>
+            <center>
+                <VBox alignment="CENTER" spacing="15.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox spacing="20.0">
+                            <children>
+                                <ImageView fx:id="coverImage" fitHeight="277.0" fitWidth="177.0" pickOnBounds="true"
+                                           preserveRatio="true" HBox.hgrow="ALWAYS">
+                                    <image>
+                                        <Image url="@../../image/default_cover.png"/>
+                                    </image>
+                                </ImageView>
+                                <VBox spacing="15.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <VBox spacing="10.0">
+                                            <children>
+                                                <Label styleClass="bold-text" text="ISBN/ISSN">
+                                                    <font>
+                                                        <Font size="14.0"/>
+                                                    </font>
+                                                </Label>
+                                                <HBox spacing="10.0">
+                                                    <children>
+                                                        <StackPane HBox.hgrow="ALWAYS">
+                                                            <children>
+                                                                <TextField fx:id="isbnInput" promptText="0060930314"
+                                                                           styleClass="input-field"/>
+                                                                <SVGPath
+                                                                        content="M11.6487 2.02722C10.3612 1.93335 9.06855 2.11783 7.8587 2.56814C6.64884 3.01844 5.55014 3.72399 4.63731 4.63682C3.72448 5.54965 3.01892 6.64835 2.56862 7.85821C2.11832 9.06806 1.93384 10.3607 2.02771 11.6482C2.35171 16.4092 6.50971 20.0002 11.2797 20.0002H14.6007C15.0957 20.0002 15.5007 19.5952 15.5007 19.1002C15.5007 18.6052 15.0957 18.2002 14.6007 18.2002H11.2977C7.94071 18.2002 4.86271 16.0222 4.02571 12.7732C2.68471 7.55322 7.54471 2.68422 12.7647 4.03422C16.0227 4.86222 18.2007 7.94022 18.2007 11.2972V12.2872C18.2007 12.9982 17.5617 13.7002 16.8507 13.7002C16.1397 13.7002 15.5007 12.9982 15.5007 12.2872V11.1622C15.5007 8.90322 13.8987 6.86922 11.6667 6.55422C10.9566 6.44863 10.2315 6.5142 9.55181 6.74549C8.87214 6.97677 8.25755 7.36707 7.75922 7.8839C7.26088 8.40072 6.89322 9.02912 6.68684 9.71676C6.48045 10.4044 6.44133 11.1314 6.57271 11.8372C6.73098 12.6875 7.13094 13.4742 7.72471 14.1031C8.31847 14.732 9.0809 15.1764 9.92071 15.3832C11.5767 15.7702 13.1517 15.2392 14.1867 14.1862C14.9877 15.2842 16.5897 15.8602 18.0567 15.2752C19.2627 14.7982 20.0007 13.5652 20.0007 12.2692V11.2882C20.0007 6.50922 16.4097 2.35122 11.6487 2.02722ZM11.0007 13.7002C9.50671 13.7002 8.30071 12.4942 8.30071 11.0002C8.30071 9.50622 9.50671 8.30022 11.0007 8.30022C12.4947 8.30022 13.7007 9.50622 13.7007 11.0002C13.7007 12.4942 12.4947 13.7002 11.0007 13.7002Z"
+                                                                        styleClass="fill-icon"
+                                                                        StackPane.alignment="CENTER_LEFT">
+                                                                    <StackPane.margin>
+                                                                        <Insets left="12.0"/>
+                                                                    </StackPane.margin>
+                                                                </SVGPath>
+                                                            </children>
+                                                        </StackPane>
+                                                        <Button fx:id="lookupBtn" maxHeight="1.7976931348623157E308"
+                                                                mnemonicParsing="false" text="Look up"
+                                                                HBox.hgrow="ALWAYS">
+                                                            <HBox.margin>
+                                                                <Insets/>
+                                                            </HBox.margin>
+                                                        </Button>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <VBox spacing="10.0">
+                                            <children>
+                                                <Label styleClass="bold-text" text="Title*">
+                                                    <font>
+                                                        <Font size="14.0"/>
+                                                    </font>
+                                                </Label>
+                                                <StackPane>
+                                                    <children>
+                                                        <TextField fx:id="titleInput" promptText="Sherlock"
+                                                                   styleClass="input-field"/>
+                                                        <SVGPath content="M10.5 20V7H5V4h14v3h-5.5v13z"
+                                                                 styleClass="fill-icon"
+                                                                 StackPane.alignment="CENTER_LEFT">
+                                                            <StackPane.margin>
+                                                                <Insets left="12.0"/>
+                                                            </StackPane.margin>
+                                                        </SVGPath>
+                                                    </children>
+                                                </StackPane>
+                                            </children>
+                                        </VBox>
+                                        <VBox spacing="10.0">
+                                            <children>
+                                                <Label styleClass="bold-text" text="Author*">
+                                                    <font>
+                                                        <Font size="14.0"/>
+                                                    </font>
+                                                </Label>
+                                                <StackPane>
+                                                    <children>
+                                                        <TextField fx:id="authorInput" promptText="Sir Arthur"
+                                                                   styleClass="input-field"/>
+                                                        <SVGPath
+                                                                content="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z  M12.138 4.538a2 2 0 0 1 2.031.328l.126.115l4.724 4.724a2 2 0 0 1 .5 1.997l-.057.16l-2.365 5.913a2 2 0 0 1-1.605 1.24l-5.079.635q-.196.023-.41.056l-.444.072l-.232.042l-.723.14l-.495.106l-.745.167l-.955.228l-1.552.396l-.646.174a1.01 1.01 0 0 1-1.265-1.134l.034-.146l.295-1.112l.264-1.048l.228-.955l.167-.745l.105-.496l.141-.722l.08-.457l.064-.428l.66-5.28a2 2 0 0 1 1.09-1.536l.151-.069zm.742 1.857L6.968 8.76l-.584 4.672l-.048.396a27 27 0 0 1-.385 2.192l-.171.786l3.288-3.288a2 2 0 1 1 1.414 1.414L7.194 18.22l.392-.087l.784-.165a28 28 0 0 1 1.473-.26l5.397-.676l2.365-5.912zm2.363-3.294a1 1 0 0 1 1.32-.084l.094.084l4.242 4.242a1 1 0 0 1-1.32 1.498l-.094-.084l-4.242-4.242a1 1 0 0 1 0-1.414"
+                                                                StackPane.alignment="CENTER_LEFT">
+                                                            <StackPane.margin>
+                                                                <Insets left="12.0"/>
+                                                            </StackPane.margin>
+                                                        </SVGPath>
+                                                    </children>
+                                                </StackPane>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <HBox spacing="20.0">
+                            <children>
+                                <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label styleClass="bold-text" text="Publisher (required for Book type)">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </Label>
+                                        <StackPane>
+                                            <children>
+                                                <TextField fx:id="publisherInput" promptText="NXB"
+                                                           styleClass="input-field"/>
+                                                <SVGPath
+                                                        content="M4 11h1m1 0h1M6 8h1M4 8h1M4 5h1m1 0h1m6.5 8.5h-11v-11h6v5h5zm-5-4h3v4h-3z"
+                                                        fill="TRANSPARENT" fillRule="EVEN_ODD" styleClass="stroke-color"
+                                                        StackPane.alignment="CENTER_LEFT">
+                                                    <StackPane.margin>
+                                                        <Insets left="12.0"/>
+                                                    </StackPane.margin>
+                                                </SVGPath>
+                                            </children>
+                                        </StackPane>
+                                    </children>
+                                </VBox>
+                                <VBox spacing="10.0">
+                                    <children>
+                                        <Label styleClass="bold-text" text="Publish year">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </Label>
+                                        <StackPane>
+                                            <children>
+                                                <TextField fx:id="publishYearInput" promptText="2020"
+                                                           styleClass="input-field"/>
+                                                <SVGPath
+                                                        content="m20.083 15.2l1.202.721a.5.5 0 0 1 0 .858l-8.77 5.262a1 1 0 0 1-1.03 0l-8.77-5.262a.5.5 0 0 1 0-.858l1.202-.721L12 20.05zm0-4.7l1.202.721a.5.5 0 0 1 0 .858L12 17.649l-9.285-5.57a.5.5 0 0 1 0-.858l1.202-.721L12 15.35zm-7.569-9.191l8.771 5.262a.5.5 0 0 1 0 .858L12 12.999L2.715 7.43a.5.5 0 0 1 0-.858l8.77-5.262a1 1 0 0 1 1.03 0M12 3.332L5.887 7L12 10.668L18.113 7z"
+                                                        styleClass="icon" StackPane.alignment="CENTER_LEFT">
+                                                    <StackPane.margin>
+                                                        <Insets left="12.0"/>
+                                                    </StackPane.margin>
+                                                </SVGPath>
+                                            </children>
+                                        </StackPane>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <HBox spacing="20.0">
+                            <children>
+                                <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label styleClass="bold-text" text="Type*">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </Label>
+                                        <HBox>
+                                            <children>
+                                                <ChoiceBox fx:id="typeChoice" maxWidth="1.7976931348623157E308"
+                                                           HBox.hgrow="ALWAYS"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                                <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label styleClass="bold-text" text="Quantity*">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </Label>
+                                        <StackPane>
+                                            <children>
+                                                <TextField fx:id="quantityInput" promptText="10"
+                                                           styleClass="input-field"/>
+                                                <SVGPath
+                                                        content="m20.083 15.2l1.202.721a.5.5 0 0 1 0 .858l-8.77 5.262a1 1 0 0 1-1.03 0l-8.77-5.262a.5.5 0 0 1 0-.858l1.202-.721L12 20.05zm0-4.7l1.202.721a.5.5 0 0 1 0 .858L12 17.649l-9.285-5.57a.5.5 0 0 1 0-.858l1.202-.721L12 15.35zm-7.569-9.191l8.771 5.262a.5.5 0 0 1 0 .858L12 12.999L2.715 7.43a.5.5 0 0 1 0-.858l8.77-5.262a1 1 0 0 1 1.03 0M12 3.332L5.887 7L12 10.668L18.113 7z"
+                                                        styleClass="icon" StackPane.alignment="CENTER_LEFT">
+                                                    <StackPane.margin>
+                                                        <Insets left="12.0"/>
+                                                    </StackPane.margin>
+                                                </SVGPath>
+                                            </children>
+                                        </StackPane>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <VBox spacing="10.0">
+                            <children>
+                                <Label styleClass="bold-text" text="Description">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Label>
+                                <StackPane>
+                                    <children>
+                                        <TextArea fx:id="descriptionInput" prefHeight="145.0" prefWidth="730.0"
+                                                  wrapText="true"/>
+                                    </children>
+                                </StackPane>
+                            </children>
+                        </VBox>
+                        <HBox prefWidth="200.0">
+                            <children>
+                                <VBox alignment="TOP_CENTER">
+                                    <children>
+                                        <Label fx:id="errorLabel" maxWidth="-Infinity" styleClass="error" text="Error"
+                                               wrapText="true"/>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="15.0" left="35.0" right="35.0" top="35.0"/>
+                    </padding>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                    <BorderPane.margin>
+                        <Insets bottom="20.0"/>
+                    </BorderPane.margin>
+                </VBox>
+            </center>
+            <bottom>
+                <Button fx:id="saveBtn" alignment="CENTER" defaultButton="true" mnemonicParsing="false"
+                        onAction="#handleSave" text="Add" BorderPane.alignment="CENTER_RIGHT">
+                    <BorderPane.margin>
+                        <Insets right="20.0"/>
+                    </BorderPane.margin>
+                </Button>
+            </bottom>
+        </BorderPane>
+    </children>
+    <stylesheets>
+        <URL value="@../../css/component/modal.css"/>
+        <URL value="@../../css/general.css"/>
+    </stylesheets>
+    <padding>
+        <Insets bottom="15.0"/>
+    </padding>
+</StackPane>

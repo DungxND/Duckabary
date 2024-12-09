@@ -3,6 +3,9 @@ package io.vn.dungxnd.duckabary.domain.service.user;
 import io.vn.dungxnd.duckabary.domain.model.user.Manager;
 import io.vn.dungxnd.duckabary.exception.DatabaseException;
 
+import javafx.scene.image.Image;
+
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,4 +84,22 @@ public interface ManagerService {
      * @return True if available, false otherwise.
      */
     boolean isUsernameAvailable(String username);
+
+    /**
+     * Update manager avatar.
+     *
+     * @param managerId Manager id.
+     * @param imageFile Image file.
+     * @return Updated manager.
+     * @throws DatabaseException If manager not found.
+     */
+    Manager updateManagerAvatar(int managerId, File imageFile) throws DatabaseException;
+
+    /**
+     * Get avatar image of manager.
+     *
+     * @param managerId Manager id.
+     * @return Avatar image.
+     */
+    Image getAvatarImage(int managerId);
 }

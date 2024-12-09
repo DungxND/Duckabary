@@ -12,6 +12,8 @@ public interface DocumentRepository {
 
     void delete(Long id);
 
+    Optional<Document> checkExistByIdentifier(String identifier);
+
     List<Document> searchByTitle(String title);
 
     List<Document> searchByGenre(String genre);

@@ -351,7 +351,7 @@ public class DocumentServiceImpl implements DocumentService {
         if (document.quantity() < 0) {
             throw new IllegalArgumentException("Document quantity cannot be negative");
         }
-        if (document.publishYear() < 0) {
+        if (document.publishYear() < 0 || document.publishYear() > TimeUtils.getCurrentYear()) {
             throw new IllegalArgumentException("Invalid publish year");
         }
         validateDocumentType(document.type());
@@ -361,5 +361,9 @@ public class DocumentServiceImpl implements DocumentService {
         if (!List.of("BOOK", "JOURNAL", "THESIS").contains(type)) {
             throw new IllegalArgumentException("Invalid document type: " + type);
         }
+    }
+
+    public boolean isDocumentExist(String identifier) {
+        return documentRepository.checkExistByIdentifier(identifier).isPresent();
     }
 }

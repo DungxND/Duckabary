@@ -354,7 +354,8 @@ public class AppCommandline {
         return switch (typeChoice) {
             case 1 -> {
                 String isbn = readString(scanner, "Enter ISBN: ", false);
-                String publisherName = readString(scanner, "Enter publisher name: ", true);
+                String publisherName =
+                        readString(scanner, "Enter publisher name (required): ", true);
                 Publisher publisher = handlePublisherSelection(scanner, publisherName);
                 String language =
                         readString(scanner, "Enter language (ISO-639 Set 1 Format): ", false);

@@ -1,4 +1,4 @@
-package io.vn.dungxnd.duckabary.presentation.controller.modal;
+package io.vn.dungxnd.duckabary.presentation.controller.component;
 
 import io.vn.dungxnd.duckabary.domain.model.user.User;
 import io.vn.dungxnd.duckabary.domain.service.ServiceManager;
@@ -21,22 +21,22 @@ public class AddUserController {
     @FXML private TextField phoneInput;
     @FXML private TextField addressInput;
     @FXML private Button saveBtn;
-    @FXML private Label errLabel;
+    @FXML private Label errorLabel;
 
     public AddUserController() {
         this.userService = ServiceManager.getInstance().getUserService();
     }
 
     public void initialize() {
-        errLabel.setVisible(false);
-        saveBtn.setOnMouseClicked(event -> handleSave());
+        errorLabel.setVisible(false);
+        saveBtn.setOnMouseClicked(_ -> handleSave());
     }
 
     @FXML
     private void handleSave() {
         if (usernameInput.getText().trim().isEmpty() || lastNameInput.getText().trim().isEmpty()) {
-            errLabel.setText("Please fill in all required fields");
-            errLabel.setVisible(true);
+            errorLabel.setText("Please fill in all required fields");
+            errorLabel.setVisible(true);
             return;
         }
 
@@ -59,8 +59,8 @@ public class AddUserController {
 
             closeModal();
         } catch (Exception e) {
-            errLabel.setText(e.getMessage());
-            errLabel.setVisible(true);
+            errorLabel.setText(e.getMessage());
+            errorLabel.setVisible(true);
         }
     }
 

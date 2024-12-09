@@ -49,6 +49,12 @@ public class LoginController {
         registerRedirectBtn.setOnMouseClicked(event -> openRegisterModal());
         passwordText.textProperty().bindBidirectional(passwordInput.textProperty());
         errorLabel.setVisible(false);
+        usernameField.setOnKeyPressed(
+                event -> {
+                    if (event.getCode() == KeyCode.ENTER) {
+                        handleLogin();
+                    }
+                });
         passwordInput.setOnKeyPressed(
                 event -> {
                     if (event.getCode() == KeyCode.ENTER) {

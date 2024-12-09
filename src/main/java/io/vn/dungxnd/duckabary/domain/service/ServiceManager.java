@@ -6,6 +6,7 @@ import io.vn.dungxnd.duckabary.domain.service.entity.AuthorService;
 import io.vn.dungxnd.duckabary.domain.service.entity.PublisherService;
 import io.vn.dungxnd.duckabary.domain.service.entity.impl.AuthorServiceImpl;
 import io.vn.dungxnd.duckabary.domain.service.entity.impl.PublisherServiceImpl;
+import io.vn.dungxnd.duckabary.domain.service.googleapi.GoogleBooksService;
 import io.vn.dungxnd.duckabary.domain.service.library.DocumentService;
 import io.vn.dungxnd.duckabary.domain.service.library.impl.DocumentServiceImpl;
 import io.vn.dungxnd.duckabary.domain.service.user.ManagerService;
@@ -26,6 +27,7 @@ import io.vn.dungxnd.duckabary.infrastructure.repository.user.impl.UserRepositor
 public class ServiceManager {
 
     private static volatile ServiceManager instance;
+    private final GoogleBooksService googleBooksService;
 
     private final ManagerService managerService;
     private final UserService userService;
@@ -58,6 +60,8 @@ public class ServiceManager {
                         bookRepository,
                         journalRepository,
                         thesisRepository);
+        this.googleBooksService =
+                new GoogleBooksService(documentService, authorService, publisherService);
         this.borrowService =
                 new BorrowServiceImpl(borrowRecordRepository, documentService, userService);
     }
@@ -80,6 +84,10 @@ public class ServiceManager {
 
     public AuthorService getAuthorService() {
         return authorService;
+    }
+
+    public GoogleBooksService getGoogleBooksService() {
+        return googleBooksService;
     }
 
     public PublisherService getPublisherService() {

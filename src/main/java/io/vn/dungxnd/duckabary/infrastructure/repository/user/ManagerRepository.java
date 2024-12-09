@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ManagerRepository {
-    List<Manager> findAll();
+    List<Manager> getAll();
 
     Optional<Manager> searchById(Connection conn, int id);
 

@@ -5,7 +5,7 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.1.0'
     id 'org.beryx.jlink' version '3.1.0-rc-1'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
-    id 'org.jetbrains.kotlin.jvm' version '2.1.0-RC2'
+//    id 'org.jetbrains.kotlin.jvm' version '2.1.0-RC2'
 }
 
 
@@ -30,7 +30,7 @@ application {
     mainClass = 'io.vn.dungxnd.duckabary.presentation.ui.AppUI'
 
     // use of J23 garbage collector
-    applicationDefaultJvmArgs = ['-XX:+UseZGC', '-XX:+ZGenerational']
+    applicationDefaultJvmArgs = ['-XX:+UseZGC', '-XX:+ZGenerational', '-Xlint:unchecked']
 }
 
 java {
@@ -41,7 +41,7 @@ java {
 
 
 javafx {
-    version = '24-ea+15'
+    version = '24-ea+19'
     modules = ['javafx.controls', 'javafx.fxml']
 }
 
@@ -52,7 +52,7 @@ dependencies {
     implementation 'lk.vivoxalabs.customstage:CustomStage:1.3.2'
     implementation 'io.github.mkpaz:atlantafx-base:2.0.1'
     implementation 'org.kordamp.ikonli:ikonli-javafx:12.3.1'
-    implementation 'org.jetbrains:annotations:24.0.0'
+    implementation 'org.jetbrains:annotations:26.0.1'
 
     // Google Book API
     implementation 'com.google.apis:google-api-services-books:v1-rev20240214-2.0.0'
@@ -67,13 +67,13 @@ dependencies {
     implementation 'io.github.cdimascio:dotenv-java:3.0.2'
 
     // To work with DB
-    implementation 'org.xerial:sqlite-jdbc:3.47.0.0'
-    implementation 'com.zaxxer:HikariCP:6.2.0'
+    implementation 'org.xerial:sqlite-jdbc:3.47.1.0'
+    implementation 'com.zaxxer:HikariCP:6.2.1'
 
 //    implementation 'tech.turso.libsql:libsql:0.1.0'
 
     // Kotlin to run DB things
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.0-RC2'
+    //    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.0-RC2'
 
     // Encrypt password
     implementation 'com.password4j:password4j:1.8.2'
@@ -84,17 +84,15 @@ dependencies {
 
 
     // JavaFX
-    implementation 'org.openjfx:javafx-controls:24-ea+15'
-    implementation 'org.openjfx:javafx-fxml:24-ea+15'
+//    implementation 'org.openjfx:javafx-controls:24-ea+15'
+//    implementation 'org.openjfx:javafx-fxml:24-ea+15'
 
 }
 
 tasks.jar {
     manifest {
-        attributes(
-                'Main-Class': 'io.vn.dungxnd.duckabary.MainApplication',
-                'Class-Path': configurations.runtimeClasspath.files.collect { "libs/$it.name" }.join(' ')
-        )
+        attributes('Main-Class': 'io.vn.dungxnd.duckabary.presentation.ui.AppUI',
+                'Class-Path': configurations.runtimeClasspath.files.collect { "libs/$it.name" }.join(' '))
     }
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
@@ -121,5 +119,19 @@ jlink {
 
 jlinkZip {
     group = 'distribution'
+}
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from('src/main/resources') {
+        include '**/*.ttf'
+    }
+}
+
+run {
+    jvmArgs = [
+            '--module-path', classpath.asPath,
+            '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
 }
 

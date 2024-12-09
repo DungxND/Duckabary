@@ -4,8 +4,8 @@ import io.vn.dungxnd.duckabary.domain.model.user.User;
 import io.vn.dungxnd.duckabary.domain.service.ServiceManager;
 import io.vn.dungxnd.duckabary.domain.service.borrow.BorrowService;
 import io.vn.dungxnd.duckabary.domain.service.user.UserService;
-import io.vn.dungxnd.duckabary.presentation.controller.modal.AddUserController;
-import io.vn.dungxnd.duckabary.presentation.controller.modal.UserDetailController;
+import io.vn.dungxnd.duckabary.presentation.controller.component.AddUserController;
+import io.vn.dungxnd.duckabary.presentation.controller.component.UserDetailController;
 import io.vn.dungxnd.duckabary.util.LoggerUtils;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -107,7 +107,6 @@ public class UserMgmtController {
 
         try {
             if (query.matches("\\d+")) {
-                // Search by ID
                 int id = Integer.parseInt(query);
                 User user = userService.getUserById(id);
                 if (user != null) {
@@ -140,8 +139,11 @@ public class UserMgmtController {
 
             UserDetailController controller = loader.getController();
             controller.setUser(user);
-            controller.setOnUserUpdated(this::loadUsers);
-
+            controller.setOnUserUpdated(
+                    () -> {
+                        loadUsers();
+                        search();
+                    });
             Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.setTitle("User Details");
@@ -160,7 +162,6 @@ public class UserMgmtController {
 
             AddUserController controller = loader.getController();
             controller.setOnUserAdded(this::loadUsers);
-
             Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.setTitle("Add User");

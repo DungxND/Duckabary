@@ -25,6 +25,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
             while (rs.next()) {
                 authors.add(mapToAuthor(rs));
             }
+            LoggerUtils.info("Retrieved " + authors.size() + " authors");
             return authors;
         } catch (SQLException e) {
             LoggerUtils.error("Failed to fetch all authors", e);

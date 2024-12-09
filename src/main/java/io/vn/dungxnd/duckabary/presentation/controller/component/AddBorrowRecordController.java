@@ -1,4 +1,4 @@
-package io.vn.dungxnd.duckabary.presentation.controller.modal;
+package io.vn.dungxnd.duckabary.presentation.controller.component;
 
 import static io.vn.dungxnd.duckabary.util.TimeUtils.getDateTimeFromString;
 
@@ -24,7 +24,6 @@ public class AddBorrowRecordController {
     private final BorrowService borrowService;
     private final DocumentService documentService;
     private final UserService userService;
-
     private Runnable onBorrowRecordAdded;
 
     @FXML private TextField userInput;
@@ -63,9 +62,10 @@ public class AddBorrowRecordController {
         userInput
                 .textProperty()
                 .addListener(
-                        (observable, oldValue, newValue) -> {
+                        (_, _, newValue) -> {
                             if (newValue.isEmpty()) {
                                 foundUserLabel.setText("No user selected");
+                                foundUserLabel.setStyle("-fx-text-fill: black;");
                                 return;
                             }
                             searchUser(newValue);
@@ -74,32 +74,27 @@ public class AddBorrowRecordController {
         documentInput
                 .textProperty()
                 .addListener(
-                        (observable, oldValue, newValue) -> {
+                        (_, _, newValue) -> {
                             if (newValue.isEmpty()) {
                                 foundDocumentLabel.setText("No document selected");
+                                foundDocumentLabel.setStyle("-fx-text-fill: black;");
                                 return;
                             }
                             searchDocument(newValue);
                         });
 
-        // Add numeric only validation for quantity
         quantityInput
                 .textProperty()
                 .addListener(
-                        (observable, oldValue, newValue) -> {
+                        (_, _, newValue) -> {
                             if (!newValue.matches("\\d*")) {
-                                quantityInput.setText(newValue.replaceAll("[^\\d]", ""));
+                                quantityInput.setText(newValue.replaceAll("\\D", ""));
                             }
                             validateForm();
                         });
 
         // Add date format validation
-        dueDateInput
-                .textProperty()
-                .addListener(
-                        (observable, oldValue, newValue) -> {
-                            validateForm();
-                        });
+        dueDateInput.textProperty().addListener((_, _, _) -> validateForm());
     }
 
     private void searchUser(String input) {
@@ -117,19 +112,18 @@ public class AddBorrowRecordController {
                 };
 
         searchTask.setOnSucceeded(
-                event -> {
+                _ -> {
                     selectedUser = searchTask.getValue();
-                    Platform.runLater(() -> updateUserLabel());
+                    Platform.runLater(this::updateUserLabel);
                 });
 
         searchTask.setOnFailed(
-                event -> {
-                    Platform.runLater(
-                            () -> {
-                                foundUserLabel.setText("No user found");
-                                foundUserLabel.setStyle("-fx-text-fill: red;");
-                            });
-                });
+                _ ->
+                        Platform.runLater(
+                                () -> {
+                                    foundUserLabel.setText("No user found");
+                                    foundUserLabel.setStyle("-fx-text-fill: red;");
+                                }));
 
         new Thread(searchTask).start();
     }
@@ -151,19 +145,18 @@ public class AddBorrowRecordController {
                 };
 
         searchTask.setOnSucceeded(
-                event -> {
+                _ -> {
                     selectedDocument = searchTask.getValue();
-                    Platform.runLater(() -> updateDocumentLabel());
+                    Platform.runLater(this::updateDocumentLabel);
                 });
 
         searchTask.setOnFailed(
-                event -> {
-                    Platform.runLater(
-                            () -> {
-                                foundDocumentLabel.setText("No document found");
-                                foundDocumentLabel.setStyle("-fx-text-fill: red;");
-                            });
-                });
+                _ ->
+                        Platform.runLater(
+                                () -> {
+                                    foundDocumentLabel.setText("No document found");
+                                    foundDocumentLabel.setStyle("-fx-text-fill: red;");
+                                }));
 
         new Thread(searchTask).start();
     }
@@ -197,7 +190,6 @@ public class AddBorrowRecordController {
         validateForm();
     }
 
-
     private boolean isValidQuantity() {
         try {
             int quantity = Integer.parseInt(quantityInput.getText());
@@ -220,42 +212,46 @@ public class AddBorrowRecordController {
 
     @FXML
     private void handleSave() {
-        Task<Void> borrowTask = new Task<>() {
-            @Override
-            protected Void call() throws Exception {
-                int quantity = Integer.parseInt(quantityInput.getText());
-                LocalDateTime dueDate = getDateTimeFromString(dueDateInput.getText());
-                borrowService.borrowDocument(
-                        selectedUser.id(), selectedDocument.id(), quantity, dueDate);
-                return null;
-            }
-        };
+        Task<Void> borrowTask =
+                new Task<>() {
+                    @Override
+                    protected Void call() {
+                        int quantity = Integer.parseInt(quantityInput.getText());
+                        LocalDateTime dueDate = getDateTimeFromString(dueDateInput.getText());
+                        borrowService.borrowDocument(
+                                selectedUser.id(), selectedDocument.id(), quantity, dueDate);
+                        return null;
+                    }
+                };
 
-        borrowTask.setOnSucceeded(event -> {
-            Platform.runLater(() -> {
-                showSuccessAlert("Borrow record created successfully");
-                if (onBorrowRecordAdded != null) {
-                    onBorrowRecordAdded.run();
-                }
-                closeModal();
-            });
-        });
+        borrowTask.setOnSucceeded(
+                _ ->
+                        Platform.runLater(
+                                () -> {
+                                    showSuccessAlert();
+                                    if (onBorrowRecordAdded != null) {
+                                        onBorrowRecordAdded.run();
+                                    }
+                                    closeModal();
+                                }));
 
-        borrowTask.setOnFailed(event -> {
-            Platform.runLater(() -> {
-                showErrorAlert("Failed to create borrow record: " +
-                        borrowTask.getException().getMessage());
-            });
-        });
+        borrowTask.setOnFailed(
+                _ ->
+                        Platform.runLater(
+                                () ->
+                                        showErrorAlert(
+                                                "Failed to create borrow record: "
+                                                        + borrowTask.getException().getMessage())));
 
         new Thread(borrowTask).start();
     }
 
     private void validateForm() {
-        boolean isValid = selectedUser != null &&
-                selectedDocument != null &&
-                isValidQuantity() &&
-                isValidDueDate();
+        boolean isValid =
+                selectedUser != null
+                        && selectedDocument != null
+                        && isValidQuantity()
+                        && isValidDueDate();
         saveBtn.setDisable(!isValid);
 
         if (isValid) {
@@ -278,11 +274,11 @@ public class AddBorrowRecordController {
         errorLabel.setStyle("-fx-text-fill: red;");
     }
 
-    private void showSuccessAlert(String message) {
+    private void showSuccessAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
         alert.setHeaderText(null);
-        alert.setContentText(message);
+        alert.setContentText("Borrow record created successfully");
         alert.showAndWait();
     }
 

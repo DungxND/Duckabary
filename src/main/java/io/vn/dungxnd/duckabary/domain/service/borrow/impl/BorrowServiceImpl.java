@@ -99,4 +99,9 @@ public class BorrowServiceImpl implements BorrowService {
     public boolean isDocumentAvailableForBorrow(Long documentId, int quantity) {
         return documentService.isStockEnough(documentId, quantity);
     }
+
+    @Override
+    public void deleteBorrowsByUser(int userId) {
+        borrowRepository.deleteRecordWithUserId(userId);
+    }
 }

@@ -31,7 +31,7 @@
                                         <ImageView fitHeight="212.0" fitWidth="161.0" layoutX="28.0" layoutY="27.0"
                                                    pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../../image/book.png"/>
+                                                <Image url="@../../image/default_cover.png"/>
                                             </image>
                                         </ImageView>
                                         <Label layoutX="69.0" layoutY="249.0" text="Book cover">

@@ -73,4 +73,93 @@ public class ValidationUtils {
             throw new IllegalArgumentException("Invalid phone number (Phone not required)");
         }
     }
+
+    public static boolean isValidISBN(String isbn) {
+        isbn = isbn.replaceAll("[-\\s]", "");
+
+        if (isbn.length() == 10) {
+            return isValidIsbn10(isbn);
+        }
+
+        if (isbn.length() == 13) {
+            return isValidIsbn13(isbn);
+        }
+
+        return false;
+    }
+
+    private static boolean isValidIsbn10(String isbn) {
+        int sum = 0;
+
+        for (int i = 0; i < 9; i++) {
+            char c = isbn.charAt(i);
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+            sum += (c - '0') * (10 - i);
+        }
+
+        char last = isbn.charAt(9);
+        if (last == 'X') {
+            sum += 10;
+        } else if (Character.isDigit(last)) {
+            sum += (last - '0');
+        } else {
+            return false;
+        }
+
+        return sum % 11 == 0;
+    }
+
+    private static boolean isValidIsbn13(String isbn) {
+        int sum = 0;
+
+        for (int i = 0; i < 12; i++) {
+            char c = isbn.charAt(i);
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+            sum += (c - '0') * (i % 2 == 0 ? 1 : 3);
+        }
+
+        char last = isbn.charAt(12);
+        if (!Character.isDigit(last)) {
+            return false;
+        }
+
+        int checksum = (10 - (sum % 10)) % 10;
+        return checksum == (last - '0');
+    }
+
+    public static boolean isValidISSN(String issn) {
+        issn = issn.replaceAll("[-\\s]", "");
+
+        if (issn.length() != 8) {
+            return false;
+        }
+
+        for (int i = 0; i < 7; i++) {
+            if (!Character.isDigit(issn.charAt(i))) {
+                return false;
+            }
+        }
+
+        char lastChar = issn.charAt(7);
+        if (lastChar != 'X' && !Character.isDigit(lastChar)) {
+            return false;
+        }
+
+        int sum = 0;
+        for (int i = 0; i < 7; i++) {
+            sum += (8 - i) * (issn.charAt(i) - '0');
+        }
+
+        if (lastChar == 'X') {
+            sum += 10;
+        } else {
+            sum += (lastChar - '0');
+        }
+
+        return sum % 11 == 0;
+    }
 }

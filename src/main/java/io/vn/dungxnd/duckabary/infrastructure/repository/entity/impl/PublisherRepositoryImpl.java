@@ -4,6 +4,7 @@ import io.vn.dungxnd.duckabary.domain.database.DatabaseManager;
 import io.vn.dungxnd.duckabary.domain.model.entity.Publisher;
 import io.vn.dungxnd.duckabary.exception.DatabaseException;
 import io.vn.dungxnd.duckabary.infrastructure.repository.entity.PublisherRepository;
+import io.vn.dungxnd.duckabary.util.LoggerUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,8 +25,10 @@ public class PublisherRepositoryImpl implements PublisherRepository {
                 publishers.add(mapToPublisher(rs));
             }
         } catch (SQLException e) {
-            throw new DatabaseException("Error retrieving publishers", e);
+            LoggerUtils.error("Error fetching all publishers", e);
+            throw new DatabaseException("Error fetching all publishers", e);
         }
+        LoggerUtils.info("Retrieved " + publishers.size() + " publishers");
         return publishers;
     }
 

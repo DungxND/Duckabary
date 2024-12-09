@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.SVGPath;
 
 import java.io.IOException;
@@ -38,8 +39,17 @@ public class MainController {
     @FXML private Button logoutBtn;
 
     public void initialize() {
+        Circle clip = new Circle();
+        clip.radiusProperty().bind(avatarImg.fitWidthProperty().divide(2));
+        clip.centerXProperty().bind(avatarImg.fitWidthProperty().divide(2));
+        clip.centerYProperty().bind(avatarImg.fitHeightProperty().divide(2));
+        avatarImg.setClip(clip);
+
         usernameLabel.textProperty().bind(SessionManager.currentUsernameProperty());
+        avatarImg.imageProperty().bind(SessionManager.currentAvatarProperty());
         setupEventHandlers();
+
+        loadSettingPage();
     }
 
     @FXML

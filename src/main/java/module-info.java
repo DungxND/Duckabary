@@ -7,11 +7,12 @@ module io.vn.dungxnd.duckabary {
     requires com.zaxxer.hikari;
     requires org.slf4j;
     requires org.checkerframework.checker.qual;
-    requires java.prefs;
     requires commons.logging;
     requires com.fasterxml.jackson.databind;
     requires java.sql;
     requires opencensus.api;
+    requires java.desktop;
+    requires java.prefs;
 
     exports io.vn.dungxnd.duckabary.domain.service.user;
     exports io.vn.dungxnd.duckabary.domain.model.user;
@@ -40,8 +41,8 @@ module io.vn.dungxnd.duckabary {
     opens io.vn.dungxnd.duckabary.presentation.controller.auth to
             javafx.fxml;
 
-    exports io.vn.dungxnd.duckabary.presentation.controller.modal;
+    exports io.vn.dungxnd.duckabary.presentation.controller.component;
 
-    opens io.vn.dungxnd.duckabary.presentation.controller.modal to
+    opens io.vn.dungxnd.duckabary.presentation.controller.component to
             javafx.fxml;
 }

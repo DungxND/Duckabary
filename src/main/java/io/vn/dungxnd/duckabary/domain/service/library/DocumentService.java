@@ -33,7 +33,7 @@ public interface DocumentService {
     Document saveDocument(Document document) throws DatabaseException;
 
     /**
-     * Save document with author to database.
+     * Save document with author to database. If author not found, create new author.
      *
      * @param document Document to save.
      * @param authorName Author name.
@@ -83,7 +83,7 @@ public interface DocumentService {
     List<Document> searchByAuthorName(String authorName);
 
     /**
-     * Save book with publisher to database.
+     * Save book with publisher to database, if publisher not found, create new publisher.
      *
      * @param book Book to save.
      * @param publisherName Publisher name.
@@ -149,4 +149,12 @@ public interface DocumentService {
      * @throws IllegalArgumentException If document is invalid
      */
     void validateDocument(Document document) throws IllegalArgumentException;
+
+    /**
+     * Check if document exist.
+     *
+     * @param identifier Document identifier.
+     * @return True if document exist, false otherwise.
+     */
+    boolean isDocumentExist(String identifier);
 }

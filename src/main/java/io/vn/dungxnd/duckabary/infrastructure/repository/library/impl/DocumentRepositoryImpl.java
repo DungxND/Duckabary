@@ -46,6 +46,24 @@ public class DocumentRepositoryImpl implements DocumentRepository {
     }
 
     @Override
+    public Optional<Document> checkExistByIdentifier(String identifier) {
+        String sql = SELECT_DOCUMENT + " WHERE b.isbn = ? OR j.issn = ?";
+        try (Connection conn = DatabaseManager.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, identifier);
+            stmt.setString(2, identifier);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return Optional.of(mapToDocument(rs));
+            }
+            return Optional.empty();
+        } catch (SQLException e) {
+            LoggerUtils.error("Error finding document with identifier: " + identifier, e);
+            throw new DatabaseException("Failed to fetch document by identifier");
+        }
+    }
+
+    @Override
     public Optional<Document> searchById(Long id) {
         String sql = SELECT_DOCUMENT + " WHERE d.document_id = ?";
         try (Connection conn = DatabaseManager.getConnection();

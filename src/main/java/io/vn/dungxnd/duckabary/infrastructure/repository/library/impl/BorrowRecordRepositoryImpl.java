@@ -273,4 +273,18 @@ public class BorrowRecordRepositoryImpl implements BorrowRecordRepository {
             throw new DatabaseException("Error setting null timestamp", e);
         }
     }
+
+    @Override
+    public void deleteRecordWithUserId(int userId) {
+        String sql = "DELETE FROM borrow WHERE user_id = ?";
+        try (Connection conn = DatabaseManager.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, userId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            LoggerUtils.error("Error deleting borrow records for user: " + userId, e);
+            throw new DatabaseException("Failed to delete borrow records by user");
+        }
+    }
 }

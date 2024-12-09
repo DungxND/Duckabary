@@ -6,9 +6,10 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.*?>
 <?import java.net.URL?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="600.0"
+<StackPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+           minWidth="600.0"
            styleClass="modalBg" xmlns="http://javafx.com/javafx/23.0.1"
-           fx:controller="io.vn.dungxnd.duckabary.presentation.controller.modal.AddBorrowRecordController">
+           fx:controller="io.vn.dungxnd.duckabary.presentation.controller.component.AddBorrowRecordController">
     <children>
         <BorderPane minWidth="600.0">
             <top>

@@ -83,4 +83,11 @@ public interface BorrowService {
      * @return True if document is available for borrow.
      */
     boolean isDocumentAvailableForBorrow(Long documentId, int quantity);
+
+    /**
+     * Delete all borrows of a user.
+     *
+     * @param UID User id.
+     */
+    void deleteBorrowsByUser(int UID);
 }
