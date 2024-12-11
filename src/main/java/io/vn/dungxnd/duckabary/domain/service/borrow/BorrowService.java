@@ -85,6 +85,13 @@ public interface BorrowService {
     boolean isDocumentAvailableForBorrow(Long documentId, int quantity);
 
     /**
+     * Edit borrow record.
+     * @param record Borrow record.
+     * @throws DatabaseException If borrow record not found.
+     */
+    BorrowRecord updateBorrowRecord(BorrowRecord record) throws DatabaseException;
+
+    /**
      * Delete all borrows of a user.
      *
      * @param UID User id.

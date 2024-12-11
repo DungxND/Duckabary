@@ -1,6 +1,6 @@
 package io.vn.dungxnd.duckabary.presentation.controller.component;
 
-import static io.vn.dungxnd.duckabary.util.TimeUtils.getDateTimeFromString;
+import static io.vn.dungxnd.duckabary.util.TimeUtils.getDateTimeHourFromString;
 
 import io.vn.dungxnd.duckabary.domain.model.library.Document;
 import io.vn.dungxnd.duckabary.domain.model.user.User;
@@ -93,7 +93,6 @@ public class AddBorrowRecordController {
                             validateForm();
                         });
 
-        // Add date format validation
         dueDateInput.textProperty().addListener((_, _, _) -> validateForm());
     }
 
@@ -203,7 +202,7 @@ public class AddBorrowRecordController {
 
     private boolean isValidDueDate() {
         try {
-            LocalDateTime dueDate = getDateTimeFromString(dueDateInput.getText());
+            LocalDateTime dueDate = getDateTimeHourFromString(dueDateInput.getText());
             return dueDate.isAfter(LocalDateTime.now());
         } catch (Exception e) {
             return false;
@@ -217,7 +216,7 @@ public class AddBorrowRecordController {
                     @Override
                     protected Void call() {
                         int quantity = Integer.parseInt(quantityInput.getText());
-                        LocalDateTime dueDate = getDateTimeFromString(dueDateInput.getText());
+                        LocalDateTime dueDate = getDateTimeHourFromString(dueDateInput.getText());
                         borrowService.borrowDocument(
                                 selectedUser.id(), selectedDocument.id(), quantity, dueDate);
                         return null;

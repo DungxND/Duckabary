@@ -130,10 +130,11 @@ public class AddDocumentController {
                 return;
             }
 
-            if (documentService.isDocumentExist(isbnInput.getText())) {
+            if (!isbnInput.getText().trim().isEmpty() && documentService.isDocumentExist(isbnInput.getText())) {
                 showError("Document already exists");
                 return;
             }
+
 
             Author author =
                     authorService

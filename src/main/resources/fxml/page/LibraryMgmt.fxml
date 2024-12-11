@@ -1,41 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
-<?import java.net.URL?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1"
-           fx:controller="io.vn.dungxnd.duckabary.presentation.controller.page.LibraryMgmtController">
+
+<StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.vn.dungxnd.duckabary.presentation.controller.page.LibraryMgmtController">
     <children>
         <AnchorPane fx:id="libraryPane" prefHeight="706.0" prefWidth="1083.0" styleClass="bg-color">
             <children>
-                <VBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <VBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <VBox alignment="BOTTOM_LEFT" spacing="5.0">
                             <children>
                                 <Label styleClass="title" text="Library Management">
                                     <font>
-                                        <Font size="25.0"/>
+                                        <Font size="25.0" />
                                     </font>
                                     <VBox.margin>
-                                        <Insets left="5.0"/>
+                                        <Insets left="5.0" />
                                     </VBox.margin>
                                 </Label>
                                 <HBox VBox.vgrow="ALWAYS">
                                     <children>
-                                        <Separator prefWidth="5.0" HBox.hgrow="ALWAYS"/>
+                                        <Separator prefWidth="5.0" HBox.hgrow="ALWAYS" />
                                     </children>
                                 </HBox>
                             </children>
                             <padding>
-                                <Insets left="10.0" right="10.0"/>
+                                <Insets left="10.0" right="10.0" />
                             </padding>
                             <VBox.margin>
-                                <Insets bottom="10.0"/>
+                                <Insets bottom="10.0" />
                             </VBox.margin>
                         </VBox>
                         <VBox VBox.vgrow="ALWAYS">
@@ -44,52 +52,36 @@
                                     <children>
                                         <AnchorPane HBox.hgrow="NEVER">
                                             <children>
-                                                <VBox fx:id="libBox" alignment="TOP_CENTER" prefHeight="186.0"
-                                                      prefWidth="68.0" AnchorPane.rightAnchor="0.0"
-                                                      AnchorPane.topAnchor="60.0">
+                                                <VBox fx:id="libBox" alignment="TOP_CENTER" prefHeight="186.0" prefWidth="68.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
                                                     <children>
-                                                        <VBox alignment="CENTER" spacing="9.0"
-                                                              style="-fx-background-radius: 10;"
-                                                              styleClass="document-alt-color" VBox.vgrow="NEVER">
+                                                        <VBox alignment="CENTER" spacing="9.0" style="-fx-background-radius: 10;" styleClass="document-alt-color" VBox.vgrow="NEVER">
                                                             <children>
-                                                                <Button fx:id="docBtn" mnemonicParsing="false"
-                                                                        styleClass="document-button">
+                                                                <Button fx:id="docBtn" mnemonicParsing="false" styleClass="document-button">
                                                                     <graphic>
-                                                                        <SVGPath fx:id="docSvg"
-                                                                                 content="M5.55556 17.5H8.33333V2.5H5.55556V17.5ZM4.16667 25C3.00926 25 2.02546 24.6354 1.21528 23.9062C0.405093 23.1771 0 22.2917 0 21.25V3.75C0 2.70833 0.405093 1.82292 1.21528 1.09375C2.02546 0.364583 3.00926 0 4.16667 0H19.4444V20H4.16667C3.77315 20 3.44352 20.12 3.17778 20.36C2.91204 20.6 2.7787 20.8967 2.77778 21.25C2.77685 21.6033 2.91019 21.9004 3.17778 22.1412C3.44537 22.3821 3.775 22.5017 4.16667 22.5H22.2222V2.5H25V25H4.16667Z"
-                                                                                 styleClass="document-button"/>
+                                                                        <SVGPath fx:id="docSvg" content="M5.55556 17.5H8.33333V2.5H5.55556V17.5ZM4.16667 25C3.00926 25 2.02546 24.6354 1.21528 23.9062C0.405093 23.1771 0 22.2917 0 21.25V3.75C0 2.70833 0.405093 1.82292 1.21528 1.09375C2.02546 0.364583 3.00926 0 4.16667 0H19.4444V20H4.16667C3.77315 20 3.44352 20.12 3.17778 20.36C2.91204 20.6 2.7787 20.8967 2.77778 21.25C2.77685 21.6033 2.91019 21.9004 3.17778 22.1412C3.44537 22.3821 3.775 22.5017 4.16667 22.5H22.2222V2.5H25V25H4.16667Z" styleClass="document-button" />
                                                                     </graphic>
                                                                 </Button>
-                                                                <Button fx:id="authorBtn" mnemonicParsing="false"
-                                                                        styleClass="document-button">
+                                                                <Button fx:id="authorBtn" mnemonicParsing="false" styleClass="document-button">
                                                                     <graphic>
-                                                                        <SVGPath fx:id="authorSvg"
-                                                                                 content="M14.8439 2.45443L12.0617 6.16514C12.1451 6.22824 12.2248 6.29728 12.301 6.37228L19.4438 13.5152C19.5189 13.5901 19.5879 13.6699 19.651 13.7545L23.3617 10.9723C23.5664 10.8188 23.7356 10.6231 23.858 10.3985C23.9804 10.1738 24.0532 9.92554 24.0713 9.67034C24.0894 9.41514 24.0525 9.1591 23.9631 8.91944C23.8736 8.67973 23.7337 8.4621 23.5528 8.28121L17.5349 2.26336C17.354 2.08247 17.1364 1.94256 16.8967 1.8531C16.6571 1.76364 16.401 1.72672 16.1458 1.74484C15.8906 1.76296 15.6423 1.83569 15.4177 1.95812C15.1931 2.08054 14.9974 2.24979 14.8439 2.45443ZM2.47421 10.1901L0.304565 23.933L5.57243 18.6652L5.02242 18.1151C4.81309 17.9058 4.69549 17.6219 4.69549 17.3259C4.69549 17.0298 4.81309 16.7459 5.02242 16.5366C5.23175 16.3272 5.51567 16.2097 5.81171 16.2097C6.10777 16.2097 6.39168 16.3272 6.60098 16.5366L9.27957 19.2151C9.48887 19.4245 9.60652 19.7084 9.60652 20.0045C9.60652 20.3004 9.48887 20.5844 9.27957 20.7937C9.07026 21.003 8.7863 21.1207 8.49031 21.1207C8.19426 21.1207 7.91035 21.003 7.70098 20.7937L7.15101 20.2437L1.88313 25.5116L15.626 23.3419C16.0126 23.281 16.3684 23.0947 16.6388 22.8117C16.9092 22.5287 17.0791 22.1648 17.1224 21.7758L17.8653 15.0937L10.7224 7.95086L4.04028 8.69369C3.65133 8.73709 3.2874 8.907 3.00444 9.17737C2.72149 9.44774 2.5352 9.80358 2.47421 10.1901Z"
-                                                                                 styleClass="document-button"/>
+                                                                        <SVGPath fx:id="authorSvg" content="M14.8439 2.45443L12.0617 6.16514C12.1451 6.22824 12.2248 6.29728 12.301 6.37228L19.4438 13.5152C19.5189 13.5901 19.5879 13.6699 19.651 13.7545L23.3617 10.9723C23.5664 10.8188 23.7356 10.6231 23.858 10.3985C23.9804 10.1738 24.0532 9.92554 24.0713 9.67034C24.0894 9.41514 24.0525 9.1591 23.9631 8.91944C23.8736 8.67973 23.7337 8.4621 23.5528 8.28121L17.5349 2.26336C17.354 2.08247 17.1364 1.94256 16.8967 1.8531C16.6571 1.76364 16.401 1.72672 16.1458 1.74484C15.8906 1.76296 15.6423 1.83569 15.4177 1.95812C15.1931 2.08054 14.9974 2.24979 14.8439 2.45443ZM2.47421 10.1901L0.304565 23.933L5.57243 18.6652L5.02242 18.1151C4.81309 17.9058 4.69549 17.6219 4.69549 17.3259C4.69549 17.0298 4.81309 16.7459 5.02242 16.5366C5.23175 16.3272 5.51567 16.2097 5.81171 16.2097C6.10777 16.2097 6.39168 16.3272 6.60098 16.5366L9.27957 19.2151C9.48887 19.4245 9.60652 19.7084 9.60652 20.0045C9.60652 20.3004 9.48887 20.5844 9.27957 20.7937C9.07026 21.003 8.7863 21.1207 8.49031 21.1207C8.19426 21.1207 7.91035 21.003 7.70098 20.7937L7.15101 20.2437L1.88313 25.5116L15.626 23.3419C16.0126 23.281 16.3684 23.0947 16.6388 22.8117C16.9092 22.5287 17.0791 22.1648 17.1224 21.7758L17.8653 15.0937L10.7224 7.95086L4.04028 8.69369C3.65133 8.73709 3.2874 8.907 3.00444 9.17737C2.72149 9.44774 2.5352 9.80358 2.47421 10.1901Z" styleClass="document-button" />
                                                                     </graphic>
                                                                 </Button>
-                                                                <Button fx:id="publisherBtn" mnemonicParsing="false"
-                                                                        styleClass="document-button">
+                                                                <Button fx:id="publisherBtn" mnemonicParsing="false" styleClass="document-button">
                                                                     <graphic>
-                                                                        <SVGPath fx:id="publisherSvg"
-                                                                                 content="M17.0499 0.179932C17.713 0.179932 18.3489 0.472589 18.8177 0.993524C19.2865 1.51446 19.5499 2.221 19.5499 2.95771V8.51326H22.0499C22.713 8.51326 23.3489 8.80592 23.8177 9.32686C24.2865 9.84779 24.5499 10.5543 24.5499 11.291V22.4022C24.8814 22.4022 25.1994 22.5485 25.4338 22.8089C25.6682 23.0694 25.7999 23.4227 25.7999 23.791C25.7999 24.1594 25.6682 24.5127 25.4338 24.7731C25.1994 25.0336 24.8814 25.1799 24.5499 25.1799H2.04993C1.71841 25.1799 1.40046 25.0336 1.16604 24.7731C0.931623 24.5127 0.799927 24.1594 0.799927 23.791C0.799927 23.4227 0.931623 23.0694 1.16604 22.8089C1.40046 22.5485 1.71841 22.4022 2.04993 22.4022V8.51326C2.04993 7.77655 2.31332 7.07001 2.78216 6.54908C3.251 6.02814 3.88689 5.73549 4.54993 5.73549H7.04993V2.95771C7.04993 2.221 7.31332 1.51446 7.78216 0.993524C8.251 0.472589 8.88689 0.179932 9.54993 0.179932H17.0499ZM7.04993 8.51326H4.54993V22.4022H7.04993V8.51326ZM22.0499 11.291H19.5499V22.4022H22.0499V11.291ZM14.5499 16.8466H12.0499V19.6244H14.5499V16.8466ZM14.5499 11.291H12.0499V14.0688H14.5499V11.291ZM14.5499 5.73549H12.0499V8.51326H14.5499V5.73549Z"
-                                                                                 styleClass="document-button"/>
+                                                                        <SVGPath fx:id="publisherSvg" content="M17.0499 0.179932C17.713 0.179932 18.3489 0.472589 18.8177 0.993524C19.2865 1.51446 19.5499 2.221 19.5499 2.95771V8.51326H22.0499C22.713 8.51326 23.3489 8.80592 23.8177 9.32686C24.2865 9.84779 24.5499 10.5543 24.5499 11.291V22.4022C24.8814 22.4022 25.1994 22.5485 25.4338 22.8089C25.6682 23.0694 25.7999 23.4227 25.7999 23.791C25.7999 24.1594 25.6682 24.5127 25.4338 24.7731C25.1994 25.0336 24.8814 25.1799 24.5499 25.1799H2.04993C1.71841 25.1799 1.40046 25.0336 1.16604 24.7731C0.931623 24.5127 0.799927 24.1594 0.799927 23.791C0.799927 23.4227 0.931623 23.0694 1.16604 22.8089C1.40046 22.5485 1.71841 22.4022 2.04993 22.4022V8.51326C2.04993 7.77655 2.31332 7.07001 2.78216 6.54908C3.251 6.02814 3.88689 5.73549 4.54993 5.73549H7.04993V2.95771C7.04993 2.221 7.31332 1.51446 7.78216 0.993524C8.251 0.472589 8.88689 0.179932 9.54993 0.179932H17.0499ZM7.04993 8.51326H4.54993V22.4022H7.04993V8.51326ZM22.0499 11.291H19.5499V22.4022H22.0499V11.291ZM14.5499 16.8466H12.0499V19.6244H14.5499V16.8466ZM14.5499 11.291H12.0499V14.0688H14.5499V11.291ZM14.5499 5.73549H12.0499V8.51326H14.5499V5.73549Z" styleClass="document-button" />
                                                                     </graphic>
                                                                 </Button>
                                                             </children>
                                                             <VBox.margin>
-                                                                <Insets right="10.0"/>
+                                                                <Insets right="10.0" />
                                                             </VBox.margin>
                                                             <padding>
-                                                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
+                                                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                                                             </padding>
                                                         </VBox>
-                                                        <Polygon fx:id="shapee" fill="WHITE"
-                                                                 points="-17.20001983642578, 88.25, -17.20001983642578, -52.0, 19.59996795654297, -52.0, 19.59996795654297, 88.25, 1.7999801635742188, 66.875"
-                                                                 stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0"
-                                                                 styleClass="document-alt-color">
+                                                        <Polygon fx:id="shapee" fill="WHITE" points="-17.20001983642578, 88.25, -17.20001983642578, -52.0, 19.59996795654297, -52.0, 19.59996795654297, 88.25, 1.7999801635742188, 66.875" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="document-alt-color">
                                                             <VBox.margin>
-                                                                <Insets right="10.0"/>
+                                                                <Insets right="10.0" />
                                                             </VBox.margin>
                                                         </Polygon>
                                                     </children>
@@ -100,25 +92,24 @@
                                             <children>
                                                 <HBox>
                                                     <children>
-                                                        <Label fx:id="displayingWhatLabel" style="-fx-font-size: 25;"
-                                                               styleClass="title" text="Document list">
+                                                        <Label fx:id="displayingWhatLabel" style="-fx-font-size: 25;" styleClass="title" text="Document list">
                                                             <font>
-                                                                <Font size="25.0"/>
+                                                                <Font size="25.0" />
                                                             </font>
                                                         </Label>
                                                     </children>
                                                 </HBox>
                                                 <TableView fx:id="libraryTable" VBox.vgrow="ALWAYS">
                                                     <columns>
-                                                        <TableColumn prefWidth="94.39996337890625" text="ID"/>
-                                                        <TableColumn prefWidth="219.99993896484375" text="Title"/>
-                                                        <TableColumn prefWidth="204.80001831054688" text="Author"/>
-                                                        <TableColumn prefWidth="147.199951171875" text="Publish year"/>
-                                                        <TableColumn prefWidth="105.60009765625" text="Quantity"/>
-                                                        <TableColumn prefWidth="146.39990234375" text="Details"/>
+                                                        <TableColumn prefWidth="94.39996337890625" text="ID" />
+                                                        <TableColumn prefWidth="219.99993896484375" text="Title" />
+                                                        <TableColumn prefWidth="204.80001831054688" text="Author" />
+                                                        <TableColumn prefWidth="147.199951171875" text="Publish year" />
+                                                        <TableColumn prefWidth="105.60009765625" text="Quantity" />
+                                                        <TableColumn prefWidth="146.39990234375" text="Details" />
                                                     </columns>
                                                     <columnResizePolicy>
-                                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                                     </columnResizePolicy>
                                                 </TableView>
                                                 <HBox maxHeight="49.0" prefWidth="1023.0">
@@ -127,34 +118,20 @@
                                                             <children>
                                                                 <VBox>
                                                                     <children>
-                                                                        <TextField fx:id="searchInput"
-                                                                                   maxHeight="1.7976931348623157E308"
-                                                                                   prefWidth="300.0"
-                                                                                   promptText="Find by UID/Name"
-                                                                                   styleClass="search-box"
-                                                                                   VBox.vgrow="ALWAYS"/>
+                                                                        <TextField fx:id="searchInput" maxHeight="1.7976931348623157E308" prefWidth="300.0" promptText="Find by UID/Name" styleClass="search-box" VBox.vgrow="ALWAYS" />
                                                                     </children>
                                                                 </VBox>
                                                                 <VBox>
                                                                     <children>
-                                                                        <Button fx:id="searchBtn" alignment="CENTER"
-                                                                                maxHeight="1.7976931348623157E308"
-                                                                                mnemonicParsing="false" text="Search"
-                                                                                textAlignment="CENTER"
-                                                                                VBox.vgrow="ALWAYS"/>
+                                                                        <Button fx:id="searchBtn" alignment="CENTER" maxHeight="1.7976931348623157E308" mnemonicParsing="false" text="Search" textAlignment="CENTER" VBox.vgrow="ALWAYS" />
                                                                     </children>
                                                                 </VBox>
                                                             </children>
                                                         </HBox>
-                                                        <Region HBox.hgrow="ALWAYS"/>
+                                                        <Region HBox.hgrow="ALWAYS" />
                                                         <VBox>
                                                             <children>
-                                                                <Button fx:id="addNewBtn" alignment="CENTER"
-                                                                        contentDisplay="CENTER"
-                                                                        maxHeight="1.7976931348623157E308"
-                                                                        mnemonicParsing="false" styleClass="addNewBtn"
-                                                                        text="Add new" textAlignment="CENTER"
-                                                                        VBox.vgrow="ALWAYS"/>
+                                                                <Button fx:id="addNewBtn" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" mnemonicParsing="false" styleClass="addNewBtn" text="Add new" textAlignment="CENTER" VBox.vgrow="ALWAYS" />
                                                             </children>
                                                         </VBox>
                                                     </children>
@@ -167,13 +144,13 @@
                         </VBox>
                     </children>
                     <padding>
-                        <Insets bottom="20.0" left="30.0" right="30.0" top="25.0"/>
+                        <Insets bottom="20.0" left="30.0" right="30.0" top="25.0" />
                     </padding>
                 </VBox>
             </children>
             <stylesheets>
-                <URL value="@../../css/general.css"/>
-                <URL value="@../../css/page/page.css"/>
+                <URL value="@../../css/general.css" />
+                <URL value="@../../css/page/page.css" />
             </stylesheets>
         </AnchorPane>
     </children>

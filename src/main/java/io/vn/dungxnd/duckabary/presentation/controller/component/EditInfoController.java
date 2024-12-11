@@ -3,12 +3,14 @@ package io.vn.dungxnd.duckabary.presentation.controller.component;
 import io.vn.dungxnd.duckabary.util.LoggerUtils;
 import io.vn.dungxnd.duckabary.util.ValidationUtils;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.util.function.Consumer;
 
@@ -49,50 +51,37 @@ public class EditInfoController<T> {
     private void handleSave() {
         String newValue = newValueInput.getText().trim();
         if (newValue.isEmpty()) {
-            errorLabel.setText("New value cannot be empty");
-            errorLabel.setStyle("-fx-text-fill: red;");
+            showError("New value cannot be empty");
             return;
         }
 
-        if (fieldName.equalsIgnoreCase("phone")) {
-            try {
-                ValidationUtils.validatePhone(newValue);
-            } catch (IllegalArgumentException e) {
-                LoggerUtils.error("Error validating phone number", e);
-                errorLabel.setText(e.getMessage());
-                errorLabel.setStyle("-fx-text-fill: red;");
-                return;
-            }
-        }
-
-        if (fieldName.equalsIgnoreCase("email")) {
-            try {
-                ValidationUtils.validateEmail(newValue);
-            } catch (IllegalArgumentException e) {
-                LoggerUtils.error("Error validating email", e);
-                errorLabel.setText(e.getMessage());
-                errorLabel.setStyle("-fx-text-fill: red;");
-                return;
-            }
-        }
-
         try {
-            saveCallback.accept(entity);
+            if (fieldName.equalsIgnoreCase("phone")) {
+                ValidationUtils.validatePhone(newValue);
+            } else if (fieldName.equalsIgnoreCase("email")) {
+                ValidationUtils.validateEmail(newValue);
+            }
 
-            Platform.runLater(
-                    () -> {
-                        if (onEditComplete != null) {
-                            onEditComplete.run();
-                        }
-                        closeModal();
-                    });
+            try {
+                saveCallback.accept(entity);
+
+                Platform.runLater(() -> {
+                    if (onEditComplete != null) {
+                        onEditComplete.run();
+                    }
+                    closeModal();
+                });
+
+            } catch (IllegalArgumentException e) {
+                showError(e.getMessage());
+            }
 
         } catch (Exception e) {
             LoggerUtils.error("Error saving entity", e);
-            errorLabel.setText("Failed to save: " + e.getMessage());
-            errorLabel.setStyle("-fx-text-fill: red;");
+            showError("Failed to save: " + e.getMessage());
         }
     }
+
 
     public void setOnEditComplete(Runnable callback) {
         this.onEditComplete = callback;
@@ -104,5 +93,19 @@ public class EditInfoController<T> {
 
     public String getNewValue() {
         return newValueInput.getText().trim();
+    }
+
+    public void showError(String message) {
+        Platform.runLater(
+                () -> {
+                    LoggerUtils.warn(message);
+                    errorLabel.setVisible(true);
+                    errorLabel.setText(message);
+                    errorLabel.setStyle("-fx-text-fill: red;");
+
+                    PauseTransition delay = new PauseTransition(Duration.seconds(3));
+                    delay.setOnFinished(event -> errorLabel.setVisible(false));
+                    delay.play();
+                });
     }
 }

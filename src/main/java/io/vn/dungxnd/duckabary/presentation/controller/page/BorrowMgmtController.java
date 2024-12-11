@@ -8,6 +8,7 @@ import io.vn.dungxnd.duckabary.domain.service.borrow.BorrowService;
 import io.vn.dungxnd.duckabary.domain.service.library.DocumentService;
 import io.vn.dungxnd.duckabary.domain.service.user.UserService;
 import io.vn.dungxnd.duckabary.presentation.controller.component.AddBorrowRecordController;
+import io.vn.dungxnd.duckabary.presentation.controller.component.BorrowRecordDetailController;
 import io.vn.dungxnd.duckabary.util.LoggerUtils;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -43,7 +44,7 @@ public class BorrowMgmtController {
     public void initialize() {
         setupColumns();
         loadBorrows();
-        addBorrowRecordBtn.setOnMouseClicked(event -> showAddBorrowRecordModal());
+        addBorrowRecordBtn.setOnMouseClicked(_ -> showAddBorrowRecordModal());
     }
 
     private void showAddBorrowRecordModal() {
@@ -101,6 +102,32 @@ public class BorrowMgmtController {
                 cellData ->
                         new SimpleStringProperty(cellData.getValue().isReturned() ? "Yes" : "No"));
 
+        detailColumn.setCellFactory(
+                column ->
+                        new TableCell<>() {
+                            private final Button detailsButton = new Button("Details");
+
+                            {
+                                detailsButton.setOnAction(
+                                        event -> {
+                                            BorrowRecord record = getTableRow().getItem();
+                                            if (record != null) {
+                                                showBorrowRecordDetailsDialog(record);
+                                            }
+                                        });
+                            }
+
+                            @Override
+                            protected void updateItem(String item, boolean empty) {
+                                super.updateItem(item, empty);
+                                if (empty) {
+                                    setGraphic(null);
+                                } else {
+                                    setGraphic(detailsButton);
+                                }
+                            }
+                        });
+
         UDColumn.setCellFactory(
                 tc -> {
                     TableCell<BorrowRecord, String> cell = new TableCell<>();
@@ -111,6 +138,27 @@ public class BorrowMgmtController {
                     text.textProperty().bind(cell.itemProperty());
                     return cell;
                 });
+    }
+
+    private void showBorrowRecordDetailsDialog(BorrowRecord record) {
+        try {
+            FXMLLoader loader =
+                    new FXMLLoader(
+                            getClass().getResource("/fxml/component/BorrowRecordDetailModal.fxml"));
+            Parent root = loader.load();
+
+            BorrowRecordDetailController controller = loader.getController();
+            controller.setBorrowRecord(record);
+            controller.setOnRecordEdited(this::loadBorrows);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Borrow Record Details");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            LoggerUtils.error("Failed to show Borrow Record Details modal", e);
+        }
     }
 
     private void loadBorrows() {

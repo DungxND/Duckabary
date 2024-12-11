@@ -100,6 +100,7 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("User cannot be null");
         }
 
+
         if (user.lastName() == null || user.lastName().trim().isEmpty()) {
             throw new IllegalArgumentException("Last name cannot be empty");
         }

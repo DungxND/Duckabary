@@ -91,7 +91,6 @@ public class UserDetailController {
     @FXML
     private void openChangeUsernameModal() {
         try {
-
             FXMLLoader loader =
                     new FXMLLoader(getClass().getResource("/fxml/component/EditInfoModal.fxml"));
             Stage modalStage = new Stage();
@@ -105,16 +104,28 @@ public class UserDetailController {
                     "username",
                     user.username(),
                     _ -> {
-                        User newUser =
-                                User.createUser(
-                                        user.id(),
-                                        controller.getNewValue(),
-                                        user.firstName(),
-                                        user.lastName(),
-                                        user.email(),
-                                        user.phone(),
-                                        user.address());
-                        user = userService.saveUser(newUser);
+                        String newValue = controller.getNewValue();
+                        if (newValue.equals(user.username())) {
+                            throw new IllegalArgumentException("New username cannot be same as current");
+                        }
+
+                        try {
+                            User newUser = User.createUser(
+                                    user.id(),
+                                    newValue,
+                                    user.firstName(),
+                                    user.lastName(),
+                                    user.email(),
+                                    user.phone(),
+                                    user.address());
+                            user = userService.saveUser(newUser);
+
+                            if (onUserUpdated != null) {
+                                onUserUpdated.run();
+                            }
+                        } catch (Exception e) {
+                            throw new IllegalArgumentException("Failed to save user: " + e.getMessage());
+                        }
                     });
             controller.setOnEditComplete(() -> Platform.runLater(this::getUserDetail));
             modalStage.showAndWait();
@@ -126,8 +137,7 @@ public class UserDetailController {
     @FXML
     private void openChangeFirstNameModal() {
         try {
-            FXMLLoader loader =
-                    new FXMLLoader(getClass().getResource("/fxml/component/EditInfoModal.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/component/EditInfoModal.fxml"));
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);
             modalStage.setTitle("Change First Name");
@@ -139,16 +149,28 @@ public class UserDetailController {
                     "first name",
                     user.firstName(),
                     _ -> {
-                        User newUser =
-                                User.createUser(
-                                        user.id(),
-                                        user.username(),
-                                        controller.getNewValue(),
-                                        user.lastName(),
-                                        user.email(),
-                                        user.phone(),
-                                        user.address());
-                        user = userService.saveUser(newUser);
+                        String newValue = controller.getNewValue();
+                        if (newValue.equals(user.firstName())) {
+                            throw new IllegalArgumentException("New first name cannot be same as current");
+                        }
+
+                        try {
+                            User newUser = User.createUser(
+                                    user.id(),
+                                    user.username(),
+                                    newValue,
+                                    user.lastName(),
+                                    user.email(),
+                                    user.phone(),
+                                    user.address());
+                            user = userService.saveUser(newUser);
+
+                            if (onUserUpdated != null) {
+                                onUserUpdated.run();
+                            }
+                        } catch (Exception e) {
+                            throw new IllegalArgumentException("Failed to save user: " + e.getMessage());
+                        }
                     });
             controller.setOnEditComplete(() -> Platform.runLater(this::getUserDetail));
             modalStage.showAndWait();
@@ -157,11 +179,11 @@ public class UserDetailController {
         }
     }
 
+
     @FXML
     private void openChangeLastNameModal() {
         try {
-            FXMLLoader loader =
-                    new FXMLLoader(getClass().getResource("/fxml/component/EditInfoModal.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/component/EditInfoModal.fxml"));
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);
             modalStage.setTitle("Change Last Name");
@@ -173,16 +195,28 @@ public class UserDetailController {
                     "last name",
                     user.lastName(),
                     _ -> {
-                        User newUser =
-                                User.createUser(
-                                        user.id(),
-                                        user.username(),
-                                        user.firstName(),
-                                        controller.getNewValue(),
-                                        user.email(),
-                                        user.phone(),
-                                        user.address());
-                        user = userService.saveUser(newUser);
+                        String newValue = controller.getNewValue();
+                        if (newValue.equals(user.lastName())) {
+                            throw new IllegalArgumentException("New last name cannot be same as current");
+                        }
+
+                        try {
+                            User newUser = User.createUser(
+                                    user.id(),
+                                    user.username(),
+                                    user.firstName(),
+                                    newValue,
+                                    user.email(),
+                                    user.phone(),
+                                    user.address());
+                            user = userService.saveUser(newUser);
+
+                            if (onUserUpdated != null) {
+                                onUserUpdated.run();
+                            }
+                        } catch (Exception e) {
+                            throw new IllegalArgumentException("Failed to save user: " + e.getMessage());
+                        }
                     });
             controller.setOnEditComplete(() -> Platform.runLater(this::getUserDetail));
             modalStage.showAndWait();
@@ -194,8 +228,7 @@ public class UserDetailController {
     @FXML
     private void openChangeEmailModal() {
         try {
-            FXMLLoader loader =
-                    new FXMLLoader(getClass().getResource("/fxml/component/EditInfoModal.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/component/EditInfoModal.fxml"));
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);
             modalStage.setTitle("Change Email");
@@ -207,16 +240,28 @@ public class UserDetailController {
                     "email",
                     user.email(),
                     _ -> {
-                        User newUser =
-                                User.createUser(
-                                        user.id(),
-                                        user.username(),
-                                        user.firstName(),
-                                        user.lastName(),
-                                        controller.getNewValue(),
-                                        user.phone(),
-                                        user.address());
-                        user = userService.saveUser(newUser);
+                        String newValue = controller.getNewValue();
+                        if (newValue.equals(user.email())) {
+                            throw new IllegalArgumentException("New email cannot be same as current");
+                        }
+
+                        try {
+                            User newUser = User.createUser(
+                                    user.id(),
+                                    user.username(),
+                                    user.firstName(),
+                                    user.lastName(),
+                                    newValue,
+                                    user.phone(),
+                                    user.address());
+                            user = userService.saveUser(newUser);
+
+                            if (onUserUpdated != null) {
+                                onUserUpdated.run();
+                            }
+                        } catch (Exception e) {
+                            throw new IllegalArgumentException("Failed to save user: " + e.getMessage());
+                        }
                     });
             controller.setOnEditComplete(() -> Platform.runLater(this::getUserDetail));
             modalStage.showAndWait();
@@ -228,8 +273,7 @@ public class UserDetailController {
     @FXML
     private void openChangePhoneModal() {
         try {
-            FXMLLoader loader =
-                    new FXMLLoader(getClass().getResource("/fxml/component/EditInfoModal.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/component/EditInfoModal.fxml"));
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);
             modalStage.setTitle("Change Phone");
@@ -241,16 +285,28 @@ public class UserDetailController {
                     "phone",
                     user.phone(),
                     _ -> {
-                        User newUser =
-                                User.createUser(
-                                        user.id(),
-                                        user.username(),
-                                        user.firstName(),
-                                        user.lastName(),
-                                        user.email(),
-                                        controller.getNewValue(),
-                                        user.address());
-                        user = userService.saveUser(newUser);
+                        String newValue = controller.getNewValue();
+                        if (newValue.equals(user.phone())) {
+                            throw new IllegalArgumentException("New phone cannot be same as current");
+                        }
+
+                        try {
+                            User newUser = User.createUser(
+                                    user.id(),
+                                    user.username(),
+                                    user.firstName(),
+                                    user.lastName(),
+                                    user.email(),
+                                    newValue,
+                                    user.address());
+                            user = userService.saveUser(newUser);
+
+                            if (onUserUpdated != null) {
+                                onUserUpdated.run();
+                            }
+                        } catch (Exception e) {
+                            throw new IllegalArgumentException("Failed to save user: " + e.getMessage());
+                        }
                     });
             controller.setOnEditComplete(() -> Platform.runLater(this::getUserDetail));
             modalStage.showAndWait();
@@ -262,8 +318,7 @@ public class UserDetailController {
     @FXML
     private void openChangeAddressModal() {
         try {
-            FXMLLoader loader =
-                    new FXMLLoader(getClass().getResource("/fxml/component/EditInfoModal.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/component/EditInfoModal.fxml"));
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);
             modalStage.setTitle("Change Address");
@@ -275,16 +330,28 @@ public class UserDetailController {
                     "address",
                     user.address(),
                     _ -> {
-                        User newUser =
-                                User.createUser(
-                                        user.id(),
-                                        user.username(),
-                                        user.firstName(),
-                                        user.lastName(),
-                                        user.email(),
-                                        user.phone(),
-                                        controller.getNewValue());
-                        user = userService.saveUser(newUser);
+                        String newValue = controller.getNewValue();
+                        if (newValue.equals(user.address())) {
+                            throw new IllegalArgumentException("New address cannot be same as current");
+                        }
+
+                        try {
+                            User newUser = User.createUser(
+                                    user.id(),
+                                    user.username(),
+                                    user.firstName(),
+                                    user.lastName(),
+                                    user.email(),
+                                    user.phone(),
+                                    newValue);
+                            user = userService.saveUser(newUser);
+
+                            if (onUserUpdated != null) {
+                                onUserUpdated.run();
+                            }
+                        } catch (Exception e) {
+                            throw new IllegalArgumentException("Failed to save user: " + e.getMessage());
+                        }
                     });
             controller.setOnEditComplete(() -> Platform.runLater(this::getUserDetail));
             modalStage.showAndWait();

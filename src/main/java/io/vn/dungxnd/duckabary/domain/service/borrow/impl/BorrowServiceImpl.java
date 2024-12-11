@@ -91,6 +91,11 @@ public class BorrowServiceImpl implements BorrowService {
     }
 
     @Override
+    public BorrowRecord updateBorrowRecord(BorrowRecord borrowRecord) {
+        return borrowRepository.save(borrowRecord);
+    }
+
+    @Override
     public List<BorrowRecord> getActiveBorrows() {
         return borrowRepository.findActiveRecords();
     }

@@ -7,6 +7,7 @@ import io.vn.dungxnd.duckabary.domain.service.entity.PublisherService;
 import io.vn.dungxnd.duckabary.domain.service.library.DocumentService;
 import io.vn.dungxnd.duckabary.exception.DatabaseException;
 
+import io.vn.dungxnd.duckabary.util.LoggerUtils;
 import javafx.scene.image.Image;
 
 import java.util.List;
@@ -36,6 +37,9 @@ public class GoogleBooksService {
     }
 
     public Image getDocumentImage(String identifier) {
+        if (identifier == null || identifier.trim().isEmpty()) {
+            return null;
+        }
         return apiClient.fetchDocumentImage(identifier);
     }
 

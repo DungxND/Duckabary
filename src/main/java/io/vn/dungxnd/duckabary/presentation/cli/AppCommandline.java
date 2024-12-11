@@ -247,7 +247,7 @@ public class AppCommandline {
                             record.documentId(),
                             record.quantity(),
                             record.borrowDate(),
-                            getDateTimeFromString(newDueDateStr));
+                            getDateTimeHourFromString(newDueDateStr));
             System.out.println("Due date changed successfully");
         } catch (DatabaseException e) {
             System.out.println("Error changing due date: " + e.getMessage());
@@ -276,7 +276,7 @@ public class AppCommandline {
                             + " (ID: "
                             + record.documentId()
                             + ")");
-            System.out.println("Due date: " + getFormattedTime(record.dueDate()));
+            System.out.println("Due date: " + getFormattedDateTimeSec(record.dueDate()));
             System.out.println("Overdue by: " + getDurationFromNow(record.dueDate()));
             System.out.println();
         }
@@ -400,7 +400,7 @@ public class AppCommandline {
                 Optional<LocalDateTime> defenseDate =
                         defenseDateStr.isEmpty()
                                 ? Optional.empty()
-                                : Optional.of(getDateTimeFromString(defenseDateStr));
+                                : Optional.of(getDateTimeHourFromString(defenseDateStr));
                 yield new Thesis(
                         null,
                         title,
@@ -684,7 +684,7 @@ public class AppCommandline {
                             Optional<LocalDateTime> defenseDate =
                                     defenseDateStr.isEmpty()
                                             ? thesis.defenseDate()
-                                            : Optional.of(getDateTimeFromString(defenseDateStr));
+                                            : Optional.of(getDateTimeHourFromString(defenseDateStr));
 
                             yield new Thesis(
                                     docId,
@@ -782,7 +782,7 @@ public class AppCommandline {
             System.out.println("Invalid date format");
             return;
         }
-        if (getDateTimeFromString(dueDateStr).isBefore(LocalDateTime.now())) {
+        if (getDateTimeHourFromString(dueDateStr).isBefore(LocalDateTime.now())) {
             System.out.println("Due date must be in the future");
             return;
         }
@@ -793,7 +793,7 @@ public class AppCommandline {
         try {
             BorrowRecord record =
                     borrowService.borrowDocument(
-                            userId, docId, quantity, getDateTimeFromString(dueDateStr));
+                            userId, docId, quantity, getDateTimeHourFromString(dueDateStr));
             System.out.println(
                     "Document with title "
                             + documentService.getDocumentById(docId).title()
@@ -825,7 +825,7 @@ public class AppCommandline {
                             + " copies by user "
                             + userService.getUserById(returnedRecord.userId()).username());
             System.out.println(
-                    "Return date: " + getFormattedTime(returnedRecord.returnDate().get()));
+                    "Return date: " + getFormattedDateTimeSec(returnedRecord.returnDate().get()));
         } catch (DatabaseException e) {
             System.out.println("Error returning document: " + e.getMessage());
         } catch (IllegalArgumentException e) {
@@ -861,7 +861,7 @@ public class AppCommandline {
                             "- "
                                     + doc.title()
                                     + " (Due: "
-                                    + getFormattedTime(record.dueDate())
+                                    + getFormattedDateTimeSec(record.dueDate())
                                     + ")");
                 }
             }
@@ -919,7 +919,7 @@ public class AppCommandline {
                         .ifPresentOrElse(
                                 date ->
                                         System.out.println(
-                                                "Defense date: " + getFormattedTime(date)),
+                                                "Defense date: " + getFormattedDateTimeSec(date)),
                                 () -> System.out.println("Defense date: Not set"));
             }
             default -> {}
@@ -949,13 +949,13 @@ public class AppCommandline {
             try {
                 Document doc = documentService.getDocumentById(record.documentId());
                 System.out.println("Document: " + doc.title() + " (ID: " + doc.id() + ")");
-                System.out.println("Borrow date: " + getFormattedTime(record.borrowDate()));
-                System.out.println("Due date: " + getFormattedTime(record.dueDate()));
+                System.out.println("Borrow date: " + getFormattedDateTimeSec(record.borrowDate()));
+                System.out.println("Due date: " + getFormattedDateTimeSec(record.dueDate()));
                 record.returnDate()
                         .ifPresentOrElse(
                                 returnDate ->
                                         System.out.println(
-                                                "Return date: " + getFormattedTime(returnDate)),
+                                                "Return date: " + getFormattedDateTimeSec(returnDate)),
                                 () -> System.out.println("Document not returned"));
             } catch (DatabaseException e) {
                 System.out.println("Error retrieving document information");

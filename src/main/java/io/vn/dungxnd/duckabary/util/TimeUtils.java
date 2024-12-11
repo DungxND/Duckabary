@@ -6,9 +6,16 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class TimeUtils {
-    private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
-    private static final DateTimeFormatter FORMATTER =
+    private static final String DATE_TIME_SEC_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm";
+
+    private static final DateTimeFormatter FORMATTER1 =
+            DateTimeFormatter.ofPattern(DATE_TIME_SEC_PATTERN);
+
+    private static final DateTimeFormatter FORMATTER2 =
             DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
+
+
 
     /**
      * Get the current date and time.
@@ -16,8 +23,12 @@ public class TimeUtils {
      * @param time the time to format
      * @return String of the formatted time
      */
-    public static String getFormattedTime(LocalDateTime time) {
-        return time.format(FORMATTER);
+    public static String getFormattedDateTimeSec(LocalDateTime time) {
+        return time.format(FORMATTER1);
+    }
+
+    public static String getFormattedDateTimeHour(LocalDateTime time) {
+        return time.format(FORMATTER2);
     }
 
     public static String getDurationFromNow(LocalDateTime time) {
@@ -57,7 +68,7 @@ public class TimeUtils {
      * @param input the input string
      * @return the date time
      */
-    public static LocalDateTime getDateTimeFromString(String input) {
+    public static LocalDateTime getDateTimeHourFromString(String input) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             return LocalDateTime.parse(input, formatter);
@@ -74,11 +85,15 @@ public class TimeUtils {
      */
     public static boolean isValidDateTime(String time) {
         try {
-            getDateTimeFromString(time);
+            getDateTimeHourFromString(time);
             return true;
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public static String getCurrentDateTime() {
+        return LocalDateTime.now().format(FORMATTER2);
     }
 
     public static int getCurrentYear() {

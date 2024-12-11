@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minWidth="600.0" styleClass="modalBg" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.vn.dungxnd.duckabary.presentation.controller.component.BorrowRecordDetailController">
+   <children>
+      <BorderPane minWidth="650.0">
+         <top>
+            <VBox styleClass="modalHeader" BorderPane.alignment="CENTER">
+               <children>
+                  <Label styleClass="text" text="Borrow Detail">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="8.0" left="20.0" right="5.0" top="12.0" />
+               </padding>
+            </VBox>
+         </top>
+         <center>
+            <VBox spacing="8.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox spacing="8.0">
+                     <children>
+                        <Label styleClass="bold-text" text="User:">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="userLabel" text="id" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="5.0">
+                     <children>
+                        <Label styleClass="bold-text" text="Document" />
+                        <Label fx:id="docLabel" text="johndoe" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="5.0">
+                     <children>
+                        <Button fx:id="switchReturnStateBtn" mnemonicParsing="false" styleClass="editBtn">
+                           <graphic>
+                              <SVGPath content="M7.4893 16.5243C7.16346 16.5246 6.84638 16.4189 6.586 16.223C6.32562 16.0271 6.13611 15.7517 6.04613 15.4385C5.95614 15.1254 5.97058 14.7914 6.08725 14.4872C6.20392 14.183 6.41649 13.925 6.6928 13.7523L10.7248 9.7203C11.0063 9.43904 11.3879 9.28111 11.7858 9.28125C12.1837 9.28139 12.5653 9.43959 12.8465 9.72105C13.1278 10.0025 13.2857 10.3842 13.2856 10.7821C13.2855 11.18 13.1273 11.5615 12.8458 11.8428L11.1643 13.5228H22.4893C22.8871 13.5228 23.2687 13.6808 23.55 13.9621C23.8313 14.2434 23.9893 14.625 23.9893 15.0228C23.9893 15.4206 23.8313 15.8022 23.55 16.0835C23.2687 16.3648 22.8871 16.5228 22.4893 16.5228L7.4893 16.5243ZM28.5103 19.4778C28.8361 19.4775 29.1532 19.5833 29.4136 19.7791C29.674 19.975 29.8635 20.2504 29.9535 20.5636C30.0435 20.8767 30.029 21.2107 29.9124 21.5149C29.7957 21.8191 29.5831 22.0771 29.3068 22.2498L25.2748 26.2803C25.1354 26.4196 24.97 26.53 24.788 26.6054C24.6059 26.6807 24.4108 26.7194 24.2138 26.7194C24.0167 26.7193 23.8217 26.6804 23.6397 26.605C23.4577 26.5295 23.2923 26.4189 23.1531 26.2796C23.0138 26.1402 22.9033 25.9748 22.828 25.7927C22.7527 25.6107 22.7139 25.4155 22.714 25.2185C22.7141 25.0215 22.7529 24.8264 22.8284 24.6444C22.9039 24.4624 23.0144 24.2971 23.1538 24.1578L24.8353 22.4778H13.5103C13.1125 22.4778 12.7309 22.3198 12.4496 22.0385C12.1683 21.7572 12.0103 21.3756 12.0103 20.9778C12.0103 20.58 12.1683 20.1984 12.4496 19.9171C12.7309 19.6358 13.1125 19.4778 13.5103 19.4778H28.5103Z" fill="TRANSPARENT" stroke="BLACK" strokeWidth="2.0" styleClass="editBtn" />
+                           </graphic>
+                        </Button>
+                        <Label styleClass="bold-text" text="Returned:" />
+                        <Label fx:id="returnedLabel" text="Not yet" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="5.0">
+                     <children>
+                        <Label styleClass="bold-text" text="Borrow date:" />
+                        <Label fx:id="borrowDateLabel" text="2025-01-01 08:00" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="5.0">
+                     <children>
+                        <Button fx:id="editDueDateBtn" mnemonicParsing="false" styleClass="editBtn">
+                           <graphic>
+                              <SVGPath content="M7 7H6C5.46957 7 4.96086 7.21071 4.58579 7.58579C4.21071 7.96086 4 8.46957 4 9V18C4 18.5304 4.21071 19.0391 4.58579 19.4142C4.96086 19.7893 5.46957 20 6 20H15C15.5304 20 16.0391 19.7893 16.4142 19.4142C16.7893 19.0391 17 18.5304 17 18V17 M16 4.99998L19 7.99998M20.385 6.58499C20.7788 6.19114 21.0001 5.65697 21.0001 5.09998C21.0001 4.543 20.7788 4.00883 20.385 3.61498C19.9912 3.22114 19.457 2.99988 18.9 2.99988C18.343 2.99988 17.8088 3.22114 17.415 3.61498L9 12V15H12L20.385 6.58499Z" fill="TRANSPARENT" stroke="BLACK" strokeWidth="2.0" styleClass="editBtn" />
+                           </graphic>
+                        </Button>
+                        <Label styleClass="bold-text" text="Due date" />
+                        <Label fx:id="dueDateLabel" text="2025-01-01 08:00" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="5.0">
+                     <children>
+                        <Label styleClass="bold-text" text="Quantity:" />
+                        <Label fx:id="quantityLabel" text="10" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="35.0" right="35.0" top="35.0" />
+               </padding>
+            </VBox>
+         </center>
+         <bottom>
+            <HBox BorderPane.alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER_LEFT" />
+                  <Region HBox.hgrow="ALWAYS" />
+               </children>
+               <BorderPane.margin>
+                  <Insets left="30.0" right="10.0" />
+               </BorderPane.margin>
+            </HBox>
+         </bottom>
+      </BorderPane>
+   </children>
+   <stylesheets>
+      <URL value="@../../css/component/modal.css" />
+      <URL value="@../../css/general.css" />
+   </stylesheets>
+   <padding>
+      <Insets bottom="15.0" />
+   </padding>
+</StackPane>
